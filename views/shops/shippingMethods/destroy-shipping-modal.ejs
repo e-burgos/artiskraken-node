@@ -1,0 +1,24 @@
+<!-- Delete Shipping Method Modal -->
+<% shop.shopShippingMethods.forEach((shippingMethod)=> { %>
+    <div class="modal fade" id="<%= `destroyShippingMethodModal${shippingMethod.id}` %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Eliminar Método de Envío</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">Esta seguro que desea eliminar el método de envío: "<%= shippingMethod.name %>"?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <form action="/shops/<%= shop.id %>/<%= shippingMethod.id %>/destroy-shipping-method?_method=DELETE" method="POST">
+                            <button class="btn btn-danger" type="submit">Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<% });%>

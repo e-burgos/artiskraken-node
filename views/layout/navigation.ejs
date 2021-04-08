@@ -1,0 +1,45 @@
+<nav class="primary-menu">
+
+    <ul class="one-page-menu menu-container" data-easing="easeInOutExpo" data-speed="1250" data-offset="60">
+        <li class="current menu-item">
+            <a class="menu-link menu-link-space" href="/#slider" data-href="#slider">
+                <div>Inicio</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a class="menu-link menu-link-space" href="/#story" data-href="#story">
+                <div>Nosotros</div>
+            </a>
+        </li>
+        <!-- <li class="menu-item">
+            <a class="menu-link menu-link-space" href="/#products" data-href="#products">
+                <div>Cervezas</div>
+            </a>
+        </li> -->
+        <li class="menu-item">
+            <a class="menu-link menu-link-space" href="/#contact" data-href="#contact" data-offset="20">
+                <div>Contacto</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a class="menu-link menu-link-space" href="/store" data-offset="20">
+                <div>Cervezas</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a class="menu-link menu-link-space" href="/shops/shopping" data-offset="20">
+                <div>Tiendas</div>
+            </a>
+        </li>
+        <% if(currentUser && currentUser.role == 'buyer'){ %>
+            <li class="menu-item">
+                <a class="menu-link menu-link-space" data-toggle="modal" data-target="#createShop" data-offset="20">
+                    <div>Vender</div>
+                </a>
+            </li>
+        <% } %> 
+    </ul>
+
+    <%- include('./mobileNavigation') %>
+
+</nav>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+
+<head>
+	<%- include('../layout/head', { title:"Registrate" }) %>
+	<link rel="stylesheet" href="/css/register.css" type="text/css" />
+</head>
+
+<body class="stretched">
+
+	<!--Cart Panel -->
+	<%- include('../layout/panelCart') %>
+
+	<!-- Notifications -->
+	<%- include('./layout/notifications') %>
+
+	<!-- Header -->
+	<header id="header" class="dark" data-sticky-class="dark-color" data-sticky-shrink-offset="0"
+		data-mobile-sticky="true">
+		<%- include('../layout/header') %>
+	</header>
+
+		<!-- Content -->
+		<section class="bg-img-conf dark noborder parallax pt-3">
+            <div class="text-center">
+				<div class="container w-51 bg-black m-con border-rad p-2">
+					<h2 class="mb-1 gold">¡Ya estás registrado!</h2>
+                	<h4 class="mt-0 mb-0 c-white-d2 font-weight-normal">Tu último paso para terminar de crear tu cuenta es confirmar tu e-mail.</h4>
+					<h4 class="mt-0 mb-1 c-white-d2 font-weight-normal"> Ingresá el código que te envíamos a <%= user.email %>  acá abajo:</h4>
+				<div class="d-flex justify-content-center">
+					<input id= "input-code"class="mb-2 mt-2 text-center poppins"type="text" placeholder="Código"> <button id= "input-code2"class="mb-2 mt-2 ml-1 text-center poppins" type="submit">Enviar</button>
+				</div>
+					<input id= "input-code3"class="mb-2 mt-1 text-center poppins"type="button" value="Reenviar código">
+					<p class="mt-0 mb-1 p-box">Si no lo recibiste, revisa la casilla de Spam o presiona en "Reenviar código"</p>
+				</div>
+			</div>	
+		</section><!-- #content end -->
+
+	<!-- Footer -->
+	<%- include('../layout/footer') %>
+</body>
+	
+</html>

@@ -1,0 +1,24 @@
+<!-- Delete Payment Modal -->
+<% payments.forEach((payment)=> { %>
+    <div class="modal fade" id="<%= `destroyPaymentModal${payment.id}` %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Eliminar Método de Pago</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">Esta seguro que desea eliminar el método de pago: "<%= payment.name %>"?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <form action="/admin/<%= payment.id %>/payment-destroy?_method=DELETE" method="POST">
+                            <button class="btn btn-danger" type="submit">Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<% });%>

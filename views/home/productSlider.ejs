@@ -1,0 +1,14 @@
+<div class="product center">
+    <div class="product-image product-bottle px-4 py-1">
+        <img src="/images/products/<%= product.avatar ? product.avatar : "without-image.png" %>" alt="Image">
+    </div>
+    <div class="product-desc">
+        <div class="">
+            <h3><a href="javascript:void(0)" class="white-link"><%= product.name %></a></h3>
+        </div>
+        <div class="product-price"><del>$<%= product.price %></del> <ins>$<%= (product.price - product.discount).toFixed(2) %></ins></div>
+        <p>ABV <%= product.abv %>% | IBU <%= product.ibu %> | OG <%= product.og %></p>
+        <a href="/products/<%= product.id %>/productDetails" class="button button-small button-rounded button-reveal d-inline-flex tright">
+            <i class="icon-cart-plus"></i><span>Detalles</span></a>
+    </div>
+</div>

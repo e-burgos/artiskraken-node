@@ -1,0 +1,95 @@
+<!-- Create Order Modal -->
+<div class="modal fade" id="createOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Crear Orden</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <form action="/admin/create-order" method="POST" class="pb-0 mb-0 needs-validation" novalidate>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 form-group">
+                                <label for="email">* Email:</label>
+                                <input type="email" name="email" class="form-control" required/>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 form-group">
+                                <label for="count">* Cantidad de productos:</label>
+                                <input type="text" name="count"  class="form-control" required/>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 form-group">
+                                <label for="totalShipping">* Envío total:</label>
+                                <input type="text" name="totalShipping"  class="form-control" required/>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 form-group">
+                                <label for="tax">* Impuesto:</label>
+                                <input type="text" name="tax"  class="form-control" required/>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 form-group">
+                                <label for="total">* Total:</label>
+                                <input type="text" name="total"  class="form-control" required/>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 form-group">
+                                <label for="status">* Status:</label>
+                                <input type="text" name="status"  class="form-control" required/>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 form-group">
+                                <label for="userId">Usuario:</label>
+                                <select class="custom-select" name="userId" id="user" required>
+                                    <option selected disabled value="">Seleccione un Usuario</option>
+                                    <% users.forEach(user => { %>
+                                        <option value="<%= user.id %> "><%= user.name %></option>
+                                    <% }) %> 
+                                </select>
+                                <div class="invalid-feedback">
+                                    Seleccione un Usuario
+                                  </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 form-group">
+                                <label for="paymentId">Método de pago:</label>
+                                <select class="custom-select" name="paymentId" id="paymentId" required>
+                                    <option selected disabled value="">Seleccione un Método de Pago</option>
+                                    <% payments.forEach(payment => { %>
+                                        <option value="<%= payment.id %> "><%= payment.name %></option>
+                                    <% }) %> 
+                                </select>
+                                <div class="invalid-feedback">
+                                    Seleccione un Método de Pago
+                                  </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 form-group">
+                                <label for="shippingMethodId">Método de envío:</label>
+                                <select class="custom-select" name="shippingMethodId" id="shippingMethodId" required>
+                                    <option selected disabled value="">Seleccione un Método de Envío</option>
+                                    <% shippingMethods.forEach(sM => { %>
+                                        <option value="<%= sM.id %> "><%= sM.name %></option>
+                                    <% }) %> 
+                                </select>
+                                <div class="invalid-feedback">
+                                    Seleccione un Método de Envío
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-success" type="submit">Crear Orden</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

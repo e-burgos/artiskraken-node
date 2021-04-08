@@ -1,0 +1,32 @@
+
+    <h3 id="comments-title">Tenes <span><%= comments.length%></span> comentarios para moderar</h3>
+    <!-- Comments List -->
+    <ol class="commentlist clearfix">
+        <% comments.map( comment => { %>
+            <li class="comment even thread-even depth-1" id="li-comment-<%= comment.id%>">
+                <div id="comment-<%= comment.id%>" class="comment-wrap clearfix">
+                    <div class="comment-meta">
+                        <div class="comment-author vcard">
+                            <span class="comment-avatar clearfix">
+                                <img alt='Image' src='/images/users/<%= comment.users.avatar%>'
+                                    class='avatar avatar-60 photo avatar-default' height='60' width='60' /></span>
+                        </div>
+                    </div>
+                    <div class="comment-content clearfix">
+                        <div class="comment-author">
+                            <%= comment.users.name%>
+                            <span>Fecha: <%= comment.date%></span>
+                            <span>Teléfono: <%= comment.users.phone%></span>
+                            <span>Email: <%= comment.users.email%></span>
+                        </div>
+                        <p><%= comment.comment%></p>
+                        <form action="/products/deleteComment/<%= comment.id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger btn-sm comment-delete-link" type="submit"><i class="icon-line-trash-2"></i></button>
+                        </form>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </li>
+        <%} ) %> 
+    </ol><!-- .commentlist end -->
+

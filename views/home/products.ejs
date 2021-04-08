@@ -1,0 +1,45 @@
+<div class="products-page-section section mb-0">
+
+    <div class="container">
+        <div class="center bottommargin mx-auto" style="max-width: 700px">
+            <div class="before-heading white-color">Descubrí</div>
+            <h1 class="font-secondary display-4 color font-weight-bold">Nuestra Cerveza</h1>
+            <p class="lead white-color">Disfruta de nuestra exquisitas variedades, contamos con sabores originales y
+                exclusivos.</p>
+        </div>
+
+        <div class="tabs tabs-bb center clearfix ui-tabs tabs-justify ui-corner-all ui-widget ui-widget-content">
+
+            <ul class="center tab-nav clearfix ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header"
+                role="tablist">
+
+                <% types.forEach((type, index) => { %>
+                    <% if(type.products.length > 0){ %> 
+                    <li role="tab" tabindex="<%= index %>" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab" aria-controls="<%= type.name %>"
+                        aria-labelledby="" aria-selected="" aria-expanded="true">
+                        <a href="#<%= type.name %>" role="presentation" tabindex="-1" class="ui-tabs-anchor text-uppercase"><%= type.name %></a></li>
+                    <% } %> 
+                <% }) %>
+            </ul>
+
+            <div class="tab-container">
+                <% types.forEach((type, index) => { %>
+                    <div class="tab-content clearfix ui-tabs-panel ui-corner-bottom ui-widget-content" id="<%= type.name %>"
+                        aria-labelledby="" role="tabpanel" aria-hidden="false">
+
+                        <div id="oc-wheel" class="owl-carousel shop-carousel carousel-widget mt-5" data-margin="30"
+                            data-nav="true" data-pagi="true" data-items-xs="2" data-items-sm="3" data-items-md="4"
+                            data-items-lg="4" data-autoplay="5000" data-loop="false">
+                            <% products.forEach( product => { %>
+                                <% if(product.types.name == type.name && product.status == 'active'){ %>
+                                    <%- include('./productSlider', { product: product}) %>
+                                <% }; %>
+                            <% }) %>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+
+        </div>
+    </div>
+</div>

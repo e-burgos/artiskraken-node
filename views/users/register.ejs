@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+
+<head>
+	<%- include('../layout/head', { title:"Registrate" }) %>
+	<link rel="stylesheet" href="/css/register.css" type="text/css" />
+	
+</head>
+
+<body class="stretched">
+
+	<!--Cart Panel -->
+	<%- include('../layout/panelCart') %>
+
+	<!-- Header -->
+	<header id="header" class="dark" data-sticky-class="dark-color" data-sticky-shrink-offset="0"
+		data-mobile-sticky="true">
+		<%- include('../layout/header') %>
+	</header>
+
+		<!-- Content -->
+		<section class="bg-img-register dark noborder parallax">
+
+			<div class="d-flex align-items-center justify-content-center mt-5">
+				<%- include('../layout/notifications') %>
+			</div>
+
+			<div id="register-boxes">
+				<!-- 1st card -->
+				<div id="card-one">
+					<article class="card-body mx-auto" style="max-width: 400px;">
+						<h3 class="card-title mt-2 bord-b text-center darkgoldenrod poppins">REGISTRATE</h3>
+						<p class="text-center c-grey poppins">Comenzá creándote tu cuenta!</p>
+						<p id="social-media">
+							<a href="" class="btn btn-block btn-twitter twitter"> <i class="fab fa-twitter "></i>   Sign in via
+								Twitter</a>
+							<a href="" class="btn btn-block btn-facebook facebook"> <i class="fab fa-facebook-f"></i>   Sign in via
+								facebook</a>
+						</p>
+						<p class="divider-text">
+							<span class="c-white text-align-center">ó</span>
+						</p>
+						<form method="POST" action="/users/register" enctype="multipart/form-data" class="needs-validation" novalidate >
+							<div class="form-group input-group">
+								<div class="input-group-prepend-s">
+									<span class="input-group-text"> <i class="fa fa-user"></i> </span>
+								</div>
+								<input name="name" id="name" class="form-control" placeholder="Nombre Completo" type="text" required>
+							</div> <!-- form-group// -->
+							<div class="form-group input-group">
+								<div class="input-group-prepend-s">
+									<span class="input-group-text"><i class="fas fa-at"></i></span>
+								</div>
+								<input name="userName" id="userName"class="form-control" placeholder="Nombre de Usuario" type="text" required>
+							</div> <!-- form-group// -->
+							<div class="form-group input-group">
+								<div class="input-group-prepend-s">
+									<span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+								</div>
+								<input name="email" id="email"class="form-control" placeholder="Email" type="email" required>
+							</div> <!-- form-group// -->
+							<div class="form-group input-group">
+								<div class="input-group-prepend-s">
+									<span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+								</div>
+								<select id="select-number"class="custom-select border-soft" name="selectNumber"style="max-width: 120px;" required>
+									<option selected="+54">+54</option>
+								</select>
+								<input name="phoneNumber" id="phone"class="form-control" placeholder="Número de telefono" type="text" required>
+							</div>
+							<div class="form-group input-group">
+								<div class="input-group-prepend-s">
+									<span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+								</div>
+									<input class="form-control" name="password" id="password"placeholder="Creá tu contraseña" type="password" required> 
+							</div> <!-- form-group// -->
+							<div class="form-group input-group">
+								<div class="input-group-prepend-s">
+									<span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+								</div>
+								
+									<input class="form-control" id="confirmPassword" name="confirmation"placeholder="Repetí tu contraseña" type="password" required>
+							</div> <!-- form-group// -->
+							<p style="margin-bottom: 4px;margin-left: 2px;color: #5a5a5a;font-size: 16px;text-align: center;">Elegí tu foto de perfil:</p>
+							<div class="form-group input-group d-flex">
+								<div class="input-group-prepend-s w-14">
+									<span class="input-group-text"> <i class="fas fa-id-badge"></i> </span>
+								</div>
+								<input id="input-8" name="avatar" style="width:80%"type="file" accept="image/*" class="file-loading" data-allowed-file-extensions='[]' data-show-preview="false">
+							</div> <!-- form-group// -->
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary btn-block ">Crear Cuenta </button>
+							</div> <!-- form-group// -->
+							<p class="text-center c-white poppins">Ya tenés cuenta? <a class="gold"href="/users/login"> Log In</a> </p>
+						</form>
+					</article>
+				</div> <!-- 1st card end -->
+				<!-- 2nd card -->
+				<div class="card form b poppins">
+					<h5 id="reg-title" class="p-2 poppins"> Registrándote hoy podrás:</h5>
+					<ul id="reg-list" class="fa-ul p-2 pb-3">
+						<li><span class="fa-li"><i class="icon-line-check-circle gold"></i></span>Acelerar el proceso de compras sin
+							espera</li>
+						<li><span class="fa-li"><i class="icon-line-check-circle gold"></i></span>Realizar un seguimiento de tus
+							pedidos</li>
+						<li><span class="fa-li"><i class="icon-line-check-circle gold"></i></span>Mantener un registro de todas tus
+							compras</li>
+						<li><span class="fa-li"><i class="icon-line-check-circle gold"></i></span>Acceder a más promociones <a
+								href="javascript:void(0)">Ver más</a></li>
+					</ul>
+					<p id="p-card-two">Tus datos personales se utilizarán para procesar tu pedido, mejorar tu experiencia en nuestra
+						web, gestionar el acceso a tu cuenta y otros propósitos que se encuentran descritos en nuestra política de
+						privacidad. <a href="javascript:void(0)">Ver política de privacidad</a></p>
+				</div> <!-- 2nd card end -->
+			</div>
+			<!--container end.//-->
+
+
+		</section>
+
+	<!-- Footer -->
+	<%- include('../layout/footer') %>
+	<script src="/js/components/bs-filestyle.js"></script>
+	<script >
+		$(document).ready(function() {
+			$("#input-5").fileinput({showCaption: false});
+
+			$("#input-6").fileinput({
+				showUpload: false,
+				maxFileCount: 10,
+				mainClass: "input-group-lg",
+				showCaption: true
+			});
+
+			$("#input-8").fileinput({
+				mainClass: "input-group-md",
+				showUpload: false,
+				previewFileType: "image",
+				browseClass: "btn btn-success",
+				browseLabel: "Pick Image",
+				browseIcon: "<i class=\"icon-picture\"></i> ",
+				removeClass: "btn btn-danger",
+				removeLabel: "Delete",
+				removeIcon: "<i class=\"icon-trash\"></i> ",
+				uploadClass: "btn btn-info",
+				uploadLabel: "Upload",
+				uploadIcon: "<i class=\"icon-upload\"></i> "
+			});
+
+			$("#input-9").fileinput({
+				previewFileType: "text",
+				allowedFileExtensions: ["txt", "md", "ini", "text"],
+				previewClass: "bg-warning",
+				browseClass: "btn btn-primary",
+				removeClass: "btn btn-secondary",
+				uploadClass: "btn btn-secondary",
+			});
+
+			$("#input-10").fileinput({
+				showUpload: false,
+				layoutTemplates: {
+					main1: "{preview}\n" +
+					"<div class=\'input-group {class}\'>\n" +
+					"   <div class=\'input-group-append\'>\n" +
+					"       {browse}\n" +
+					"       {upload}\n" +
+					"       {remove}\n" +
+					"   </div>\n" +
+					"   {caption}\n" +
+					"</div>"
+				}
+			});
+
+			$("#input-11").fileinput({
+				maxFileCount: 10,
+				allowedFileTypes: ["image", "video"]
+			});
+
+			$("#input-12").fileinput({
+				showPreview: false,
+				allowedFileExtensions: ["zip", "rar", "gz", "tgz"],
+				elErrorContainer: "#errorBlock"
+			});
+		});
+
+	</script>
+
+	<script>
+		bootstrapValidate("#name","min:2: Debes ingresar al menos 2 caracteres");
+		bootstrapValidate("#name","max:35: Debes ingresar como máximo 35 caracteres");
+		bootstrapValidate("#userName","max:15: Debes ingresar como máximo 15 caracteres");
+		bootstrapValidate("#userName","min:4: Debes ingresar al menos 4 caracteres");
+		bootstrapValidate("#email","email:Ingrese un email válido");
+		bootstrapValidate("#phone","numeric:Puedes ingresar números únicamente");
+		bootstrapValidate("#password","min:8:Debes ingresar al menos 8 caracteres");
+		bootstrapValidate("#password","alphanumeric:Puedes ingresar letras(a-z,A-Z) y números únicamente");
+		bootstrapValidate("#confirmPassword","matches:#password:Las contraseñas deben coincidir");
+	</script>
+
+</body>
+	
+</html>

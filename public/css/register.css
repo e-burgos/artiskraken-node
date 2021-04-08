@@ -1,0 +1,273 @@
+/* ----------------------------------------------------------------
+	Register Page
+-----------------------------------------------------------------*/
+.bg-img-register{
+  background-image: url("/images/register/beer-bg2.jpg");
+  background-size: 100%;
+}
+
+#register-boxes{
+	display:flex;
+	justify-content: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+#card-one{
+	display: block;
+	background-color: #101010 !important;
+	width:450px;
+	border-radius: 15px;
+	height: auto;
+	margin:100px;
+}
+
+.card.form.b{
+	display: flex;
+	background-color: #101010 !important;
+	width: 430px;
+	border-radius: 15px;
+	height: fit-content;
+	padding: 5px 10px;
+	margin-top: 168px !important;
+}
+
+#p-card-two{
+	display: block;
+    margin: 0px 25px;
+    margin-top: -27px;
+    margin-bottom: 3px;
+    text-align: justify;
+    color: rgb(199, 184, 184);
+    font-size: 8pt;
+}
+.input-group-prepend-s span{
+	display: block;
+	width: 47px;
+	background-color:#805f10 !important;
+	color: rgb(0, 0, 0) !important;
+	border:0 !important;
+	text-align: center;
+	height: 38px;
+  margin-right: 4px;
+}
+
+.border-soft{
+  background-color: rgba(0,0,0,0.2);
+  border-color: rgba(255,255,255,0.15);
+}
+
+.dark .form-control:not(.not-dark), .dark .sm-form-control:not(.not-dark) {
+  color: #805f10 !important;
+  background-color: rgba(0,0,0,0.2);
+  border-color: rgba(255,255,255,0.15);
+}
+
+#reg-title{
+	display: flex;
+	justify-content: center;
+	border-bottom: 2px solid darkgoldenrod;
+  color: white;
+  font-size:17px;
+  font-weight: 500;
+}
+
+.bord-b{
+  border-bottom: 2px solid rgb(199, 184, 184);;
+}
+
+.darkgoldenrod{
+  color: darkgoldenrod!important;
+  font-weight: bold;
+}
+
+#select-number{
+  border-radius: 19px;
+  margin-right: 2px;
+}
+
+#reg-list{
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	color:  rgb(199, 184, 184);
+}
+
+.gold{
+	color:#805f10 !important;
+	font-weight: bold !important;
+}
+
+
+.twitter{
+	background-color: #00ACEE;
+	color: white;
+}
+
+.facebook{
+	background-color:#3b5998;
+	color: white;
+}
+
+.back-grey{
+	background-color: #1c1c1f;
+}
+
+.c-white{
+	color:white;
+}
+
+.c-grey{
+  color: rgb(199, 184, 184);
+  font-weight: bold;
+}
+
+p{
+  margin-bottom: 20px;
+}
+
+.w-14{
+  width:14%
+}
+
+.select-avatar{
+  display: flex;
+  width: 86%;
+  border: 1px #343434 solid;
+  padding-top: 13px;
+  background-color: #0d0d0d;
+}
+.w-avatar{
+  width:51%;
+}
+.mt-14{
+  margin-top: -14px;
+}
+#p-avatar{
+  width: 83%;
+  font-size: 13px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  color: #797676;
+}
+
+#errors{
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  padding-left: 29px;
+  flex-direction: column;
+  border:3px solid rgb(190, 55, 55);
+  background-color:#ff4040;
+  border-radius: 5px;
+  color:rgb(0, 0, 0);
+  margin-bottom: -20px;
+}
+
+div.file-input{
+  width:84%;
+}
+@media (max-width:1072px){
+	.card.form.b{
+		margin-top: 10px !important;
+		margin-bottom: 50px;
+  }
+  .bg-img-register{
+    background-size: 137%
+  }
+}
+
+@media (max-width:800px){
+  .bg-img-register{
+    background-size: 186%
+  }
+}
+
+@media (max-width:580px){
+  .bg-img-register{
+    background-size: 200%
+  }
+  #card-one > article{
+    width: 387px;
+  }
+}
+
+ /* ----------------------------------------------------------------
+	Confirmation page
+-----------------------------------------------------------------*/
+.bg-img-conf{
+  background-image: url("/images/register/beer-bg3.jpg");
+  background-size: 100%;
+}
+.w-51{
+  width: 51%;
+}
+
+.border-rad{
+  border-radius: 12px;
+}
+
+.bg-black{
+  background-color: #161616;
+}
+
+#input-code{
+  border-radius:12px;
+  border:0px;
+  background-color: #272727;
+  color: white;
+}
+
+#input-code2{
+  border-radius:12px;
+  border:0px;
+  background-color: #272727;
+  color:#808080;
+  width: 19%;
+}
+
+#input-code3{
+  border-radius:12px;
+  border:0px;
+  background-color: #543f0b;
+  color:#000000;
+  width: 25%;
+}
+.c-white-d2{
+  color: #d2d2d2;
+}
+.m-con{
+  margin-bottom: 150px;
+  margin-top:100px
+}
+
+.p-box{
+  font-size: 14px;
+}
+
+@media (max-width:1072px){
+  .bg-img-conf{
+    background-size: 137%
+  }
+}
+
+@media (max-width:800px){
+  .bg-img-conf{
+    background-size: 186%
+  }
+}
+
+@media (max-width:650px){
+  .bg-img-conf{
+    background-size: 200%
+  }
+  section >.text-center >.container{
+    width:350px;
+  }
+}
+
+@media (max-width:500px){
+  .bg-img-conf{
+    background-size: 290%
+  }
+}

@@ -1,0 +1,147 @@
+<!-- Create Category Modal -->
+<div class="modal fade" id="createUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-body">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">CREAR USUARIO</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <form action="/admin/create-user" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    <div class="modal-body">
+                        <div class="row mt-3 mb-3">
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="name">* Nombre Completo:</label>
+                                <input type="text" name="name"  class="form-control" required/>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="userName">* Nombre de Usuario:</label>
+                                <input type="text" name="userName"  class="form-control" required/>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="avatar">Avatar:</label>
+                                <input type="file" name="avatar"  class="form-control" required/>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="email">* Email:</label>
+                                <input type="email" name="email"  class="form-control" required/>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="phone">Teléfono:</label>
+                                <input type="tel" name="phone"  class="form-control" required/>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="bio">Sobre Mí:</label>
+                                <input type="text" name="bio"  placeholder="Escribe algo sobre ti..." class="form-control" required/>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 form-group">
+                                <label for="admin">Administrador:</label>
+                                <select class="custom-select" name="admin" id="admin" required>
+                                    <option selected value="0">NO</option>
+                                    <option value="1">SI</option>
+                                </select>
+                                <div class="invalid-feedback">Seleccione si o no</div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 form-group">
+                                <label for="status">Estado:</label>
+                                <select class="custom-select" name="status" id="status" required>
+                                    <option selected value="active">Activo</option>
+                                    <option value="blocked">Bloquedo</option>
+                                </select>
+                                <div class="invalid-feedback">Seleccione un estado</div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 form-group">
+                                <label for="rol">Rol:</label>
+                                <select class="custom-select" name="role" id="role" required>
+                                    <option selected value="buyer">Comprador</option>
+                                    <option disabled value="">Vendedor (para ser vendedor debe crear un negocio y luego asignar el usuario)
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">Seleccione un rol</div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="password">Ingresar Contraseña</label>
+                                    <div class="input-group input-group-merge form-password-toggle">
+                                        <input class="form-control form-control-merge" type="password" name="password"
+                                            placeholder="Ingrese la nueva contraseña" required/>
+                                        <div class="valid-feedback">Ok válido!</div>
+                                        <div class="invalid-feedback">Complete este campo</div>
+                                        <div class="input-group-append"><span class="input-group-text cursor-pointer"><i
+                                                    class="icon-line-eye"></i></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="confirmation">Confirmar Contraseña</label>
+                                    <div class="input-group input-group-merge form-password-toggle">
+                                        <input class="form-control form-control-merge" type="password" name="confirmation"
+                                            placeholder="Confirme su nueva contraseña" required/>
+                                        <div class="valid-feedback">Ok válido!</div>
+                                        <div class="invalid-feedback">Complete este campo</div>
+                                        <div class="input-group-append"><span class="input-group-text cursor-pointer"><i
+                                                    class="icon-line-eye"></i></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="twitter">Twitter</label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">
+                                            <i class="icon-twitter" class="font-medium-2"></i>
+                                        </span>
+                                    </div>
+                                    <input name="twitter" type="text" class="form-control" value=""
+                                        placeholder="https://www.twitter.com/su-usuario" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="facebook">Facebook</label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon4">
+                                            <i class="icon-facebook" class="font-medium-2"></i>
+                                        </span>
+                                    </div>
+                                    <input name="facebook" type="text" class="form-control" value=""
+                                        placeholder="https://www.facebook.com/su-usuario" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="instagram">Instagram</label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon5">
+                                            <i class="icon-instagram" class="font-medium-2"></i>
+                                        </span>
+                                    </div>
+                                    <input name="instagram" type="text" class="form-control" value=""
+                                        placeholder="https://www.instagram.com/su-usuario" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-success" type="submit">Crear Usuario</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

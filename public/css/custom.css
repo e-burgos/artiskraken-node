@@ -1,0 +1,413 @@
+/* ----------------------------------------------------------------
+	Custom CSS
+
+	Add all your Custom Styled CSS here for New Styles or
+	Overwriting Default Theme Styles for Better Handling Updates
+-----------------------------------------------------------------*/
+
+
+/* ----------------------------------------------------------------
+	Logo
+-----------------------------------------------------------------*/
+@media (max-width: 667px) {
+  #logo img {
+    height: 80px!important;
+  }
+}
+
+/* ----------------------------------------------------------------
+	Top Header
+-----------------------------------------------------------------*/
+.top-header {
+  background-color: #101010;
+}
+.top-header-buttom {
+  border: 1px solid #fff;
+  font-size: 14px;
+  padding: 4px;
+  border-radius: 5px;
+  color: #fff!important;
+}
+.top-header-buttom:hover {
+  color: #FFC429!important;
+  border: 1px solid #FFC429;
+}
+.header-button {
+  background-color: transparent;
+  border: 1px solid #fff;
+  padding-left: 16px!important;
+    padding-right: 16px!important;
+}
+.menu-link-space {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#login-button{
+  width: 88%;
+  margin-left: 11px;
+  background-color: #444242;
+}
+
+.dropdown-login:empty::after {
+  margin-left: 5px!important;
+  margin-top: 7px!important;
+  margin-right: -6px!important;
+}
+
+.bg-logout{
+  background-color: #d40808 !important;
+}
+
+.bg-cart{
+  background-color: #FFC429 !important;
+}
+
+@media (max-width: 667px) {
+  .button.button-reveal.button-small {
+      padding-left: 10px;
+      padding-right: 10px;
+  }
+}
+
+/* ----------------------------------------------------------------
+	Background Sections styles
+-----------------------------------------------------------------*/
+
+.story-page-section {
+    background: linear-gradient(to bottom, #101010, transparent, #101010), url('/images/bg/story-bg.jpg') no-repeat center top / cover;
+}
+
+.products-page-section {
+    background: linear-gradient(to bottom, #101010, rgba(16,16,16,0.3),#101010), url('/images/bg/section-5.jpg') no-repeat center top / cover;
+}
+
+.delivery-page-section {
+    padding: 60px 0 120px; 
+    background: linear-gradient(to bottom, #101010, transparent, #101010), url('/images/bg/story-bg.jpg') no-repeat center top / cover;;
+}
+
+.contact-page-section {
+    background: linear-gradient(to bottom, #101010, rgba(16,16,16,0.3),#101010), url('/images/bg/section-4.jpg') no-repeat center top / cover;
+}
+
+.checkout-page-title {
+    background-image: url('/images/sliders/slider-03.jpg'); 
+    background-size: cover; 
+    padding: 50px 0;
+}
+
+.product-page-title {
+    background-image: url('/images/sliders/slider-03.jpg'); 
+    background-size: cover; 
+    padding: 50px 0;
+}
+
+.cart-page-title {
+    background-image: url('/images/sliders/slider-01.jpg'); 
+    background-size: cover; padding: 50px 0;
+}
+
+.store-page-title {
+    background-image: url('/images/sliders/slider-03.jpg'); 
+    background-size: cover; 
+    padding: 50px 0!important;
+}
+
+.shopping-page-title {
+    background-image: url('/images/sliders/slider-02.jpg'); 
+    background-size: cover; 
+    padding: 50px 0!important;
+}
+
+.login-page-section {
+    background: url('/images/sliders/slider-bg.jpg') center center no-repeat; 
+    background-size: cover;
+}
+
+.register-page-section {
+    background: linear-gradient(to bottom, #101010, rgba(16,16,16,0.3),#101010), url('/images/bg/section-5.jpg') no-repeat center top / cover;
+}
+
+
+/* ----------------------------------------------------------------
+	Font styles
+-----------------------------------------------------------------*/
+
+.white-color {
+  color: #fff!important;
+}
+
+.white-link {
+  color: #fff;
+}
+.white-link:hover {
+  color: #FFC429;
+}
+
+/* ----------------------------------------------------------------
+	Home
+-----------------------------------------------------------------*/
+
+.image-cat-position {
+  right: 5%!important;
+}
+.position-fade-in {
+  right: -7%!important;
+}
+
+.product-bottle {
+  display: flex;
+  justify-content: center;
+}
+
+.img-bottle {
+  width: 70px!important;
+}
+
+.label-hidden {
+  display: none;
+}
+
+.tab-nav li a {
+    color: #fff!important;
+}
+
+/* ----------------------------------------------------------------
+	Store
+-----------------------------------------------------------------*/
+
+.dark-card {
+  background-color: #161616!important;
+}
+
+.dark-background {
+  background-color: #101010!important;
+}
+
+.link-grid {
+    color: #fff!important;
+}
+
+.cart-counter {
+  border: 1px solid #FFC429;
+  border-radius: 50%;
+  background-color: #FFC429;
+  color: #fff;
+  height: 25px;
+  width: 25px;
+  padding-left: 7px;
+  font-weight: bold;
+}
+
+.cart-panel-product {
+  padding: 1rem;
+  border: 1px solid #e1e1e1;
+  margin: .5rem;
+  border-radius: 5px;
+}
+
+.cart-panel-product-title {
+  text-align: center;
+  font-size: 1rem;
+  line-height: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #fff;
+}
+.cart-panel-product-desc {
+  text-align: center;
+  font-size: 12px;
+}
+.cart-panel-product-price {
+  width: 100%;
+  text-align: center;
+  border: 1px solid #FFC429;
+  border-radius: 4px;
+  background-color: #FFC429;
+  color: #fff;
+  font-weight: 600;
+}
+.cart-panel-footer {
+  position: absolute;  
+  bottom: 0;
+    
+}
+.cart-panel-total {
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid #fff;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  color: #FFC429;
+}
+.cart-img-animation:hover {
+  transform: rotateX(150deg);
+}
+
+#dark-content {
+  background-color: #101010;
+}
+
+.br-4 {
+  border-radius: 4px;
+}
+.br-5 {
+  border-radius: 5px;
+}
+
+.w-33 {
+  width: 33%;
+}
+
+
+#help-button{
+  right: 31px;
+  bottom: 84px;
+  position: fixed;
+  font-size: 27px;
+  border-radius: 14px;
+  width: 39px;
+  border: 0px;
+  background-color: #906a0c;
+  color:black;
+}
+
+#help-chat{
+  right: 100px;
+  bottom: 84px;
+  position: fixed;
+  height: 400px;
+  width: 300px;
+	border-radius: 15px;
+  padding: 5px 10px;
+  background-color:#ece9e9 !important;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 500;
+}
+
+.border-b-grey{
+  border-bottom: 1px solid rgb(150, 150, 150);
+}
+
+#message-holder{
+  border-radius:10px;
+  margin-bottom:5px;
+  font-size:14px;
+  padding-left:5px;
+  border: 1.8px solid grey;
+  width: 86%;
+  margin-left: 10px;
+}
+
+#send-icon{
+  width: fit-content;
+  margin-left: 4px;
+  margin-top: 4px;
+}
+
+#errors{
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  padding-left: 29px;
+  flex-direction: column;
+  border:3px solid rgb(190, 55, 55);
+  background-color:#ff4040;
+  border-radius: 5px;
+  color:rgb(0, 0, 0);
+  margin-bottom: -20px;
+}
+
+.border-desc-product{
+  border: 0.2px solid #343434 !important;
+  border-radius: 0.5rem !important;
+}
+
+/* Responsive main logo */
+@media (max-width: 667px) {
+#logo img {
+    height: 60px!important;
+}
+
+/* Responsive product shop image */
+@media (max-width: 575px) {
+  .portfolio-responsive-image {
+    position: relative;
+    overflow: hidden;
+    transform:  translate(10px,150px);
+  }
+
+  .responsive-image{
+    max-width: 60px!important;
+    max-height: 60px!important;
+    border: 1px solid;
+    border-radius: 50%;
+  }
+}
+
+/* Responsive product shop card */
+@media (min-width: 1200px) {
+.quantity-lg {
+    padding-right: 0px;
+  }
+}
+
+@media (min-width: 992px) {
+
+  .quantity .plus, .quantity .minus {
+      display: block;
+      cursor: pointer;
+      border: 0px transparent;
+      padding: 0;
+      width: 25px;
+      height: 25px;
+      line-height: 25px;
+      text-align: center;
+      background-color: #EEE;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: background-color .2s linear;
+      -webkit-transition: background-color .2s linear;
+      -o-transition: background-color .2s linear;
+  }
+
+  .quantity .qty {
+      width: 30px;
+      height: 25px;
+      line-height: 25px;
+      border: 0;
+      border-left: 1px solid #DDD;
+      border-right: 1px solid #DDD;
+      background-color: #EEE;
+      text-align: center;
+      margin-bottom: 0;
+  }
+
+  .button-store {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      white-space: nowrap;
+      margin-left: -30%;
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 0.875rem;
+      line-height: 10px!important;
+      background-color: #FFC429;
+      color: #FFF;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: none;
+      text-shadow: 1px 1px 1px rgb(0 0 0 / 20%);
+  }
+}

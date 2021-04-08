@@ -1,0 +1,92 @@
+<!-- Update Payment Modal-->
+<% orders.forEach((order)=> { %>
+    <div class="modal fade" id="<%= `editOrderModal${order.id}` %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Actualizar Orden</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <form action="/admin/<%= order.id %>/edit-order?_method=PUT" method="POST" class="pb-0 mb-0 needs-validation" novalidate>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 form-group">
+                                    <label for="email">* Email:</label>
+                                    <input type="email" name="email" value="<%= order.email %> " class="form-control" required/>
+                                    <div class="valid-feedback">Ok válido!</div>
+                                    <div class="invalid-feedback">Complete este campo</div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 form-group">
+                                    <label for="count">* Total Productos:</label>
+                                    <input type="text" name="count" value="<%= order.totalProducts %>" class="form-control" required/>
+                                    <div class="valid-feedback">Ok válido!</div>
+                                    <div class="invalid-feedback">Complete este campo</div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 form-group">
+                                    <label for="totalShipping">* Envío total:</label>
+                                    <input type="text" name="totalShipping" value="<%= order.totalShipping %>" class="form-control" required/>
+                                    <div class="valid-feedback">Ok válido!</div>
+                                    <div class="invalid-feedback">Complete este campo</div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 form-group">
+                                    <label for="tax">* Impuesto:</label>
+                                    <input type="text" name="tax" value="<%= order.tax %>" class="form-control" required/>
+                                    <div class="valid-feedback">Ok válido!</div>
+                                    <div class="invalid-feedback">Complete este campo</div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 form-group">
+                                    <label for="total">* Total:</label>
+                                    <input type="text" name="total" value="<%= order.total %>" class="form-control" required/>
+                                    <div class="valid-feedback">Ok válido!</div>
+                                    <div class="invalid-feedback">Complete este campo</div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 form-group">
+                                    <label for="status">* Status:</label>
+                                    <input type="text" name="status" value="<%= order.status.name %>" class="form-control" required/>
+                                    <div class="valid-feedback">Ok válido!</div>
+                                    <div class="invalid-feedback">Complete este campo</div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 form-group">
+                                    <label for="user">Usuario:</label>
+                                    <select class="custom-select" name="user" id="user" required>
+                                        <option selected disabled value="">Seleccione un Usuario</option>
+                                        <% users.forEach(user => { %>
+                                            <option value="<%= user.id %>" <%= order.userId == user.id ? 'selected':null %> ><%= user.name %></option>
+                                        <% }) %> 
+                                    </select>
+                                    <div class="invalid-feedback">Seleccione un usuraio</div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 form-group">
+                                    <label for="paymentId">Método de pago:</label>
+                                    <select class="custom-select" name="paymentId" id="paymentId"required>
+                                        <option selected disabled value="">Seleccione un Método de Pago</option>
+                                        <% payments.forEach(payment => { %>
+                                            <option value="<%= payment.id %>" <%= order.paymentId == payment.id ? 'selected':null %>><%= payment.name %></option>
+                                        <% }) %> 
+                                    </select>
+                                    <div class="invalid-feedback">Seleccione un Método de Pago</div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 form-group">
+                                    <label for="shippingMethodId">Método de envío:</label>
+                                    <select class="custom-select" name="shippingMethodId" id="shippingMethodId"required>
+                                        <option selected disabled value="">Seleccione un Método de Envío</option>
+                                        <% shippingMethods.forEach(sM => { %>
+                                            <option value="<%= sM.id %>" <%= order.shippingMethodId == sM.id ? 'selected':null %>><%= sM.name %></option>
+                                        <% }) %> 
+                                    </select>
+                                    <div class="invalid-feedback">Seleccione un Método de Envío</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-warning" type="submit">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<% });%>

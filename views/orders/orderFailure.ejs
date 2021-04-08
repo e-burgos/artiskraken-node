@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+
+<head>
+	<%- include('../layout/head', { title:"Pedido" }) %>
+</head>
+<link rel="stylesheet" href="/css/order-details.css" type="text/css" />	
+
+	<body class="stretched">
+
+		<!--Cart Panel -->
+		<%- include('../layout/panelCart') %>
+
+		<!-- Create Shop Modal -->
+		<% if(currentUser && currentUser.role=='buyer' ){ %>
+			<%- include('../layout/create-shop-modal') %>
+		<% } %>
+		
+		<!-- Header -->
+		<header id="header" class="dark" data-sticky-class="dark-color" data-sticky-shrink-offset="0" data-mobile-sticky="true">
+			<%- include('../layout/header') %>
+		</header>
+
+		<!-- Page Title -->
+		<section id="page-title" class="checkout-page-title page-title-parallax page-title-dark" data-bottom-top="background-position:0px 0px;" data-top-bottom="background-position:0px 0px;">
+			<%- include('../pages/pageTitle' , { title:"Tu Pedido", page:"Pedido" }) %>
+		</section>
+
+			<!-- Content
+			============================================= -->
+			<section id="dark-content" class="dark noborder">
+				<section class="bg-img-register dark noborder parallax pt-3">
+				<div class="content-wrap">
+					<div class="container clearfix">
+
+						<!-- Links login -->
+						<div class="row col-mb-30 gutter-50 mb-4">
+							<div class="col-md-12">
+								<% if(currentUser == null) { %>
+									<div class="alert style-msg style-msg-light" style="background-color: #333;">
+										<button type="button" class="close text-white" data-dismiss="alert" aria-hidden="true">×</button>
+										<i class="icon-line-user-check text-white" style="font-size: 20px;"></i>
+										<strong class="text-white"> Con tu pedido creamos una cuenta temporalmente para vos. </strong>
+										<a href="/users/login" class="btn btn-outline-warning alert-link float-right mt-2 mr-3">Iniciar sesión</a>
+										<br>
+										<small class="text-white">Recorda ingresar con tu email tanto en el campo de email como de contraseña.</small>
+										
+									</div>
+								<% } %> 
+								<!-- Notifications -->
+								<%- include('../layout/notifications') %>
+							</div>
+						</div>
+
+		
+						<!-- Checkout Form -->
+						<div class="row col-mb-30 gutter-50 mb-4">
+							<table border="0" cellpadding="0" cellspacing="0" width="100%">
+								<tr>
+									<td >
+										<table align="center" border="1" cellpadding="0" cellspacing="0" width="100%" style="max-width:800px;">
+											<tr>
+												<td border="1" bgcolor="#333333">
+													<div class="d-flex justify-content-between align-items-center">
+														<img src="/images/logo/logo-dark.png" class="mt-2" alt="Karken Logo" style="height: 100px;">
+														<div class="m-4">
+															
+														</div>
+													</div>
+													
+												</td>
+											</tr>
+											<tr>
+												<td align="center" style="padding: 35px 35px 20px 35px;">
+													<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+														<tr>
+															<td align="center"> 
+																<i class="icon-times-circle1 text-danger" style="font-size: 80px;"></i>
+																<h2> Uppps! Algo salió mal </h2>
+																<p> El proceso de pago fue rechazado.</p>
+															</td>
+														</tr>
+																				
+													</table>
+												</td>
+											</tr>
+											<tr>
+												<td align="center" style="padding: 35px;" bgcolor="#333333">
+													<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+														<tr>
+															<td align="center"> 
+                    											<a href="/store/checkout" class="button button-rounded button-reveal button-large color button-border button-white text-right">
+																	<i class="icon-line-arrow-right"></i><span>Intentar con otro medio de pago</span>
+																</a> 
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</section><!-- #content end -->
+
+			<!-- Footer -->
+			<%- include('../layout/footer') %>
+	</body>	
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+
+<head>
+	<%- include('../layout/head', { title:"Tienda" }) %>
+</head>
+
+<body class="stretched">
+
+	<!--Cart Panel -->
+	<%- include('../layout/panelCart') %>
+
+	<!-- Create Shop Modal -->
+	<% if(currentUser && currentUser.role=='buyer' ){ %>
+		<%- include('../layout/create-shop-modal') %>
+	<% } %>
+
+	<!-- Header -->
+	<header id="header" class="dark" data-sticky-class="dark-color" data-sticky-shrink-offset="0"
+		data-mobile-sticky="true">
+		<%- include('../layout/header') %>
+	</header>
+
+	<!-- Page Title -->
+	<section id="page-title" class="store-page-title page-title-parallax page-title-dark"
+		data-bottom-top="background-position:0px 0px;" data-top-bottom="background-position:0px 0px;">
+		<%- include('../pages/pageTitle' , { title: "Cervezas", page: "Nuestras Cervezas" }) %>
+	</section>
+
+		<!-- Content -->
+		<section id="dark-content" class="dark noborder parallax pt-3">
+			<div class="content-wrap pt-0" style="overflow: visible;">
+				
+				<%- include('./searcher', {categories, types, selectedType, selectedCategory}) %>
+					
+				<div class="section mb-0 pt-0 pb-0 dark-background">
+					<div class="container">
+					
+					<!-- Notifications -->
+					<%- include('../layout/notifications') %>
+						
+						<!-- Grid Filter
+						============================================= -->
+						<% if(url == '/'){ %>
+							<h3>Todas las Categorías </h3>
+							<ul class="grid-filter style-3 w-100" data-container="#portfolio">
+								<% categories.forEach( category => { %>
+									<li><a href="javascript:void(0)" data-filter=".<%= category.id %>" class="link-grid"><i class="icon-beer"></i><span class="ml-1 text-uppercase"><%= category.name %></span></a></li>
+								<% }) %> 
+								<!-- Show All Button -->
+								<li class="activeFilter ml-auto"><a class="button button-small button-rounded button-reset" href="javascript:void(0)" data-filter="*">Todas</a></li>
+							</ul><!-- .grid-filter end -->
+						<% }else if(url == '/categories'){ %> 
+							<h3>Categoría <%= selectedCategory.name %> </h3>
+						<% } else if(url == '/types'){ %>
+							<ul class="grid-filter style-3 w-100" data-container="#portfolio">
+								
+								<li class="activeFilter"> <a href="javascript:void(0)" 
+											class="link-grid m-0 p-0"><h3 class=" text-uppercase m-0 p-2">Tipo <%= selectedType.name %></h3></a>
+								</li>
+								<% categories.forEach( category => { %>
+									<% if(category.typeId == selectedType.id){ %>
+										<li><a href="javascript:void(0)" data-filter=".<%= category.id %>" 
+											class="link-grid"><i class="icon-beer"></i><span class="ml-1 text-uppercase"><%= category.name %></span></a>
+										</li>		
+									<% } %>
+								<% }) %> 
+								<!-- Show All Button -->
+								<li class="activeFilter ml-auto"><a class="button button-small button-rounded button-reset" href="javascript:void(0)" data-filter="*">Todas</a></li>
+							</ul><!-- .grid-filter end -->
+						<% } else if(url == '/search'){ %>
+							<h3>Se encontraron <%= productsSearched %> resultados para <span class="text-uppercase">"<%= search %>"</span></h3>
+							<ul class="grid-filter style-3 w-100" data-container="#portfolio">
+								<% categories.forEach( category => { %>
+									<li><a href="javascript:void(0)" data-filter=".<%= category.id %>" class="link-grid"><i class="icon-beer"></i><span class="ml-1 text-uppercase"><%= category.name %></span></a></li>
+								<% }) %> 
+								<!-- Show All Button -->
+								<li class="activeFilter ml-auto"><a class="button button-small button-rounded button-reset" href="javascript:void(0)" data-filter="*">Todas</a></li>
+							</ul><!-- .grid-filter end -->
+						<% } %>
+						
+
+						<!-- Portfolio Items
+						============================================= -->
+						<div id="products-list">
+							<div id="portfolio" class="portfolio row grid-container gutter-20" data-layout="fitRows">
+								<% products.forEach( product => { %>
+									<% if(product.status == 'active'){ %>
+										<%- include('./productStore', { product: product, categories:categories }) %>
+									<% } %> 
+								<% }) %>
+							</div>
+						</div>
+						<div class="d-flex justify-content-center mt-5">
+							<ul class="pagination pagination-inside-transparent pagination-pill">
+								<% if(page > 0){ %>
+									<li class="page-item">
+										<% if(url == '/'){ %>
+											<a class="page-link btn-outline-warning" href="<%= process.env.DOMAIN %>/store?page=<%= parseInt(page) -1 %>">Anterior</a>
+										<% }else if(url == '/types'){ %>
+											<a class="page-link btn-outline-warning" href="<%= process.env.DOMAIN %>/store/types?type=<%= selectedType.id %>&page=<%= parseInt(page) -1 %>#tab-types">Anterior</a>
+										<% } else if(url == '/categories'){ %>
+											<a class="page-link btn-outline-warning" href="<%= process.env.DOMAIN %>/store/categories?category=<%= selectedCategory.id %>&page=<%= parseInt(page) -1 %>#tab-categories">Anterior</a>
+										<% } else if(url == '/search'){ %>
+											<a class="page-link btn-outline-warning" href="<%= process.env.DOMAIN %>/store/search?page=<%= parseInt(page) -1 %>&search=<%= search %>">Siguiente</a>
+										<% } %>
+									</li>
+								<% } else if(page == 0) { %>
+									<li class="page-item disabled">
+										<a class="page-link text-muted" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+									</li>
+								<% } %> 
+								</li>
+								
+								<li class="page-item">
+									<div class="btn-group dropup">
+										<button type="button" class="btn btn-outline-warning dropdown-toggle" style="border-radius: 0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<%= page %> de <%= totalPages %>
+										</button>
+										<div class="dropdown-menu">
+											<% for(let i = 0; i <= totalPages; i++) { %>
+												<% if(url == '/'){ %>
+													<a class="dropdown-item <%= i == page ? 'active' : null%>" href="<%= process.env.DOMAIN %>/store?page=<%= i %>">Página <%= i %></a>
+												<% }else if(url == '/types'){ %> 
+													<a class="dropdown-item <%= i == page ? 'active' : null%>" href="<%= process.env.DOMAIN %>/store/types?type=<%= selectedType.id %>&page=<%= i %>#tab-types">Página <%= i %></a>
+												<% } else if(url == '/categories'){ %>
+													<a class="dropdown-item <%= i == page ? 'active' : null%>" href="<%= process.env.DOMAIN %>/store/categories?category=<%= selectedCategory.id %>&page=<%= i %>#tab-categories">Página <%= i %></a>
+												<% } else if(url == '/search'){ %>
+													<a class="dropdown-item <%= i == page ? 'active' : null%>" href="<%= process.env.DOMAIN %>/store/search?page=<%= i %>&search=<%= search %>">Página <%= i %></a>
+												<% } %>
+											<% } %>
+											
+										</div>
+									</div>
+								</li>
+
+								<% if(page < totalPages){ %>
+									<li class="page-item">
+										<% if(url == '/'){ %>
+											<a class="page-link btn-outline-warning" href="<%= process.env.DOMAIN %>/store?page=<%= parseInt(page) +1 %>">Siguiente</a>
+										<% }else if(url == '/types'){ %>
+											<a class="page-link btn-outline-warning" href="<%= process.env.DOMAIN %>/store/types?type=<%= selectedType.id %>&page=<%= parseInt(page) +1 %>#tab-types">Siguiente</a>
+										<% } else if(url == '/categories'){ %>
+											<a class="page-link btn-outline-warning" href="<%= process.env.DOMAIN %>/store/categories?category=<%= selectedCategory.id %>&page=<%= parseInt(page) +1 %>#tab-categories">Siguiente</a>
+										<% } else if(url == '/search'){ %>
+											<a class="page-link btn-outline-warning" href="<%= process.env.DOMAIN %>/store/search?page=<%= parseInt(page) +1 %>&search=<%= search %>">Siguiente</a>
+										<% } %>
+									</li>	
+								<% } else if(page == totalPages) { %>
+									<li class="page-item disabled">
+										<a class="page-link text-muted" href="#" tabindex="-1" aria-disabled="true">Siguiente</a>
+									</li>
+								<% } %> 		  
+							</ul>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</section><!-- #content end -->
+
+	<!-- Footer -->
+	<%- include('../layout/footer') %>
+		
+</body>
+		
+</html>

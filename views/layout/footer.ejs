@@ -1,0 +1,152 @@
+<footer id="footer" class="dark noborder parallax pt-3" style="background-image: url('/images/bg/section-2.jpg');"
+    data-top-bottom="background-position:100% -300px" data-bottom-top="background-position: 100% 300px">
+    <div class="container">
+
+        <!-- Footer Widgets
+				============================================= -->
+        <div class="footer-widgets-wrap">
+
+            <div class="row col-mb-50 justify-content-between">
+
+                <div class="col-lg-5 text-center text-lg-left">
+                    <img src="/images/logo/logo-footer.png" alt="Image" height="120">
+
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="row col-mb-30">
+                        <div class="col-6 col-lg-4">
+                            <div class="widget widget_links widget-li-noicon">
+                                <h4>Sevicios</h4>
+                                <ul>
+                                    <li><a href="javascript:void(0)">Políticas de Privacidad</a></li>
+                                    <li><a href="javascript:void(0)">Términos y Condiciones </a></li>
+                                    <li><a href="javascript:void(0)">Sobre Nosotros</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-4">
+                            <div class="widget widget_links widget-li-noicon">
+                                <h4>Contacto</h4>
+                                <ul>
+                                    <li><a href="/contact">Contacto</a></li>
+                                    <li><a href="javascript:void(0)">Ventas</a></li>
+                                    <li><a href="javascript:void(0)">Post-Venta</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-4">
+                            <div class="widget widget_links widget-li-noicon">
+                                <h4>Tiendas</h4>
+                                <ul>
+                                    <li><a href="javascript:void(0)">CABA</a></li>
+                                    <li><a href="javascript:void(0)">Córdoba</a></li>
+                                    <li><a href="javascript:void(0)">Tucumán</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- .footer-widgets-wrap end -->
+    </div>
+
+    <!-- Copyrights
+			============================================= -->
+    <div id="copyrights">
+        <div class="container">
+
+            <div class="row col-mb-30">
+                <div class="col-md-6 text-center text-md-left">
+                    © 2020 ArtisKraken | Power by Node JS
+                </div>
+
+                <div class="col-md-6 text-center text-md-right">
+                    <div class="d-flex justify-content-center justify-content-md-end">
+                        <a href="javascript:void(0)" class="social-icon si-small nobottommargin si-facebook">
+                            <i class="icon-facebook"></i>
+                            <i class="icon-facebook"></i>
+                        </a>
+
+                        <a href="javascript:void(0)" class="social-icon si-small nobottommargin si-twitter">
+                            <i class="icon-twitter"></i>
+                            <i class="icon-twitter"></i>
+                        </a>
+
+                        <a href="javascript:void(0)" class="social-icon si-small nobottommargin si-instagram">
+                            <i class="icon-instagram"></i>
+                            <i class="icon-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div><!-- #copyrights end -->
+</footer><!-- #footer end -->
+
+</div><!-- #wrapper end -->
+
+<!-- Go To Top
+	============================================= -->
+<div id="gotoTop" class="icon-angle-up"></div>
+
+<!-- Help Chat
+	============================================= -->
+	<button id="help-button" data-toggle="collapse" href="#help-chat" type="button" aria-expanded="false" aria-controls="help-chat"><i class="far fa-comment"></i></button>
+	<div id="help-chat"class="card collapse" >
+		<h5 class="border-b-grey">Chat</h5>
+		<div class="d-flex row">
+		<input id="message-holder"type="text" placeholder="Escribí tu consulta..">
+		<i id="send-icon"style="color:rgb(85, 85, 85)!important" class="fas fa-paper-plane"></i>
+		</div>
+	</div>
+    
+    
+<!-- JavaScripts -->
+<script src="/js/hover-animate.js"></script>
+    
+<!-- Bootstrap Validate
+    ============================================= -->
+<script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js" ></script>
+
+<!-- Bootstrap Select Plugin -->
+<script src="/js/components/bs-select.js"></script>
+
+<!-- Bootstrap Switch Plugin -->
+<script src="/js/components/bs-switches.js"></script>
+<script src="/js/components/bs-filestyle.js"></script>
+
+<!-- <script>
+    jQuery(".bt-switch").bootstrapSwitch();
+</script> -->
+
+<!-- Footer Scripts -->
+
+<script>
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+            }, false);
+        });
+        }, false);
+    })();
+</script>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/functions.js"></script>
+<script src="/js/plugins.min.js"></script>
+<script defer src="/js/env.js"></script>
+<script defer src="/js/cart.js"></script>
+<script defer src="/js/orders.js"></script>

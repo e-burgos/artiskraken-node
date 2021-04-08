@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+
+	<head>
+		<%- include('../layout/head', { title:"Crear Producto" }) %>
+		<link rel="stylesheet" href="/css/components/bs-filestyle.css" type="text/css" />
+		<link rel="stylesheet" href="/css/components/ion.rangeslider.css" type="text/css" />
+	</head>
+
+	<body class="stretched">
+
+		<!--Cart Panel -->
+		<%- include('../layout/panelCart') %>
+
+		<!-- Header -->
+		<header id="header" class="dark" data-sticky-class="dark-color" data-sticky-shrink-offset="0"
+			data-mobile-sticky="true">
+			<%- include('../layout/header') %>
+		</header>
+
+		<!-- Page Title -->
+		<section id="page-title" class="checkout-page-title page-title-parallax page-title-dark"
+			data-bottom-top="background-position:0px 0px;" data-top-bottom="background-position:0px 0px;">
+			<%- include('../pages/pageTitle' , { title:"Editar Producto", page:"Editar Producto" }) %>
+		</section>
+
+		<!-- Content -->
+		<section id="dark-content" class="dark noborder parallax pt-3">
+			<div class="content-wrap">
+				<div class="container clearfix">
+
+					<!-- Notifications -->
+					<%- include('../layout/notifications') %>
+
+					<div class="col-lg-12">
+						<form action="/products/<%= shopId %>/<%= product.id %>/edit?_method=PUT" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+							<div class="row">
+								<div class="col-6 form-group">
+									<label for="name">Nombre de Producto:</label>
+									<input type="text" name="name" id="name"class="form-control required" value="<%= product.name %>" placeholder="Cerveza IPA" required>
+								</div>
+								<div class="col-6 form-group">
+									<label for="brewery">Cervería de Origen:</label>
+									<input type="text" name="brewery" id="brewery"class="form-control" value="<%= product.brewery %>" placeholder="Quién fabrica el producto..." required>
+								</div>
+								<div class="col-6 form-group">
+									<label for="price">Precio:</label>
+									<input type="text" name="price" id="price"class="form-control required" value="<%= product.price %>" placeholder="Ingrese un valor" required>
+								</div>
+								<div class="col-6 form-group">
+									<label for="discount">Descuento:</label>
+									<input type="text" name="discount" id="discount"class="form-control required" value="<%= product.discount %>" placeholder="Ingrese un valor" required>
+								</div>
+								<div class="col-6 form-group">
+									<label for="stock">Stock:</label>
+									<input type="number" name="stock" id="stock"class="form-control required" value="<%= product.stock %>" placeholder="Ingrese un valor" required>
+								</div>
+								<div class="col-6 form-group">
+									<label for="description">Descripción Corta:</label>
+									<input type="text" name="description" id="description"class="form-control required" value="<%= product.description %>" placeholder="Describa brevemente el producto..." required>
+								</div>
+								<div class="col-4 form-group">
+									<label for="status">Estado:</label>
+									<select class="custom-select" name="status" id="status" required>
+										<option <%=product.status== 'active' ? 'selected' : null %> value="active">Habilitado</option>
+										<option <%=product.status=='blocked' ? 'selected' : null %> value="blocked">Bloqueado</option>
+									</select>
+								</div>
+								<div class="col-4 form-group">
+									<label for="typeId">Tipo:</label>
+									<select class="custom-select" name="typeId" id="typeId" required>
+										<% types.forEach((type)=> {%>
+											<option <%= type.id == product.typeId ? 'selected' : null %>  value="<%=type.id %>"><%=type.name %></option>
+											<% });%>
+									</select>
+								</div>
+								<div class="col-4 form-group">
+									<label for="categoryId">Categoría:</label>
+									<select class="custom-select" name="categoryId" id="categoryId" required>
+										<% categories.forEach((category) => {%>
+											<option <%= category.id == product.categoryId ? 'selected' : null %> value="<%=category.id %> "><%=category.name %></option>
+										<% }); %> 
+									</select>
+								</div>
+								<div class="col-4 form-group">
+									<label for="abv" class="mb-3">ABV (% DE ALCOHOL):</label>
+									<small>Valor Actual: <%= product.abv %></small> 
+									<input id="abv" name="abv" value="<%= product.abv %>" class="abv required input-range-slider" />
+								</div>
+								<div class="col-4 form-group">
+									<label for="ibu" class="mb-3">IBU (AMARGOR):</label>
+									<small>Valor Actual: <%= product.ibu %></small> 
+									<input name="ibu" id="ibu" value="<%= product.ibu %>" class="ibu required input-range-slider" />
+								</div>
+								<div class="col-4 form-group">
+									<label for="og" class="mb-3">OG (Gravedad Original):</label>
+									<small>Valor Actual: <%= product.og %></small> 
+									<input name="og" id="og" value="<%= product.og %>" class="og required input-range-slider" />
+								</div>
+
+								<div class="col-6 form-group mt-3">
+									<label for="images">Imagen Producto:</label>
+									<small class="mr-2">Imagen actual</small>
+									<img alt='Image' src='/images/products/<%= product.avatar ? product.avatar : "without-image.png" %>'
+                                    class='avatar avatar-60 photo avatar-default mb-3' height='60' width='60' />
+									<input type="file" id="avatar" name="avatar" class=" form-control" data-show-preview="true" />
+								</div>
+
+								<div class="col-6 form-group mt-3">
+									<label for="images">Galería:</label>
+									<small class="mr-2">Imagenes actuales</small>
+									<% if(gallery){ %>
+										<% gallery.forEach(image => { %>
+											<img alt='Image' src='/images/products/<%= image %>'
+											class='avatar avatar-60 photo avatar-default mb-3' height='60' width='60' />
+										<% }); %>
+									<% } else { %>
+										<img alt='Image' src='/images/products/without-image.png'
+										class='avatar avatar-60 photo avatar-default mb-3' height='60' width='60' />
+									<% }; %> 
+									<input type="file" multiple id="gallery" name="gallery" class=" form-control" data-show-preview="true" />
+								</div>
+								<div class="col-12 form-group mt-3">
+									<label for="details">Detalles:</label>
+									<input name="details" id="details" value="<%= product.details %>" class="form-control" placeholder="Descripción amplia del producto" rows="4"></input>
+								</div>
+								<div class="col-12">
+									<button type="submit" class="btn btn-secondary">Editar Producto</button>
+									<a href="/shops" class="btn btn-outline-secondary">Cancelar</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section><!-- #content end -->
+
+		<!-- Footer -->
+		<%- include('../layout/footer') %>
+		<script src="/js/components/rangeslider.min.js"></script>
+		<script src="/js/components/bs-filestyle.js"></script>
+		<script>
+			jQuery(document).ready( function(){
+
+				let abv = $(".abv");
+				abv.ionRangeSlider({
+				 	prefix: "%",
+					min: 0.0,
+					max: 15,
+					from: 0,
+					step: 0.1,
+					max_postfix: "+"
+				});
+
+				let ibu = $(".ibu");
+				ibu.ionRangeSlider({
+				 	prefix: "",
+					min: 0,
+					max: 100,
+					from: 0,
+					step: 0.5,
+					max_postfix: "+"
+				});
+
+				let og = $(".og");
+				og.ionRangeSlider({
+				 	prefix: "",
+					min: 1000,
+					max: 1200,
+					from: 1000,
+					step: 10,
+					max_postfix: "+"
+				});
+
+				$("#avatar").fileinput({
+					browseClass: "btn btn-secondary",
+					browseIcon: "<i class='icon-search'></i>",
+					removeClass: "btn btn-danger",
+					removeLabel: "",
+					removeIcon: "<i class='icon-trash-alt1'></i>",
+					showUpload: false
+				});
+
+				$("#gallery").fileinput({
+					browseClass: "btn btn-secondary",
+					browseIcon: "<i class='icon-search'></i>",
+					removeClass: "btn btn-danger",
+					removeLabel: "",
+					removeIcon: "<i class='icon-trash-alt1'></i>",
+					showUpload: false
+				});
+			})
+		</script>
+		<script>
+			bootstrapValidate("#name","min:2: Debes ingresar al menos 2 caracteres");
+			bootstrapValidate("#name","max:35: Debes ingresar como máximo 35 caracteres");
+			bootstrapValidate("#brewery","required: Debes completar este campo");
+			bootstrapValidate("#price","required: Debes completar este campo");
+			bootstrapValidate("#price","numeric:Puedes ingresar números únicamente ");
+			bootstrapValidate("#discount","required: Debes completar este campo");
+			bootstrapValidate("#discount","numeric:Puedes ingresar números únicamente ");
+			bootstrapValidate("#stock","required: Debes completar este campo");
+			bootstrapValidate("#description","min:10: Debes ingresar al menos 10 caracteres");
+		</script>
+	</body>
+	
+</html>

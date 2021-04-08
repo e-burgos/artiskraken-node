@@ -1,0 +1,48 @@
+<div class="top-header">
+    <div class="d-flex justify-content-around">
+        <% if (currentUser !=null) { %>
+            <div class="p-2 mt-2 text-center one-page-menu" data-easing="easeInOutExpo" data-speed="1250" data-offset="60">
+                <small>Hola <span class="color"><%= currentUser.name%></span>, Bienvenid@!</small>
+            </div>
+            <div class="p-2 mt-2 text-center">   
+            </div>
+            <div class="p-2 mt-2 text-center">
+                <a href="javascript:void(0)" class="social-icon si-small si-colored">
+                    <i class="icon-facebook"></i>
+                    <i class="icon-facebook"></i>
+                </a>
+                <a href="javascript:void(0)" class="social-icon si-small si-colored ">
+                    <i class="icon-twitter"></i>
+                    <i class="icon-twitter"></i>
+                </a>
+                <a href="javascript:void(0)" class="social-icon si-small si-colored ">
+                    <i class="icon-instagram"></i>
+                    <i class="icon-instagram"></i>
+                </a>
+            </div>
+        <% } %>
+        <% if (currentUser == null) { %>
+            <div class="p-2 mt-2 text-center one-page-menu" data-easing="easeInOutExpo" data-speed="1250" data-offset="60">
+                <a href="javascript:void(0)" data-href="#delivery" data-offset="20" class="top-header-buttom"><i class="icon-headphones-alt"></i>
+                    011 444-3232</a>
+            </div>
+            <div class="p-2 mt-2 text-center">
+               
+            </div>
+            <div class="p-2 mt-2 text-center">
+                <a href="javascript:void(0)" class="social-icon si-small si-colored">
+                    <i class="icon-facebook"></i>
+                    <i class="icon-facebook"></i>
+                </a>
+                <a href="javascript:void(0)" class="social-icon si-small si-colored ">
+                    <i class="icon-twitter"></i>
+                    <i class="icon-twitter"></i>
+                </a>
+                <a href="javascript:void(0)" class="social-icon si-small si-colored ">
+                    <i class="icon-instagram"></i>
+                    <i class="icon-instagram"></i>
+                </a>
+            </div>
+        <% } %>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+
+<head>
+	<%- include('../layout/head', { title:"Ingresar" }) %>
+	<link rel="stylesheet" href="/css/login.css" type="text/css">
+	<script src="/js/validateLogIn.js"></script>
+	<script type="text/javascript" src="/js/validator.min.js"></script>
+</head>
+
+<body class="stretched">
+
+	<!--Cart Panel -->
+	<%- include('../layout/panelCart') %>
+
+	<!-- Header -->
+	<header id="header" class="dark" data-sticky-class="dark-color" data-sticky-shrink-offset="0"
+		data-mobile-sticky="true">
+		<%- include('../layout/header') %>
+	</header>
+
+		<!-- Content -->
+		<section id="dark-content" class="dark noborder parallax pt-3">
+			<div class="container">
+				
+				<!-- Notifications -->
+
+				<div class="d-flex align-items-center justify-content-center mb-5 mt-3">
+				<%- include('../layout/notifications') %>
+				</div>
+
+				<div class="d-flex justify-content-center h-100">
+					<div class="card mt-4 mb-4">
+						<div class="card-header">
+							<h3>Sign In</h3>
+							<div class="d-flex justify-content-end social_icon">
+								<span><i class="fab fa-facebook-square"></i></span>
+								<span><i class="fab fa-google-plus-square"></i></span>
+								<span><i class="fab fa-twitter-square"></i></span>
+							</div>
+						</div>
+						<div class="card-body">
+							<form method="POST" id="logInForm" style="margin-bottom:0px"action="/users/login">
+								<div class="input-group form-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-user"></i></span>
+									</div>
+									<input name="email" class="form-control validate" id="email"placeholder="Email" type="email">
+								</div>
+								<div id="emailFeedback" class="feedback"></div>
+								<div class="input-group form-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-key"></i></span>
+									</div>
+									<input type="password" class="form-control" id="password"name="password"placeholder="Ingresá tu contraseña">
+								</div>
+								<div id="passwordFeedback" class="feedback"></div>
+								<div class="row align-items-center remember">
+									<input type="checkbox" name="remember">Recordame
+								</div>
+								<div class="form-group">
+									<input type="submit" value="Ingresá" class="btn float-right login_btn">
+								</div>
+							</form>
+						</div>
+						<div class="card-footer">
+							<div class="d-flex justify-content-center links">
+								¿No tenés cuenta?<a href="/users/register">Registrate</a>
+							</div>
+							<div class="d-flex justify-content-center">
+								<a href="javascript:void(0)">¿Olvidaste tu contraseña?</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		
+		</section><!-- #content end -->
+
+
+	<!-- Footer -->
+	<%- include('../layout/footer') %>
+</body>
+	
+</html>

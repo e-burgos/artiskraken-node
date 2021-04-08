@@ -1,0 +1,38 @@
+<article id="product-item-<%= product.id %>" class="portfolio-item col-12 col-sm-6 col-md-3 <%= product.categoryId %>">
+    <div class="grid-inner">
+        <div class="portfolio-image br-5 portfolio-responsive-image">
+            <img class="responsive-image" src="/images/products/<%= product.avatar ? product.avatar : "without-image.png" %>" alt="<%= product.name %>">
+        </div>
+        <div class="portfolio-desc border-desc-product">
+            <h3 class="text-center text-uppercase"><a href="/products/<%= product.id %>/productDetails" class="white-color"><%= product.name %></a></h3>
+            <div class="line line-sm my-3"></div>
+            <div class="d-flex mt-2 justify-content-center align-items-center product-price font-weight-bold">
+                <del class="mr-2">$<%= product.price %></del> 
+                <h3 class="color">$<%= (product.price - product.discount).toFixed(2) %></h3>
+            </div>
+                <div class="row">							
+                    <div class="quantity-lg quantity m-0 col-md-12 col-sm-12 col-lg-6 center">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <input type="button" value="-" class="minus rounded-left border">
+                            <input type="text" name="qty" id="qty-<%= product.id %>" value="1" class="qty border" />
+                            <input type="button" value="+" class="plus rounded-right border">
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-lg-6 center">
+                        <button class="button-store button button-rounded mt-2 mb-2 add-product" data-id="<%= product.id %>">Comprar</button>
+                    </div>
+                </div>
+                <div class=" d-flex justify-content-center align-items-center">
+                    <span class="text-center small text-uppercase p-1">Categoria: <%= product.categories.name %></span> -
+                    <span class="text-center small text-uppercase p-1">Tipo: <%= product.types.name %></span>
+                </div>
+
+            <div class="d-flex mt-2 justify-content-center">
+                <span class="white-color mr-2">ABV: <%= product.abv %>%</span>
+                <span class="white-color mr-2">IBU: <%= product.ibu %></span>
+                <span class="white-color">OG: <%= product.og %></span>
+            </div>
+        </div>
+    </div>
+</article>
+

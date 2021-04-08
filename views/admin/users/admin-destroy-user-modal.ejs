@@ -1,0 +1,22 @@
+<!-- Delete User Modal -->
+<div class="modal fade" id="destroyUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Eliminar Usuario</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">Esta seguro que desea eliminar a este usuario?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <form action="/admin/<%= user.id %>/user-destroy?_method=DELETE" method="POST">
+                        <button class="btn btn-danger" type="submit">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+
+<head>
+	<%- include('../layout/head', { title:"Carrito" }) %>
+</head>
+
+<body class="stretched">
+
+	<!--Cart Panel -->
+	<%- include('../layout/panelCart') %>
+	
+
+	<!-- Notifications -->
+	<%- include('../layout/notifications') %>
+
+	<!-- Header -->
+	<header id="header" class="dark" data-sticky-class="dark-color" data-sticky-shrink-offset="0"
+		data-mobile-sticky="true">
+		<%- include('../layout/header') %>
+	</header>
+
+	<!-- Page Title -->
+	<section id="page-title" class="cart-page-title page-title-parallax page-title-dark"
+		data-bottom-top="background-position:0px 0px;" data-top-bottom="background-position:0px 0px;">
+		<%- include('../pages/pageTitle' , { title: "Productos Seleccionados", page: 'Carrito' }) %>
+	</section>
+
+		<!-- Content -->
+		<section id="dark-content" class="dark noborder">
+            <div class="content-wrap">
+				<div class="container">
+					<div id="products-list">
+						<div class="table-responsive mb-0">
+							<table id="table-cart" class="table">
+								<thead>
+									<tr>
+										<th class="cart-product-thumbnail">IMAGEN</th>
+										<th class="cart-product-name">PRODUCTO</th>
+										<th class="cart-product-price center">PRECIO</th>
+										<th class="cart-product-price center">DESC</th>
+										<th class="cart-product-quantity">CANTIDAD</th>
+										<th class="cart-product-subtotal center">TOTAL</th>
+										<th class="cart-product-remove center">OPCIONES</th>
+									</tr>
+								</thead>
+								<tbody id="cart-products-items-table">
+									<!-- read tr from localStorage -->
+									
+								</tbody>
+							</table>
+							<div id="total-cart-page" class="table-responsive">
+								<!-- read total cart page from localStorage -->
+							</div>
+						</div>
+					</div>
+					
+					<div class="row mb-5">
+
+						<div class="col-lg-3">
+							<!-- <input type="text" value="" class="sm-form-control" placeholder="Ingresa tu código.." /> -->
+						</div>
+						<div class="col-lg-3">
+							<!-- <a href="javascript:void(0)"
+								class="button header-button mt-0 button-rounded button-reveal d-inline-flex">
+								<i class="icon-line-gift"></i><span>Aplicar Descuento</span></a> -->
+						</div>
+							
+						<div class="col-lg-6">
+							<a href="/store/checkout"
+								class="button header-button mt-0 button-rounded button-reveal d-inline-flex float-right">
+								<i class="icon-money-check"></i><span>Finalizar Compra</span>
+							</a>
+						</div>		
+					</div>
+
+					<!-- <div class="divider"></div>
+					<div class="row">
+						<div class="col-lg-6">
+							<h4>CALCULAR ENVIO</h4>
+							<form class="row">
+								<div class="col-12 form-group">
+									<select class="sm-form-control">
+										<option value="AR" selected='selected'>Argentina</option>
+									</select>
+								</div>
+								<div class="col-6 form-group">
+									<input type="text" class="sm-form-control" placeholder="Provincia / Ciudad" />
+								</div>
+
+								<div class="col-6 form-group">
+									<input type="text" class="sm-form-control" placeholder="Código Postal" />
+								</div>
+								<div class="col-12 form-group">
+									<a href="javascript:void(0)" class="button header-button mt-0 button-rounded button-reveal d-inline-flex">
+										<i class="icon-shipping-fast"></i><span>Aplicar Descuento</span></a>
+								</div>
+							</form>
+						</div>
+					</div> -->
+
+				</div>
+			</div>
+		</section><!-- #content end -->
+
+	<!-- Footer -->
+	<%- include('../layout/footer') %>
+	
+</body>
+	
+</html>

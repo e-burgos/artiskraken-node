@@ -1,0 +1,82 @@
+<!-- Create Category Modal -->
+<div class="modal fade" id="createShop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-body">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">CREAR MI TIENDA</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <form action="/shops/create-shop" method="POST" enctype="multipart/form-data" class="pb-0 mb-0">
+                    <div class="modal-body">
+                        <div class="row mt-3 mb-3">
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="name">* Nombre Comercial:</label>
+                                <input type="text" name="name" value="" class="form-control" />
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="avatar">Logo Comercial: </label>
+                                <input type="file" name="avatar" value="" class="form-control" />
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="email">* Email:</label>
+                                <input type="email" name="email" value="" class="form-control" />
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="phone">Teléfono:</label>
+                                <input type="tel" name="phone" value="" class="form-control" />
+                            </div>
+                            <div class="col-lg-12 col-md-12 form-group">
+                                <label for="bio">Sobre la Tienda:</label>
+                                <input type="text" name="bio" value="" placeholder="Escribe algo sobre tu negocio..."
+                                    class="form-control" />
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="twitter">Twitter</label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">
+                                            <i class="icon-twitter" class="font-medium-2"></i>
+                                        </span>
+                                    </div>
+                                    <input name="twitter" type="text" class="form-control" value=""
+                                        placeholder="https://www.twitter.com/su-usuario" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="facebook">Facebook</label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon4">
+                                            <i class="icon-facebook" class="font-medium-2"></i>
+                                        </span>
+                                    </div>
+                                    <input name="facebook" type="text" class="form-control" value=""
+                                        placeholder="https://www.facebook.com/su-usuario" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="instagram">Instagram</label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon5">
+                                            <i class="icon-instagram" class="font-medium-2"></i>
+                                        </span>
+                                    </div>
+                                    <input name="instagram" type="text" class="form-control" value=""
+                                        placeholder="https://www.instagram.com/su-usuario" />
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="button button-rounded button-reveal button-medium button-white button-light text-right" data-dismiss="modal">
+                            <i class="icon-line2-action-undo"></i><span>Cancelar</span></button>
+                        <button type="submit" class="button button-rounded button-reveal button-medium button-yellow button-light text-right">
+                            <i class="icon-angle-right"></i><span>Crear Tienda</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

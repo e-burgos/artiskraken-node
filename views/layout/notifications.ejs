@@ -1,0 +1,32 @@
+<% if( notification != null ) { %>
+    <script defer src="/js/components/notifications.js"></script>
+<% } %>
+
+<% if( notification =='message' ) { %>
+    <div id="<%= notification %>" data-notify-position="top-right" data-notify-type="success" data-notify-timeout="5000"
+        data-notify-msg='<i class=icon-ok-sign></i> <%= message %>'>
+    </div>
+
+<% } %>
+
+<% if(notification == 'error' ) { %>
+    <div id="<%= notification %>" data-notify-position="top-right" data-notify-type="error" data-notify-timeout="5000"
+        data-notify-msg='<i class=icon-remove-sign></i> Tiene <%= errors.length %> errores para revisar.'>
+    </div>
+    <div class="style-msg2 errormsg round-square">
+        <div class="msgtitle"><i class="icon-warning-sign"></i>Por favor revise estos <%= errors.length %> requerimientos:</div>
+        <div class="sb-msg">
+            <ul>
+                <% errors.forEach((error)=> { %>
+                <li><%= error.msg %></li>
+                <% });%>
+            </ul>
+        </div>
+    </div>	
+<% } %>
+
+<style>
+    .round-square{
+        border-radius: 8px;
+    }
+</style>

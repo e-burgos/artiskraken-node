@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+
+	<head>
+		<%- include('./layout/head', { title:"Finaliza tu Compra" }) %>
+	</head>
+
+	<body class="stretched">
+
+		<!--Cart Panel -->
+		<%- include('./layout/panelCart') %>
+
+		<!-- Create Shop Modal -->
+		<% if(currentUser && currentUser.role=='buyer' ){ %>
+			<%- include('./layout/create-shop-modal') %>
+		<% } %>
+
+		<!-- Notifications -->
+		<%- include('./layout/notifications') %>
+
+		<!-- Header -->
+		<header id="header" class="dark" data-sticky-class="dark-color" data-sticky-shrink-offset="0"
+			data-mobile-sticky="true">
+			<%- include('./layout/header') %>
+		</header>
+
+		<!-- Page Title -->
+		<section id="page-title" class="checkout-page-title page-title-parallax page-title-dark"
+			data-bottom-top="background-position:0px 0px;" data-top-bottom="background-position:0px 0px;">
+			<%- include('./pages/pageTitle' , { title:"Contacto", page:"Contacto" }) %>
+		</section>
+
+		<!-- Content -->
+		<section id="dark-content" class="dark noborder parallax pt-3">
+			<div class="m-5">
+				<h1>Contenido aqui</h1>
+			</div>
+		</section><!-- #content end -->
+
+		<!-- Footer -->
+		<%- include('./layout/footer') %>
+	</body>
+	
+</html>

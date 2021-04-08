@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+
+<head>
+	<%- include('../layout/head', { title:"Perfil de Negocio" }) %>
+	<link rel="stylesheet" href="/css/components/bs-datatable.css" type="text/css" />
+</head>
+
+<body class="stretched">
+
+	<!--Cart Panel -->
+	<%- include('../layout/panelCart') %>
+
+	<!-- Header -->
+	<header id="header" class="dark" data-sticky-class="dark-color" data-sticky-shrink-offset="0"
+		data-mobile-sticky="true">
+		<%- include('../layout/header') %>
+	</header>
+
+	<!-- Page Title 
+	<section id="page-title" class="checkout-page-title page-title-parallax page-title-dark"
+		data-bottom-top="background-position:0px 0px;" data-top-bottom="background-position:0px 0px;">
+		<%- include('../pages/pageTitle' , { title:"Perfil de Negocio", page:"Perfil" }) %>
+	</section> -->
+
+	<!-- Content -->
+	<section id="dark-content" class="dark noborder parallax pt-3">
+		<div class="content-wrap">
+			<div class="container clearfix">
+	
+				<div class="row clearfix">
+	
+					<div class="col-md-12">
+						
+						<img src= "/images/shops/<%= shop.avatar%>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar"
+							style="max-width: 84px;">
+	
+						<div class="heading-block border-0">
+							<h3><%= shop.name %></h3>
+							<small><span class="m-0"><%= shop.email %></span></small><br>
+							<small class="m-0"><span class="badge badge-pill badge-warning">Perfil Comercial</span></small>
+						</div>
+						
+						<div class="clear"></div>
+	
+						<div class="row clearfix">
+	
+							<div class="col-lg-12">
+
+								<!-- Notifications -->
+								<%- include('../layout/notifications') %>
+	
+								<div class="tabs clearfix" id="tabs">
+	
+									<ul class="tab-nav clearfix">
+										<% if( shop.status == "active" && currentUser.shopId == shop.id || currentUser && currentUser.admin) { %>
+											<li><a href="#tab-products"><i class="icon-line-box"></i> Productos</a></li>
+											<li><a href="#tab-orders"><i class="icon-line-shopping-cart"></i> Pedidos</a></li>
+											<li><a href="#tab-comments"><i class="icon-comments1"></i> Comentarios</a></li>
+											<li><a href="#tab-shippingMethods"><i class="icon-shipping-fast"></i> Envíos</a></li>
+											<li><a href="#tab-payments"><i class="icon-line-credit-card"></i> Pagos</a></li>
+											<li><a href="#tab-coupons"><i class="icon-line-gift"></i> Cupones</a></li>
+											<li><a href="#tab-data"><i class="icon-shop"></i> Editar Negocio</a></li>
+										<% } %>
+										<li><a href="#tab-info"><i class="icon-info"></i> Información</a></li>
+									</ul>
+	
+									<div class="tab-container">
+										
+									<% if( shop.status == "active" && currentUser.shopId == shop.id || currentUser && currentUser.admin) { %>
+											
+										<div class="tab-content clearfix" id="tab-products">
+											<h4 class="float-right mt-4" id="comments-title"><span>
+												<%= products.length == 0 ? 'Aun no publicaste productos' : products.length %></span>
+												<% if(products.length == 1){ %>
+													Producto publicado
+												<% } else if(products.length > 1) { %>
+													Productos publicados
+												<% } %>
+											</h4> 
+											
+												<a href="/products/<%= shop.id %>/create" class="btn btn-outline-warning float-left mt-2 mb-2">Crear Producto</a>
+											
+											<div class="table-responsive">
+												<table id="products" class="table table-striped table-bordered" cellspacing="0" width="100%">
+													<thead>
+														<tr>
+															<th>#</th>
+															<th>ID</th>
+															<th>Nombre</th>
+															<th>Cervería</th>
+															<th>Stock</th>
+															<th>Precio</th>
+															<th>Categoria</th>
+															<th>Tipo</th>
+															<th>ABV</th>
+															<th>IBU</th>
+															<th>OG</th>
+															<th>Estado</th>
+															<th class="text-center">Opciones</th>
+														</tr>
+													</thead>
+													<tbody>
+														<% products.forEach((product, index)=> { %>
+															<tr>
+																<td><small><%= index +1 %></small></td>
+																<td><small><%= product.id %></small></td>
+																<td>
+																	<img alt='Image' src='/images/products/<%= product.avatar%>' 
+																	class='avatar img-circle img-thumbnail' height='35' width='35' />
+																	<small><%= product.name %></small>
+																</td>
+																<td><small><%= product.brewery %></small></td>
+																<td><small><%= product.stock %></small></td>
+																<td><small><%= product.price %></small></td>
+																<td><small><%= product.categories ? product.categories.name : "Sin categoría" %></small></td>
+																<td><small><%= product.types.name %></small></td>
+																<td><small><%= product.abv %></small></td>
+																<td><small><%= product.ibu %></small></td>
+																<td><small><%= product.og %></small></td>
+																<td>
+																	<% if(product.status == "active") { %>
+																		<small><span class="badge badge-pill badge-success">ACTIVO</span></small>
+																	<% } else if(product.status == "blocked"){ %>  
+																		<small><span class="badge badge-pill badge-danger">BLOQUEDO</span></small>
+																	<% } %>
+																</td>
+																<td class="d-flex justify-content-center">
+																	<a href="/products/<%= product.id %>/productDetails" class="btn btn-outline btn-sm p-0"><i
+																			class="m-0 i-rounded i-small icon-line-eye"></i></a>
+																	<a href="/products/<%= shop.id %>/<%= product.id %>/edit" class="btn btn-outline btn-sm p-0"><i
+																			class="m-0 i-rounded i-small icon-line2-pencil"></i></a>
+																	<% if(product.status == "active") { %>
+																		<form action="/products/<%= product.shopId %>/<%= product.id %>/product-blocked" class="m-0" method="POST">
+																			<button class="btn btn-outline btn-sm p-0" type="submit">
+																				<i class="m-0 i-rounded i-small icon-lock1"></i></button>
+																		</form>
+																	<% } else if(product.status == "blocked") { %>  
+																		<form action="/products/<%= product.shopId %>/<%= product.id %>/product-activate" class="m-0" method="POST">
+																			<button class="btn btn-outline btn-sm p-0" type="submit">
+																				<i class="m-0 i-rounded i-small icon-unlocked"></i></button>
+																		</form>
+																	<% } %>
+																	<form action="/products/delete/<%= product.shopId %>/<%= product.id %>?_method=DELETE" class="m-0" method="POST">
+																		<button type="submit" class="btn btn-outline btn-sm p-0">
+																			<i class="m-0 i-rounded i-small icon-line-trash-2"></i>
+																		</button>
+																	</form>
+																</td>
+															</tr>
+															<% });%>
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+										<div class="tab-content clearfix" id="tab-orders">
+											<h4 class="float-right mt-4" id="comments-title"><span>
+												<%= orders.length == 0 ? 'Aun no tienes pedidos' : orders.length %></span> 
+												<% if(orders.length == 1){ %>
+													Pedido realizado
+												<% } else if(orders.length > 1) { %>
+													Pedidos realizados
+												<% } %> 
+											</h4>
+											<div class="table-responsive">
+												<table id="orders" class="table table-striped table-bordered" cellspacing="0" width="100%">
+													<thead>
+														<tr>
+															<th>#</th>
+															<th>ID</th>
+															<th>Envío</th>
+															<th>Subtotal</th>
+															<th>Impuestos</th>
+															<th>Total</th>
+															<th>Estado</th>
+															<th>Usuario</th>
+															<th>Método de Pago</th>
+															<th>Método de Envío</th>
+															<th class="text-center">Opciones</th>
+														</tr>
+													</thead>
+													<tbody>
+														<% orders.forEach((order, index) => { %>
+															<tr>
+																<td><small><%= index +1 %></small></td>
+																<td><small><%= order.id %></small></td>
+																<td><small><%= order.totalShipping %></small></td>
+																<td><small><%= order.totalProducts %></small></td>
+																<td><small><%= order.tax %></small></td>
+																<td><small><%= order.total %></small></td>
+																<td><small><%= order.status ? order.status.name : "" %></small></td>
+																<td><small><%= order.users ? order.users.name : "" %></small></td>
+																<td><small><%= order.payments ? order.payments.name : ""%></small></td>
+																<td><small><%= order.shippingMethods ? order.shippingMethods.name : "" %></small></td>
+																<td class="d-flex justify-content-center">
+																	<button class="btn btn-outline btn-sm p-0" data-toggle="modal" data-target="#<%= `editOrderModal${order.id}` %>">
+																		<i class="m-0 i-rounded i-small icon-line2-pencil"></i></button>
+																	<button class="btn btn-outline btn-sm p-0" data-toggle="modal" data-target="#<%= `destroyOrderModal${order.id}` %>">
+																		<i class="m-0 i-rounded i-small icon-line-trash-2"></i></button>
+																</td>
+															</tr>
+														<% });%>
+													</tbody>
+												</table>
+											</div>
+										</div>
+											
+										<div class="tab-content clearfix" id="tab-comments">
+											<h4 class="float-right mt-4" id="comments-title"><span>
+												<%= comments.length==0 ? 'Aun no comentaron tus productos' : comments.length %></span>
+												<% if(comments.length==1){ %>
+													Comentario publicado
+												<% } else if(comments.length > 1) { %>
+													Comentarios publicados
+												<% } %>
+											</h4>
+											<div class="table-responsive">
+												<table id="comments" class="table table-striped table-bordered" cellspacing="0" width="100%">
+													<thead>
+														<tr>
+															<th>#</th>
+															<th>ID</th>
+															<th>Fecha</th>
+															<th>Usuario</th>
+															<th>Producto</th>
+															<th>Comentario</th>
+															<th class="text-center">Opciones</th>
+														</tr>
+													</thead>
+													<tbody>
+														<% comments.forEach((comment, index)=> { %>
+															<tr>
+																<td><small><%= index +1 %></small></td>
+																<td><small><%= comment.id %></small></td>
+																<td><small><%= comment.date %></small></td>
+																<td>
+																	<img alt='Image' src='/images/users/<%= comment.users.avatar%>'
+																		class='avatar img-circle img-thumbnail' height='35' width='35' />
+																	<small><%= comment.users.name %></small>
+																</td>
+																<td><small><%= comment.products ? comment.products.name : "El producto padre fue eliminado" %></small></td>
+																<td><small><%= comment.comment %></small></td>
+																<td class="d-flex justify-content-center">
+																	<% if(comment.products){ %>
+																		<a href="/products/<%= comment.productId %>/productDetails" class="btn btn-outline btn-sm p-0">
+																		<i class="m-0 i-rounded i-small icon-line-eye"></i></a>
+																	<% } %>
+																	<form action="/admin/<%= comment.id %>/comment-destroy?_method=DELETE" class="m-0" method="POST">
+																		<button class="btn btn-outline btn-sm p-0" type="submit"><i class="m-0 i-rounded i-small icon-line-trash-2"></i></button>
+																	</form>
+																</td>
+															</tr>
+															<% });%>
+													</tbody>
+												</table>
+											</div>	
+										</div>	
+
+										<div class="tab-content clearfix" id="tab-shippingMethods">
+											<button class="btn btn-outline-warning float-right mb-5" data-toggle="modal" data-target="#createShippingMethod">Crear Método de Envío</button>
+											<div class="table-responsive">
+												<table id="shippingMethods" class="table table-striped table-bordered" cellspacing="0" width="100%">
+													<thead>
+														<tr>
+															<th>#</th>
+															<th>ID</th>
+															<th>Nombre</th>
+															<th>Monto</th>
+															<th>Descripción</th>
+															<th>Ubicación</th>
+															<th>Estado</th>
+															<th class="text-center">Opciones</th>
+														</tr>
+													</thead>
+													<tbody>
+														<% shop.shopShippingMethods.forEach((shippingMethod, index) => { %>
+															<tr>
+																<td><small><%= index +1 %></small></td>
+																<td><small><%= shippingMethod.id %></small></td>
+																<td><small><%= shippingMethod.name %></small></td>
+																<td><small><%= shippingMethod.amount %></small></td>
+																<td><small><%= shippingMethod.description %></small></td>
+																<td><small><%= shippingMethod.location %></small></td>
+																<td>
+																	<% if(shippingMethod.status == "active") { %>
+																		<small><span class="badge badge-pill badge-success">ACTIVO</span></small>
+																	<% } else if(shippingMethod.status == "blocked"){ %>  
+																		<small><span class="badge badge-pill badge-danger">BLOQUEDO</span></small>
+																	<% } %>
+																</td>
+																<td class="d-flex justify-content-center">
+																	<button class="btn btn-outline btn-sm p-0" data-toggle="modal" data-target="#<%= `editShippingMethodModal${shippingMethod.id}` %>">
+																		<i class="m-0 i-rounded i-small icon-line2-pencil"></i></button>
+																	<button class="btn btn-outline btn-sm p-0" data-toggle="modal" data-target="#<%= `destroyShippingMethodModal${shippingMethod.id}` %>">
+																		<i class="m-0 i-rounded i-small icon-line-trash-2"></i></button>
+																</td>
+															</tr>
+														<% });%>
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+										<div class="tab-content clearfix" id="tab-payments">
+											<button class="btn btn-outline-warning float-right mb-5" data-toggle="modal" data-target="#createPayment">Crear Metodo de Pago</button>
+											<div class="table-responsive">
+												<table id="payments" class="table table-striped table-bordered" cellspacing="0" width="100%">
+													<thead>
+														<tr>
+															<th>#</th>
+															<th>ID</th>
+															<th>Nombre</th>
+															<th>Descripción</th>
+															<th>Tipo</th>
+															<th>Estado</th>
+															<th class="text-center">Opciones</th>
+														</tr>
+													</thead>
+													<tbody>
+														<% shop.shopPayments.forEach((payment, index) => { %>
+															<tr>
+																<td><small><%= index +1 %></small></td>
+																<td><small><%= payment.id %></small></td>
+																<td><small><%= payment.name %></small></td>
+																<td>
+																	<small>
+																		<%= payment.description %>
+																		<% if(payment.type == "mercadopago" && payment.status == "blocked") {%> 
+																		<br/><span class="color">"ATENCION: PARA USAR ESTE METODO DE PAGO ANTES DEBES CONFIGURARLO"</span>
+																		<% } %> 
+																	</small>
+																</td>
+																<td>
+																	<% if(payment.type == "cash") { %>
+																		<small><span class="badge badge-pill badge-warning">EFECTIVO</span></small>
+																	<% } else if(payment.type == "mercadopago"){ %>  
+																		<small><span class="badge badge-pill badge-primary">MERCADOPAGO</span></small>
+																	<% } %>
+																</td>
+																<td>
+																	<% if(payment.status == "active") { %>
+																		<small><span class="badge badge-pill badge-success">ACTIVO</span></small>
+																	<% } else if(payment.status == "blocked"){ %>  
+																		<small><span class="badge badge-pill badge-danger">BLOQUEDO</span></small>
+																	<% } %>
+																</td>
+																<td class="d-flex justify-content-center">
+																	<button class="btn btn-outline btn-sm p-0" data-toggle="modal" data-target="#<%= `editPaymentModal${payment.id}` %>">
+																		<i class="m-0 i-rounded i-small icon-line2-pencil"></i></button>
+																	<% if(payment.type != "mercadopago") {%> 
+																	<button class="btn btn-outline btn-sm p-0" data-toggle="modal" data-target="#<%= `destroyPaymentModal${payment.id}` %>">
+																		<i class="m-0 i-rounded i-small icon-line-trash-2"></i></button>
+																	<% } %>
+																	<% if(payment.type == "mercadopago") {%> 
+																		<button class="btn btn-outline btn-sm p-0" data-toggle="modal" data-target="#<%= `configMPModal${payment.id}` %>">
+																		<i class="m-0 i-rounded i-small icon-line-cog"></i></button>
+																	<% } %>
+																</td>
+															</tr>
+														<% });%>
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+										<div class="tab-content clearfix" id="tab-coupons">
+											<h4 class="float-right mt-4" id="comments-title"><span>
+												<%= coupons.length == 0 ? 'Aun no publicaste cupones' : coupons.length %></span> 
+												<% if(coupons.length == 1){ %>
+													Cupón publicado
+												<% } else if(coupons.length > 1) {  %> 
+													Cupones publicados
+												<% } %>
+											</h4>
+											<button class="btn btn-outline-warning float-left mb-2 mt-2" data-toggle="modal" data-target="#createCoupon">Crear Cupón</button>
+											<div class="table-responsive">
+												<table id="coupons" class="table table-striped table-bordered" cellspacing="0" width="100%">
+													<thead>
+														<tr>
+															<th>#</th>
+															<th>ID</th>
+															<th>Tienda</th>
+															<th>Nombre</th>
+															<th>Descuento</th>
+															<th>Descripción</th>
+															<th>Código</th>
+															<th>Estado</th>
+															<th class="text-center">Opciones</th>
+														</tr>
+													</thead>
+													<tbody>
+														<% shop.shopCoupons.forEach((coupon, index) => { %>
+															<tr>
+																<td><small><%= index +1 %></small></td>
+																<td><small><%= coupon.id %></small></td>
+																<td><small><%= coupon.shopCoupons ? coupon.shopCoupons.name : "Sin Comercio" %></small></td>
+																<td><small><%= coupon.name %></small></td>
+																<td><small><%= coupon.discount %></small></td>
+																<td><small><%= coupon.description %></small></td>
+																<td><small><%= coupon.couponCode %></small></td>
+																<td>
+																	<% if(coupon.status == "active") { %>
+																		<small><span class="badge badge-pill badge-success">ACTIVO</span></small>
+																	<% } else if(coupon.status == "blocked"){ %>  
+																		<small><span class="badge badge-pill badge-danger">BLOQUEDO</span></small>
+																	<% } %>
+																</td>
+																<td class="d-flex justify-content-center">
+																	<button class="btn btn-outline btn-sm p-0" data-toggle="modal" data-target="#<%= `editCouponModal${coupon.id}` %>">
+																		<i class="m-0 i-rounded i-small icon-line2-pencil"></i></button>
+																	<% if(coupon.status == "active") { %>
+																		<form action="/shops/<%= coupon.shopId %>/<%= coupon.id %>/coupon-blocked" class="m-0" method="POST">
+																			<button class="btn btn-outline btn-sm p-0" type="submit">
+																				<i class="m-0 i-rounded i-small icon-lock1"></i></button>
+																		</form>
+																	<% } else if(coupon.status == "blocked") { %>  
+																		<form action="/shops/<%= coupon.shopId %>/<%= coupon.id %>/coupon-activate" class="m-0" method="POST">
+																			<button class="btn btn-outline btn-sm p-0" type="submit">
+																				<i class="m-0 i-rounded i-small icon-unlocked"></i></button>
+																		</form>
+																	<% } %>
+																	<button class="btn btn-outline btn-sm p-0" data-toggle="modal" data-target="#<%= `destroyCouponModal${coupon.id}` %>">
+																		<i class="m-0 i-rounded i-small icon-line-trash-2"></i></button>
+																</td>
+															</tr>
+														<% });%>
+													</tbody>
+												</table>
+											</div>
+										</div>
+											
+										<div class="tab-content clearfix" id="tab-data">
+											<!-- Edit Shop Form -->
+											<form action="/shops/<%= shop.id %>/edit-data?_method=PUT" method="POST" enctype="multipart/form-data">
+												<div class="row mt-5 mb-3">
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="name">* Nombre Completo:</label>
+														<input type="text" name="name" value="<%= shop.name %>" class="form-control" />
+													</div>
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="avatar">Avatar: <small><%= shop.avatar %></small></label>
+														<input type="file" name="avatar" value="" class="form-control" />
+													</div>
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="email">* Email:</label>
+														<input type="email" name="email" value="<%= shop.email %>" class="form-control" />
+													</div>
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="phone">Teléfono:</label>
+														<input type="tel" name="phone" value="<%= shop.phone %>" class="form-control" />
+													</div>
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="bio">Sobre Mí:</label>
+														<input type="text" name="bio" value="<%= shop.bio %>" placeholder="Escribe algo sobre ti..."
+															class="form-control" />
+													</div>
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="twitter">Twitter</label>
+														<div class="input-group input-group-merge">
+															<div class="input-group-prepend">
+																<span class="input-group-text" id="basic-addon3">
+																	<i class="icon-twitter" class="font-medium-2"></i>
+																</span>
+															</div>
+															<input name="twitter" type="text" class="form-control" value="<%= shop.twitter %>"
+																placeholder="https://www.twitter.com/su-usuario" />
+														</div>
+													</div>
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="facebook">Facebook</label>
+														<div class="input-group input-group-merge">
+															<div class="input-group-prepend">
+																<span class="input-group-text" id="basic-addon4">
+																	<i class="icon-facebook" class="font-medium-2"></i>
+																</span>
+															</div>
+															<input name="facebook" type="text" class="form-control" value="<%= shop.facebook %>"
+																placeholder="https://www.facebook.com/su-usuario" />
+														</div>
+													</div>
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="instagram">Instagram</label>
+														<div class="input-group input-group-merge">
+															<div class="input-group-prepend">
+																<span class="input-group-text" id="basic-addon5">
+																	<i class="icon-instagram" class="font-medium-2"></i>
+																</span>
+															</div>
+															<input name="instagram" type="text" class="form-control" value="<%= shop.instagram %>"
+																placeholder="https://www.instagram.com/su-usuario" />
+														</div>
+													</div>
+													<div class="w-100"></div>
+													<div class="col-lg-12 col-md-12 form-group mt-3">
+														<button class="btn btn-dark m-0" type="submit">Editar Perfil</button>
+													</div>
+												</div>
+											</form>
+										</div>
+
+									<% } %>
+
+										<div class="tab-content clearfix" id="tab-info">
+											<div class="row">	
+												<div class="col-md-6">
+
+													<div class="fancy-title topmargin title-border">
+														<h4>Datos de contacto</h4>
+													</div>
+													<p>
+														Nombre: <%= shop.name %></br>
+														Email: <%= shop.email %></br>
+														Teléfono: <%= shop.phone %>
+													</p>
+
+													<% if(shop.bio != "") {%> 
+														<div class="fancy-title topmargin title-border">
+															<h4>Sobre el negocio</h4>
+														</div>
+														<p><%= shop.bio %></p>
+													<% } %>
+
+													<div class="fancy-title topmargin title-border">
+														<h4>Redes comerciales</h4>
+													</div>
+													
+													<% if(shop.facebook !="" ) {%>
+														<a href="<%= shop.facebook %>" target="_blank" class="social-icon si-facebook si-small si-rounded si-light" title="Facebook">
+															<i class="icon-facebook"></i>
+															<i class="icon-facebook"></i>
+														</a>
+													<% } %>
+													<% if(shop.instagram !="" ) {%>
+														<a href="<%= shop.instagram %>" target="_blank" class="social-icon si-instagram si-small si-rounded si-light" title="Instagram">
+															<i class="icon-instagram"></i>
+															<i class="icon-instagram"></i>
+														</a>
+													<% } %>
+													<% if(shop.twitter !="" ) {%>
+														<a href="<%= shop.twitter %>" target="_blank" class="social-icon si-twitter si-small si-rounded si-light" title="Twitter">
+															<i class="icon-twitter"></i>
+															<i class="icon-twitter"></i>
+														</a>
+													<% } %>		
+												</div>
+
+												<% if( shop.status=="blocked") { %>
+												<div class="col-md-6 mt-5">
+													<div class="promo promo-dark bg-danger p-4 p-md-5 mb-5">
+														<div class="row align-items-center">
+															<div class="col-12 col-lg">
+																<h3>Su tienda fue bloqueda temporalmente!</h3>
+																<span>Para conocer las razones/detalles por favor comuniquese con nosotros a la brevedad, muchas gracias por su tiempo.</span>
+															</div>
+															<div class="col-12 col-lg-auto mt-4 mt-lg-0">
+																<a href="/#contact" class="button button-border button-light button-rounded m-0">Contactanos</a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<% } %> 
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+	
+					<div class="w-100 line d-block d-md-none"></div>
+	
+					
+				</div>
+	
+			</div>
+		</div>
+	</section><!-- #content end -->
+
+	<!-- Create Payment Modal-->
+	<%- include('./payments/create-payment-modal') %>
+
+	<!-- Update Payment Modal-->
+	<%- include('./payments/edit-payment-modal') %>
+
+	<!-- Destroy Payment Modal -->
+	<%- include('./payments/destroy-payment-modal') %>
+
+	<!-- Config MP Modal-->
+	<%- include('./payments/config-mp-modal') %>
+
+	<!-- Create Shipping Method Modal-->
+	<%- include('./shippingMethods/create-shipping-modal') %>
+
+	<!-- Update Shipping Method Modal-->
+	<%- include('./shippingMethods/edit-shipping-modal') %>
+
+	<!-- Destroy Shipping Method Modal -->
+	<%- include('./shippingMethods/destroy-shipping-modal') %>
+
+	<!-- Update Coupon Modal-->
+	<%- include('./coupons/create-coupon-modal') %>
+	
+	<!-- Update Coupon Modal-->
+	<%- include('./coupons/edit-coupon-modal') %>
+
+	<!-- Destroy Coupon Modal -->
+	<%- include('./coupons/destroy-coupon-modal') %>
+
+	<!-- Footer -->
+	<%- include('../layout/footer') %>
+	
+	<script src="/js/components/bs-datatable.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('#products').dataTable();
+			$('#orders').dataTable();
+			$('#comments').dataTable();
+			$('#shippingMethods').dataTable();
+			$('#payments').dataTable();
+			$('#coupons').dataTable();
+		});
+	</script>
+	<script>
+		jQuery(window).on( 'pluginTabsReady', function(){
+			$( "#processTabs" ).tabs({ show: { effect: "fade", duration: 400 } });
+			$( ".tab-linker" ).click(function() {
+				$( "#processTabs" ).tabs("option", "active", $(this).attr('rel') - 1);
+				return false;
+			});
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!-- Update Payment Modal-->
+<% shop.shopPayments.forEach((payment)=> { %>
+    <div class="modal fade" id="<%= `configMPModal${payment.id}` %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-uppercase" id="myModalLabel">Configurar Mercado Pago</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="processTabs" data-plugin="tabs" class="customjs ui-tabs ui-corner-all ui-widget ui-widget-content col-12 mt-3">
+                            <ul class="process-steps row col-mb-20 ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header" role="tablist">
+                                <li class="col-sm-6 col-lg-3 ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="ptab1" aria-labelledby="ui-id-1" aria-selected="true" aria-expanded="true">
+                                    <a href="#ptab1" class="i-circled i-bordered i-alt mx-auto ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-1">1</a>
+                                    <h5>Crear una cuenta o registrarte en MP</h5>
+                                </li>
+                                <li class="col-sm-6 col-lg-3 ui-tabs-tab ui-corner-top ui-state-default ui-tab" role="tab" tabindex="-1" aria-controls="ptab2" aria-labelledby="ui-id-2" aria-selected="false" aria-expanded="false">
+                                    <a href="#ptab2" class="i-circled i-bordered i-alt mx-auto ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">2</a>
+                                    <h5>Encuentra tus credenciales de pago</h5>
+                                </li>
+                                <li class="col-sm-6 col-lg-3 ui-tabs-tab ui-corner-top ui-state-default ui-tab" role="tab" tabindex="-1" aria-controls="ptab3" aria-labelledby="ui-id-3" aria-selected="false" aria-expanded="false">
+                                    <a href="#ptab3" class="i-circled i-bordered i-alt mx-auto ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-3">3</a>
+                                    <h5>Genera tus credenciales</h5>
+                                </li>
+                                <li class="col-sm-6 col-lg-3 ui-tabs-tab ui-corner-top ui-state-default ui-tab" role="tab" tabindex="-1" aria-controls="ptab4" aria-labelledby="ui-id-4" aria-selected="false" aria-expanded="false">
+                                    <a href="#ptab4" class="i-circled i-bordered i-alt mx-auto ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-4">4</a>
+                                    <h5>Completa el formulario</h5>
+                                </li>
+                            </ul>
+                            <div>
+                                <div id="ptab1" aria-labelledby="ui-id-1" role="tabpanel" class="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="false">
+                                    <p>Si ya tienes una cuenta en mercado pago te invitamos a loguearte para seguir con el proceso, 
+                                        de lo contrario por favor registrarte. Ambas opciones puedes hacerlas tocando en el botón correspondiente.</p>
+                                    <a href="https://www.mercadopago.com.ar/registration-mp?confirmation_url=https%3A%2F%2Fwww.mercadopago.com.ar%2F&rtx=33fff089-1cc2-4e45-9923-efb7086f5697" target="_blank" class="button button-rounded button-reveal button-white button-light text-right center"><i class="icon-line-arrow-right"></i><span>Registrarme</span></a>
+                                    <a href="https://www.mercadolibre.com/jms/mla/lgz/login?platform_id=MP&go=https%3A%2F%2Fwww.mercadopago.com.ar%2F&loginType=explicit" target="_blank" class="button button-rounded button-reveal button-white button-light text-right center"><i class="icon-line-arrow-right"></i><span>Loguearme</span></a>
+
+                                    <div class="line line-sm mb-4"></div>
+                                    <a href="#" class="button button-rounded button-reveal button-white button-light float-right text-right tab-linker" rel="2"><i class="icon-line-arrow-right"></i><span>Siguiente</span></a>
+                                </div>
+                                <div id="ptab2" aria-labelledby="ui-id-2" role="tabpanel" class="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="true" style="display: none;">
+                                    <p>Tus credenciales permitiran que el dinero de las ordenes realizadas a tu tienda de deposite en tu cuenta. Para ver toca el siguiente botón.</p>
+                                    <div class="alert alert-success">
+                                        <strong>Nota:</strong> Es posible que Mercado Pago necesite verificar tu email o teléfono registrado por cuestiones de seguridad.
+                                    </div>
+                                    <a href="https://www.mercadopago.com.ar/developers/panel/credentials" target="_blank" class="button button-rounded button-reveal button-white button-light text-right center"><i class="icon-line-arrow-right"></i><span>Mis Credenciales</span></a>
+                                    <div class="line line-sm mb-4"></div>
+                                    <a href="#" class="button button-rounded button-reveal button-white button-light text-left tab-linker" rel="1"><i class="icon-line-arrow-left"></i><span>Anterior</span></a>
+                                    <a href="#" class="button button-rounded button-reveal button-white button-light float-right text-right tab-linker" rel="3"><i class="icon-line-arrow-right"></i><span>Siguiente</span></a>
+                                </div>
+                                <div id="ptab3" aria-labelledby="ui-id-3" role="tabpanel" class="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="true" style="display: none;">
+                                    <p>Si completaste los pasos anteriones deverias ver esta pantalla:</p>
+                                    <img src="/images/mp/01.png" class="rounded" width="100%" />
+                                    <p class="mt-4">Accede al botón "Activar credenciales" de las credenciales de producción y completa el formulario como se indica a continuación:</p>
+                                    <img src="/images/mp/02.png" class="rounded" width="100%" />
+                                    <p class="mt-4">Una vez terminado este proceso ya tendrás disponibles tus credenciales de producción necesarias para el ultimo paso.</p>
+                                    <img src="/images/mp/03.png" class="rounded" width="100%" />
+                                    
+                                    <div class="line line-sm mb-4"></div>
+                                    <a href="#" class="button button-rounded button-reveal button-white button-light text-left tab-linker" rel="2"><i class="icon-line-arrow-left"></i><span>Anterior</span></a>
+                                    <a href="#" class="button button-rounded button-reveal button-white button-light float-right text-right tab-linker" rel="4"><i class="icon-line-arrow-right"></i><span>Siguiente</span></a>
+                                </div>
+                                <div id="ptab4" aria-labelledby="ui-id-4" role="tabpanel" class="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="true" style="display: none;">
+                                    
+                                    <form action="/shops/<%= shop.id %>/<%= payment.id %>/config-mp-payment?_method=PUT" method="POST" class="pb-0 mb-0 needs-validation" novalidate>
+                                        <p>Por último, completa el formulario con las credenciales de producción obtenidas.</p>
+                                        <div class="alert alert-success">
+                                            <strong>Importante:</strong> Ten en cuenta que si las credenciales no son ingresadas correctamente, tu método de pago no funcionará.
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 form-group">
+                                                <label for="publicKey">* Public Key:</label>
+                                                <input type="text" name="publicKey" value="<%= shop.publicKey %>" class="form-control" required/>
+                                                <div class="valid-feedback">Ok válido!</div>
+                                                <div class="invalid-feedback">Complete este campo</div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 form-group">
+                                                <label for="tokenKey">* Access Token:</label>
+                                                <input type="text" name="tokenKey" value="<%= shop.tokenKey %>" class="form-control" required/>
+                                                <div class="valid-feedback">Ok válido!</div>
+                                                <div class="invalid-feedback">Complete este campo</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="line line-sm mb-4"></div>
+                                        <a href="#" class="button button-rounded button-reveal button-white button-light text-left tab-linker" rel="3"><i class="icon-line-arrow-left"></i><span>Anterior</span></a>
+                                        <button class="button button-rounded button-reveal button-green button-light float-right text-right" type="submit"><i class="icon-line-check"></i><span>Configurar</span></button>
+                                        <button type="button" class="button button-rounded button-reveal button-white button-light float-right ml-3" data-dismiss="modal"><i class="icon-line2-close"></i><span>Cancelar</span></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<% });%>

@@ -1,0 +1,131 @@
+<!-- Create Category Modal -->
+<div class="modal fade" id="createProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-body">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Crear Producto</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <form action="/admin/create-product" method="POST" enctype="multipart/form-data" class="pb-0 mb-0 needs-validation" novalidate>
+                    <div class="modal-body">
+                        <div class="row p-3">
+                            <div class="col-12 form-group">
+                                <label for="category">Tienda Propietaria:</label>
+                                <select class="custom-select" name="shopId" id="shopId"required>
+                                    <% shops.forEach((shop)=> {%>
+                                        <option value="<%=shop.id %> "><%=shop.name %></option>
+                                    <% }); %>
+                                </select>
+                                <div class="invalid-feedback">Seleccione un shop</div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="name">Nombre de Producto:</label>
+                                <input type="text" name="name" class="form-control required"  placeholder="Cerveza IPA" required>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="brewery">Cervería de Origen:</label>
+                                <input type="text" name="brewery" class="form-control"  placeholder="Quién fabrica el producto..."required>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="price">Precio:</label>
+                                <input type="text" name="price" class="form-control required" placeholder="Ingrese un valor"required>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="discount">Descuento:</label>
+                                <input type="text" name="discount" class="form-control required"  placeholder="Ingrese un valor"required>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="description">Stock:</label>
+                                <input type="stock" name="stock" class="form-control"  placeholder="Cantidad de inventario..."required>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 form-group">
+                                <label for="description">Descripción Corta:</label>
+                                <input type="text" name="description" class="form-control required" 
+                                    placeholder="Describa brevemente el producto..."required>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 form-group">
+                                <label for="status">Estado:</label>
+                                <select class="custom-select" name="status" id="status"required>
+                                    <option selected value="active">Habilitado</option>
+                                    <option value="blocked">Bloqueado</option>
+                                </select>
+                                <div class="invalid-feedback">Seleccione un estado</div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 form-group">
+                                <label for="type">Tipo:</label>
+                                <select class="custom-select" name="typeId" id="typeId"required>
+                                    <% types.forEach((type)=> {%>
+                                        <option value="<%=type.id %>"><%= type.name %></option>
+                                    <% });%>
+                                </select>
+                                <div class="invalid-feedback">Seleccione un tipo</div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 form-group">
+                                <label for="category">Categoría:</label>
+                                <select class="custom-select" name="categoryId" id="categoryId"required>
+                                    <% categories.forEach((category)=> {%>
+                                        <option value="<%=category.id %>"><%= category.name %></option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-4 form-group">
+                                <label for="abv" class="mb-3">ABV (% DE ALCOHOL):</label><br>
+                                <input id="abv" name="abv" class="abv required input-range-slider" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 form-group">
+                                <label for="ibu" class="mb-3">IBU (AMARGOR):</label>
+                                <input name="ibu" id="ibu" class="ibu required input-range-slider" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 form-group">
+                                <label for="og" class="mb-3">OG (Gravedad Original):</label>
+                                <input name="og" id="og" class="og required input-range-slider" />
+                            </div>
+                        
+                            <div class="col-lg-6 col-md-6 form-group mt-3">
+                                <label for="images">Imagen:</label>
+                                <small>Imagen principal del producto</small>
+                                <input type="file" id="avatar" name="avatar" class=" form-control" data-show-preview="true" />
+                            </div>
+                        
+                            <div class="col-lg-6 col-md-6 form-group mt-3">
+                                <label for="images">Galería:</label>
+                                <small>Suba 3 hasta imágenes</small>
+                                <input type="file" multiple id="gallery" name="gallery" class=" form-control" data-show-preview="true" />
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 form-group">
+                                    <div style="max-height: 5rem; max-width: 5rem;" class="preview-images d-flex flex-row ml-2 mt-5"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 form-group">
+                                <label for="details">Detalles:</label>
+                                <textarea name="details" id="details" class="form-control" placeholder="Descripción amplia del producto"
+                                    rows="4"required></textarea>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-success" type="submit">Crear Producto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

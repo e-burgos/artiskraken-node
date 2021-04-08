@@ -1,0 +1,64 @@
+<!-- Create Payment Modal-->
+<div class="modal fade" id="createPayment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Crear Método de Pago</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <form action="/admin/create-payment" method="POST" class="pb-0 mb-0 needs-validation" novalidate>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 form-group">
+                                <label for="name">* Nombre:</label>
+                                <input type="text" name="name" class="form-control" required/>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 form-group">
+                                <label for="description">* Descripción:</label>
+                                <input type="text" name="description"  class="form-control" required/>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 form-group">
+                                <label for="type">Tipo:</label>
+                                <select class="custom-select" name="type" id="type" required>
+                                    <option selected value="cash">Pago en Efectivo</option>
+                                    <option value="mercadopago">Mercado Pago</option>
+                                </select>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 form-group">
+                                <label for="status">Estado:</label>
+                                <select class="custom-select" name="status" id="status" required>
+                                    <option selected value="active">Habilitado</option>
+                                    <option value="blocked">Bloqueado</option>
+                                </select>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 form-group">
+                                <label for="shopId">Tienda Emisora:</label>
+                                <select class="custom-select" name="shopId" id="shopId" required>
+                                    <% shops.forEach(shop=> { %>
+                                        <option value="<%= shop.id %> "><%= shop.name %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                                <div class="valid-feedback">Ok válido!</div>
+                                <div class="invalid-feedback">Complete este campo</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-success" type="submit">Crear Método de Pago</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

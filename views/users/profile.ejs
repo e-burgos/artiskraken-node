@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+
+<head>
+	<%- include('../layout/head', { title:"Perfil de Usuario" }) %>
+	<link rel="stylesheet" href="/css/components/bs-datatable.css" type="text/css" />
+</head>
+
+<body class="stretched">
+
+	<!--Cart Panel -->
+	<%- include('../layout/panelCart') %>
+
+	<!-- Create Shop Modal -->
+	<% if(user && user.role=='buyer' ){ %>
+		<%- include('../layout/create-shop-modal') %>
+	<% } %>
+
+	<!-- Header -->
+	<header id="header" class="dark" data-sticky-class="dark-color" data-sticky-shrink-offset="0"
+		data-mobile-sticky="true">
+		<%- include('../layout/header') %>
+	</header>
+
+	<!-- Page Title 
+	<section id="page-title" class="checkout-page-title page-title-parallax page-title-dark"
+		data-bottom-top="background-position:0px 0px;" data-top-bottom="background-position:0px 0px;">
+		<%- include('../pages/pageTitle' , { title:"Perfil de Usuario", page:"Perfil" }) %>
+	</section> -->
+
+	<!-- Content -->
+	<section id="dark-content" class="dark noborder parallax pt-3">
+		<div class="content-wrap">
+			<div class="container clearfix">	
+				<div class="row clearfix">	
+					<div class="col-md-12">					
+						<img src= "/images/users/<%= user.avatar%>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar"
+							style="max-width: 84px;">	
+						<div class="heading-block border-0">
+							<h3><%= user.name %></h3>
+							<small><span class="m-0"><%= user.email %></span></small><br>
+							<small class="m-0"><span class="badge badge-pill badge-warning">Perfil Público</span></small>
+						</div>
+						
+						<div class="clear"></div>
+	
+						<div class="row clearfix">	
+							<div class="col-lg-12">
+								
+								<%- include('../layout/notifications') %>
+
+								<div class="tabs clearfix" id="tabs">
+	
+									<ul class="tab-nav clearfix">
+										<% if( user && user.status=="active" || currentUser.admin) { %>
+											<li><a href="#tab-orders"><i class="icon-credit-cards"></i> Compras</a></li>
+											<li><a href="#tab-addresses"><i class="icon-line-map-pin"></i> Direcciones</a></li>
+											<li><a href="#tab-comments"><i class="icon-reply"></i> Comentarios</a></li>
+											<li><a href="#tab-data"><i class="icon-line2-pencil"></i> Editar Datos</a></li>
+											<li><a href="#tab-pass"><i class="icon-shield"></i> Seguridad</a></li>
+										<% } %>
+											<li><a href="#tab-info"><i class="icon-info"></i> Información</a></li>
+									</ul>
+	
+									<div class="tab-container">
+
+									<% if( user && user.status=="active" || currentUser.admin) { %>
+
+										<div class="tab-content clearfix" id="tab-orders">
+											<p>Administre todas sus compras</p>
+											<div class="table-responsive">
+												<table id="orders" class="table table-striped table-bordered">
+													<thead>
+														<tr>
+															<th>#</th>
+															<th>ID</th>
+															<th>Envío</th>
+															<th>Subtotal</th>
+															<th>Impuestos</th>
+															<th>Total</th>
+															<th>Estado</th>
+															<th>Usuario</th>
+															<th>Método de Pago</th>
+															<th>Método de Envío</th>
+															<th class="text-center">Opciones</th>
+														</tr>
+													</thead>
+													<tbody>
+														<% orders.forEach((order, index) => { %>
+														<tr>
+															<td><small><%= index +1 %></small></td>
+															<td><small><%= order.id %></small></td>
+															<td><small><%= order.totalShipping %></small></td>
+															<td><small><%= order.totalProducts %></small></td>
+															<td><small><%= order.tax %></small></td>
+															<td><small><%= order.total %></small></td>
+															<td><small><%= order.status ? order.status.name : "" %></small></td>
+															<td><small><%= order.users ? order.users.name : "" %></small></td>
+															<td><small><%= order.payments ? order.payments.name : ""%></small></td>
+															<td><small><%= order.shippingMethods ? order.shippingMethods.name : "" %></small></td>
+															<td class="d-flex justify-content-center">
+																<a href="/orders/<%= order.id %>/orderDetails" class="btn btn-outline btn-sm p-0">
+																	<i class="m-0 i-rounded i-small icon-line-eye"></i></a>
+															</td>
+														</tr>
+													<% });%>
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+										<div class="tab-content clearfix" id="tab-addresses">
+											<p>Direcciones Agendadas</p>
+											<div class="table-responsive">
+												<table id="addresses" class="table table-striped table-bordered">
+													<thead>
+														<tr>
+															<th>#</th>
+															<th>ID</th>
+															<th>Dirección</th>
+															<th>Ciudad</th>
+															<th>Provincia</th>
+															<th>CP</th>
+															<th>País</th>
+															<th class="text-center">Opciones</th>
+														</tr>
+													</thead>
+													<tbody>
+														<% addresses.forEach((address, index) => { %>
+														<tr>
+															<td><small><%= index +1 %></small></td>
+															<td><small><%= address.id %></small></td>
+															<td><small><%= address.address %></small></td>
+															<td><small><%= address.city %></small></td>
+															<td><small><%= address.province %></small></td>
+															<td><small><%= address.postalCode %></small></td>
+															<td><small><%= address.country %></small></td>
+															<td class="d-flex justify-content-center">
+																<a href="#" class="btn btn-outline btn-sm p-0">
+																	<i class="m-0 i-rounded i-small icon-line-eye"></i></a>
+															</td>
+														</tr>
+													<% });%>
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+										<div class="tab-content clearfix" id="tab-comments">
+											<div class="clear topmargin-sm"></div>
+											<h3 id="comments-title"><span>
+													<%= comments.length%>
+												</span> Comentarios</h3>
+											<!-- Comments List -->
+											<ol class="commentlist clearfix">
+												<% comments.forEach( comment=> { %>
+													<li class="comment even thread-even depth-1" id="li-comment-<%= comment.id%>">
+														<div id="comment-<%= comment.id%>" class="comment-wrap clearfix">
+															<div class="comment-meta">
+																<div class="comment-author vcard">
+																	<span class="comment-avatar clearfix">
+																		<img alt='Image' src='/images/users/<%= comment.users.avatar%>'
+																			class='avatar avatar-60 photo avatar-default' height='60' width='60' /></span>
+																</div>
+															</div>
+															<div class="comment-content clearfix">
+																<div class="comment-author">
+																	<%= comment.users.name%><span>Fecha: <%= comment.date%></span>
+																</div>
+																<p><%= comment.comment%></p>
+																<% if(comment.products){ %>
+																	<small>
+																		comentaste en el producto: <a href="/products/<%= comment.productId %>/productDetails"><%= comment.products.name %></a>
+																	</small>
+																<% } else {%>
+																	<small>Esto producto fue eliminado.</small>
+																<% } %> 
+																<form action="/products/deleteComment/<%= comment.id %>?_method=DELETE" method="POST">
+																	<button class="btn btn-danger btn-sm comment-delete-link" type="submit"><i
+																			class="icon-line-trash-2"></i></button>
+																</form>
+																<a href="/products/<%= comment.productId %>/productDetails"
+																	class="btn btn-primary btn-sm comment-delete-link mr-5"><i class="icon-line-eye"></i></a>
+										
+															</div>
+															<div class="clear"></div>
+														</div>
+													</li>
+													<%} ) %>
+											</ol><!-- .commentlist end -->
+										</div>
+
+										<div class="tab-content clearfix" id="tab-data">
+											<!-- Edit Form -->
+											<form  action="/users/<%= user.id %>/edit-data?_method=PUT" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+												<div class="row mt-5 mb-3">
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="name">* Nombre Completo:</label>
+														<input type="text" name="name" id="name"value="<%= user.name %>" class="form-control" required/>
+														
+													</div>
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="userName">* Nombre de Usuario:</label>
+														<input type="text" name="userName" id="userName"value="<%= user.userName %>" class="form-control" required/>
+														<div class="valid-feedback">Ok válido!</div>
+														<div class="invalid-feedback">Complete este campo</div>
+													</div>
+													<div class="w-100"></div>
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="avatar">Avatar: <small><%= user.avatar %></small></label>
+														<input type="file" name="avatar" value="" class="form-control" />
+													</div>
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="email">* Email:</label>
+														<input type="email" name="email" id="email"value="<%= user.email %>" class="form-control" required/>
+														<div class="valid-feedback">Ok válido!</div>
+														<div class="invalid-feedback">Complete este campo</div>
+													</div>
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="phone">Teléfono:</label>
+														<input type="tel" name="phone" value="<%= user.phone %>" class="form-control" />
+													</div>
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="bio">Sobre Mí:</label>
+														<input type="text" name="bio" value="<%= user.bio %>" placeholder="Escribe algo sobre ti..." class="form-control" />
+													</div>
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="twitter">Twitter</label>
+														<div class="input-group input-group-merge">
+															<div class="input-group-prepend">
+																<span class="input-group-text" id="basic-addon3">
+																	<i class="icon-twitter" class="font-medium-2"></i>
+																</span>
+															</div>
+															<input name="twitter" type="text" class="form-control" value="<%= user.twitter %>" placeholder="https://www.twitter.com/su-usuario" />
+														</div>
+													</div>
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="facebook">Facebook</label>
+														<div class="input-group input-group-merge">
+															<div class="input-group-prepend">
+																<span class="input-group-text" id="basic-addon4">
+																	<i class="icon-facebook" class="font-medium-2"></i>
+																</span>
+															</div>
+															<input name="facebook" type="text" class="form-control" value="<%= user.facebook %>" placeholder="https://www.facebook.com/su-usuario" />
+														</div>
+													</div>
+													<div class="col-lg-6 col-md-6 form-group">
+														<label for="instagram">Instagram</label>
+														<div class="input-group input-group-merge">
+															<div class="input-group-prepend">
+																<span class="input-group-text" id="basic-addon5">
+																	<i class="icon-instagram" class="font-medium-2"></i>
+																</span>
+															</div>
+															<input name="instagram" type="text" class="form-control" value="<%= user.instagram %>" placeholder="https://www.instagram.com/su-usuario" />
+														</div>
+													</div>
+													<div class="w-100"></div>
+													<div class="col-lg-12 col-md-12 form-group mt-3">
+														<button class="btn btn-dark m-0" type="submit">Editar Perfil</button>
+													</div>
+												</div>
+											</form>
+										</div>
+
+										<div class="tab-content clearfix" id="tab-pass">
+											<!-- Edit Form -->
+											<form action="/users/<%= user.id %>/edit-password?_method=PUT" method="POST" class="needs-validation" novalidate>
+												<div class="row mt-5 mb-3">
+													<div class="col-md-12">
+														<div class="form-group">
+															<label for="password">Contraseña Actual</label>
+															<div class="input-group input-group-merge form-password-toggle">
+																<input class="form-control form-control-merge" type="password" name="password" id="password"placeholder="Ingrese su contraseña actual" required/>
+																<div class="input-group-append"><span class="input-group-text cursor-pointer"><i class="icon-line-eye"></i></span></div>
+																<div class="valid-feedback">Ok válido!</div>
+                                								<div class="invalid-feedback">Complete este campo</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="new_password">Ingresar Nueva Contraseña</label>
+															<div class="input-group input-group-merge form-password-toggle">
+																<input class="form-control form-control-merge" type="password" name="new_password" id="new_password"placeholder="Ingrese la nueva contraseña" required/>
+																<div class="input-group-append"><span class="input-group-text cursor-pointer"><i class="icon-line-eye"></i></span></div>
+																<div class="valid-feedback">Ok válido!</div>
+                                								<div class="invalid-feedback">Complete este campo</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="confirmation">Confirmar Nueva Contraseña</label>
+															<div class="input-group input-group-merge form-password-toggle">
+																<input class="form-control form-control-merge" type="password" name="confirmation" id="confirmation"placeholder="Confirme su nueva contraseña" required/>
+																<div class="input-group-append"><span class="input-group-text cursor-pointer"><i class="icon-line-eye"></i></span></div>
+																<div class="valid-feedback">Ok válido!</div>
+															</div>
+														</div>
+													</div>
+													<div class="w-100"></div>
+													<div class="col-lg-12 col-md-12 form-group mt-3">
+														<button class="btn btn-dark m-0" type="submit">Cambiar Contraseña</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									<% } %>
+										<div class="tab-content clearfix" id="tab-info">
+											<div class="row">	
+												<div class="col-md-6">
+												
+													<div class="fancy-title topmargin title-border">
+														<h4>Información</h4>
+													</div>
+													<p>
+														Nombre: <%= user.name %></br>
+															Usuario: <%= user.userName %></br>
+																Email: <%= user.email %></br>
+																	Teléfono: <%= user.phone %>
+													</p>
+												
+													<% if(user.bio !="" ) {%>
+														<div class="fancy-title topmargin title-border">
+															<h4>Sobre Mí</h4>
+														</div>
+														<p>
+															<%= user.bio %>
+														</p>
+														<% } %>
+												
+															<div class="fancy-title topmargin title-border">
+																<h4>Perfiles Conectados</h4>
+															</div>
+												
+															<% if(user.facebook !="" ) {%>
+																<a href="<%= user.facebook %>" target="_blank"
+																	class="social-icon si-facebook si-small si-rounded si-light" title="Facebook">
+																	<i class="icon-facebook"></i>
+																	<i class="icon-facebook"></i>
+																</a>
+																<% } %>
+																	<% if(user.instagram !="" ) {%>
+																		<a href="<%= user.instagram %>" target="_blank"
+																			class="social-icon si-instagram si-small si-rounded si-light" title="Instagram">
+																			<i class="icon-instagram"></i>
+																			<i class="icon-instagram"></i>
+																		</a>
+																		<% } %>
+																			<% if(user.twitter !="" ) {%>
+																				<a href="<%= user.twitter %>" target="_blank"
+																					class="social-icon si-twitter si-small si-rounded si-light" title="Twitter">
+																					<i class="icon-twitter"></i>
+																					<i class="icon-twitter"></i>
+																				</a>
+																				<% } %>
+												</div>
+
+												<% if( user.status=="blocked") { %>
+												<div class="col-md-6 mt-5">
+													<div class="promo promo-dark bg-danger p-4 p-md-5 mb-5">
+														<div class="row align-items-center">
+															<div class="col-12 col-lg">
+																<h3>Su cuenta fue bloqueda temporalmente!</h3>
+																<span>Para conocer las razones/detalles por favor comuniquese con nosotros a la brevedad, muchas gracias por su tiempo.</span>
+															</div>
+															<div class="col-12 col-lg-auto mt-4 mt-lg-0">
+																<a href="/#contact" class="button button-border button-light button-rounded m-0">Contactanos</a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<% } %> 
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+	
+			</div>
+		</div>
+	</section><!-- #content end -->
+
+	<!-- Footer -->
+	<%- include('../layout/footer') %>
+	<script src="/js/components/bs-datatable.js"></script>
+	<script>
+		$(document).ready(function () {
+				$('#orders').dataTable();
+				$('#addresses').dataTable();
+		});
+
+		$('.form-password-toggle .input-group-text').on('click', function (e) {
+			e.preventDefault();
+			var $this = $(this),
+				inputGroupText = $this.closest('.form-password-toggle'),
+				formPasswordToggleIcon = $this,
+				formPasswordToggleInput = inputGroupText.find('input');
+
+			if (formPasswordToggleInput.attr('type') === 'text') {
+				formPasswordToggleInput.attr('type', 'password');
+				if (feather) {
+					formPasswordToggleIcon.find('svg').replaceWith(feather.icons['eye'].toSvg({ class: 'font-small-4' }));
+				}
+			} else if (formPasswordToggleInput.attr('type') === 'password') {
+				formPasswordToggleInput.attr('type', 'text');
+				if (feather) {
+					formPasswordToggleIcon.find('svg').replaceWith(feather.icons['eye-off'].toSvg({ class: 'font-small-4' }));
+				}
+			}
+		});
+	</script>
+	<script>
+		bootstrapValidate("#name","min:4: El nombre debe tener mínimo 4 caracteres");
+		bootstrapValidate("#name","max:30: El nombre debe tener máximo 30 caracteres");
+		bootstrapValidate("#userName","min:4: El nombre de usuario debe tener mínimo 4 caracteres");
+		bootstrapValidate("#userName","max:15: El nombre de usuario debe tener máximo 15 caracteres");
+		bootstrapValidate("#email","email: Debes ingresar un email válido");
+		bootstrapValidate("#confirmation","matches:#new_password:Las contraseñas deben coincidir");
+	</script>
+</body>
+
+</html>

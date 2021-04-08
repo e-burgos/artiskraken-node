@@ -1,0 +1,57 @@
+<!-- Update Category Modal-->
+<% coupons.forEach((coupon)=> { %>
+    <div class="modal fade" id="<%= `editCouponModal${coupon.id}` %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Actualizar Cupón</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <form action="/shops/<%= shop.id %>/<%= coupon.id %>/edit-coupon?_method=PUT" method="POST" class="pb-0 mb-0 needs-validation" novalidate>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 form-group">
+                                    <label for="name">* Nombre:</label>
+                                    <input type="text" name="name" value="<%= coupon.name %>" class="form-control" required/>
+                                </div>
+                                <div class="col-lg-12 col-md-12 form-group">
+                                    <label for="description">* Descripción:</label>
+                                    <input type="text" name="description" value="<%= coupon.description %>"
+                                        class="form-control" required/>
+                                    <div class="valid-feedback">Ok válido!</div>
+                                    <div class="invalid-feedback">Complete este campo</div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 form-group">
+                                    <label for="discount">* Descuento (cantidad):</label>
+                                    <input type="number" name="discount" value="<%= coupon.discount %>" class="form-control" required/>
+                                    <div class="valid-feedback">Ok válido!</div>
+                                    <div class="invalid-feedback">Complete este campo</div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 form-group">
+                                    <label for="couponCode">* Código de Descuento:</label>
+                                    <input type="text" name="couponCode" value="<%= coupon.couponCode %>" class="form-control" required/>
+                                    <div class="valid-feedback">Ok válido!</div>
+                                    <div class="invalid-feedback">Complete este campo</div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 form-group">
+                                    <label for="status">Estado:</label>
+                                    <select class="form-control" name="status" id="status" required>
+                                        <option <%=coupon.status=='active' ? "selected" :null %> value="active">Habilitado</option>
+                                        <option <%=coupon.status=='blocked' ? "selected" :null %> value="blocked">Bloqueado</option>
+                                    </select>
+                                    <div class="invalid-feedback">Seleccione un estado</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-warning" type="submit">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<% });%>

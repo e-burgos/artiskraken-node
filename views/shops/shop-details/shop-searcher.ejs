@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="card dark-card pb-0 shadow">
+        <div class="card-body">
+            <div class="row clearfix">
+                <div class="col-lg-12">
+                    <div class="tabs tabs-responsive clearfix" id="tabs">
+                        <ul class="tab-nav clearfix">
+                            <li class="active"><a href="#tab-search"><i class="icon-line-search"></i> Búsqueda</a></li>
+                            <li><a href="#tab-categories"><i class="icon-line-shopping-bag"></i> Categorias</a></li>
+                            <li><a href="#tab-types"><i class="icon-line-bookmark"></i> Tipos</a></li>
+                        </ul>
+                        <div class="tab-container">
+                            <div class="tab-content clearfix" id="tab-search">
+                                <form action="/shops/shop-details/<%= shop.id %>/search" method="POST">
+                                    <div class="input-group col-md-12 mt-2">
+                                        <input class="form-control border-warning py-2" type="search" name="search" value="" placeholder="Busca un producto...">
+                                        <span class="input-group-append">
+                                            <button class="btn btn-outline-warning" type="submit">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-content clearfix" id="tab-categories">
+                                <div class="col-md-12 mt-2">
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-warning btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <%= selectedCategory != null ? `Categoría seleccionada ${selectedCategory.name}` : "Selecciona una Categoría" %>
+                                        </button>
+                                        <div class="dropdown-menu btn-block" aria-labelledby="dropdownMenuButton">
+                                            <% categories.forEach( category => { %>
+                                                <a class="dropdown-item" href="<%= process.env.DOMAIN %>/shops/shop-details/<%= shop.id %>/categories?category=<%= category.id %>#tab-categories"><%= category.name %></a>
+                                            <% }) %>
+                                            <a class="dropdown-item" href="<%= process.env.DOMAIN %>/shops/shop-details/<%= shop.id %>">Todas</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-content clearfix" id="tab-types">
+                                <div class="col-md-12 mt-2">
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-warning btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <%= selectedType != null ? `Tipo seleccionado ${selectedType.name}` : "Selecciona un Tipo" %>
+                                        </button>
+                                        <div class="dropdown-menu btn-block" aria-labelledby="dropdownMenuButton">
+                                            <% types.forEach( type => { %>
+                                                <a class="dropdown-item" href="<%= process.env.DOMAIN %>/shops/shop-details/<%= shop.id %>/types?type=<%= type.id %>#tab-types"><%= type.name %></a>
+                                            <% }) %>
+                                            <a class="dropdown-item" href="<%= process.env.DOMAIN %>/shops/shop-details/<%= shop.id %>">Todos</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+       
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+
+<head>	
+	<%- include('./layout/head', { title:"ArtisKraken | Craft Brewery" }) %>
+	<link rel="stylesheet" href="/css/home.css" type="text/css" />
+</head>
+
+<body class="stretched">
+	
+	<!--Cart Panel -->
+	<%- include('./layout/panelCart') %>
+
+	<!-- Create Shop Modal -->
+	<% if(currentUser && currentUser.role=='buyer' ){ %>
+		<%- include('./layout/create-shop-modal') %>
+	<% } %>
+
+	<!-- Notifications -->
+	<%- include('./layout/notifications') %>
+
+	<!-- Header -->
+	<header id="header" class="transparent-header dark" data-sticky-class="dark-color" data-sticky-shrink-offset="0" data-mobile-sticky="true">
+		<%- include('./layout/header') %>
+	</header>
+
+	<!-- Slider-->
+	<%- include('./home/sliders') %>
+
+	<!-- Content -->
+	<section id="content" class="dark-color">
+		<div class="content-wrap p-0">
+
+			<div id="story" class="page-section">
+				<%- include('./home/story') %>
+			</div>
+
+			<div id="products" class="page-section">
+				<%- include('./home/products', { products: products, types: types }) %>
+			</div>
+
+			<div id="delivery" class="page-section">
+				<%- include('./home/delivery') %>
+			</div>
+
+			<div id="contact" class="page-section">
+				<%- include('./home/contact') %>
+			</div>
+		</div>
+
+	</section><!-- #content end -->
+
+	<!-- Footer -->
+	<%- include('./layout/footer') %>
+	<script>
+		bootstrapValidate("#name","required: Debes completar este campo");
+		bootstrapValidate("#tel","numeric: Puedes ingresar números únicamente");
+		bootstrapValidate("#email","email: Debes ingresar un email válido");
+		bootstrapValidate("#issue","required: Debes completar este campo");
+		bootstrapValidate("#message","min:8: El mensaje debe tener al menos 8 caracteres");
+	</script>
+</body>
+
+</html>
