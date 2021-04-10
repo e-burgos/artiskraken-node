@@ -8,6 +8,9 @@ router.get("/", shopsController.findAll);
 /* GET shops Qty */
 router.get("/count", shopsController.shopsCount);
 
+/* GET shops in table list */
+router.get("/list", shopsController.tableList);
+
 /* GET one shop */
 router.get("/:id", shopsController.findOne);
 

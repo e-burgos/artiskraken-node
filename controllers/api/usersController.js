@@ -42,6 +42,27 @@ const usersController = {
             res.status(400).send(error.message);
         }
     },
+    
+    tableList: async (req, res) => {
+        let page = req.query.page ? req.query.page : 0;
+        let count = await User.count();
+
+        let users = await User.findAll({
+            include: ["orders", "addresses", "comments", "shops"],
+            order: [["id", "ASC"]],
+            offset: page * 10,
+            limit: 10,
+        });
+
+        res.json({
+            meta: {
+                status: 200,
+                url: req.originalUrl,
+                totalCount: count,
+            },
+            data: users,
+        });
+    },
 };
 
 module.exports = usersController;
