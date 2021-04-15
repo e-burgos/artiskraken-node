@@ -101,8 +101,11 @@
 								<div class="col-6 form-group mt-3">
 									<label for="images">Imagen Producto:</label>
 									<small class="mr-2">Imagen actual</small>
-									<img alt='Image' src='/images/products/<%= product.avatar ? product.avatar : "without-image.png" %>'
-                                    class='avatar avatar-60 photo avatar-default mb-3' height='60' width='60' />
+									<% if(product.avatar == 'without-image.png' || product.avatar == 'default-avatar.png' || product.avatar == 'default-gallery.jpg'){ %>
+										<img src="/images/products/<%= product.avatar %>" class='avatar avatar-60 photo avatar-default mb-3' height='60' width='60' alt='Image' />
+									<% } else { %>
+										<img src="<%= s3Url + "/" + product.avatar %>" class='avatar avatar-60 photo avatar-default mb-3' height='60' width='60' alt='Image' />
+									<% } %>
 									<input type="file" id="avatar" name="avatar" class=" form-control" data-show-preview="true" />
 								</div>
 

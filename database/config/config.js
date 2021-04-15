@@ -1,23 +1,24 @@
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
 
 const {
-  USERNAME,
-  PASSWORD,
-  DATABASE,
-  HOST,
-  DIALECT,
-  DB_PORT
-} = process.env
+    USERNAME_DEV,
+    PASSWORD_DEV,
+    DATABASE_DEV,
+    HOST_DEV,
+    DIALECT_DEV,
+    DB_PORT_DEV,
+    JAWSDB_URL,
+} = process.env;
 
 module.exports = {
     development: {
-        username: USERNAME,
-        password: PASSWORD,
-        database: DATABASE,
-        host: HOST,
-        dialect: DIALECT,
-        port: DB_PORT,
+        username: USERNAME_DEV,
+        password: PASSWORD_DEV,
+        database: DATABASE_DEV,
+        host: HOST_DEV,
+        dialect: DIALECT_DEV,
+        port: DB_PORT_DEV,
         define: {
             //"underscored": true,
         },
@@ -27,10 +28,11 @@ module.exports = {
         password: null,
         database: "database_test",
         host: "127.0.0.1",
-        dialect: "8889",
+        dialect: "mysql",
     },
     production: {
-        use_env_variable: "JAWSDB_URL",
+        use_env_variable: JAWSDB_URL,
         dialect: "mysql",
-    }
+    },
 };
+

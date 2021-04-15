@@ -22,6 +22,7 @@ const couponService = require("../services/couponService");
 const { Product } = require("../database/models");
 
 const storeController = {
+    
     getStore: async function (req, res) {
         // Notifications
         const validateErrors = req.flash("validateErrors");

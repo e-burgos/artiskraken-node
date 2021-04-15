@@ -10,8 +10,7 @@ const userService = require("../services/userService");
 const usersController = {
 
     // GET Login
-    getLogin: function (req, res, next) {        
-        
+    getLogin: function (req, res, next) {            
         // Notifications
         const validateErrors = req.flash('validateErrors')
         const message = req.flash('message');
@@ -37,7 +36,7 @@ const usersController = {
     
             if (errors.isEmpty()) {
                 let users = await userService.findAll();
-
+                
                 for (let i = 0; i < users.length; i++) {
                     const user = users[i];
                     if (user.email == req.body.email) {
@@ -47,7 +46,7 @@ const usersController = {
                         };
                     };
                 };
-
+                
                 if (!loggedUser) {
                     req.flash('validateErrors', [{msg: 'Email o contraseña incorrectos'}]);
                     return res.redirect("/users/login");
@@ -99,7 +98,7 @@ const usersController = {
         let errors = validationResult(req);
         try {
             if (errors.isEmpty()) {
-                const avatar = req.file ? req.file.filename : "default-avatar.png";
+                const avatar = req.file ? req.file.key : "default-avatar.png";
             
                 await userService.create({
                     name: req.body.name,
@@ -204,7 +203,7 @@ const usersController = {
                 };
 
                 let filename = req.file
-                    ? req.file.filename
+                    ? req.file.key
                     : user.avatar;
                 
                 await userService.update(req.params.id,{

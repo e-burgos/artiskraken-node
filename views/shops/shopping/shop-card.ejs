@@ -1,8 +1,12 @@
 <article id="shop-item-<%= shop.id %>" class="portfolio-item col-12 col-sm-6 col-md-3 <%= shop.categoryId %>">
     <div class="grid-inner">
         <div class="portfolio-image br-5">
-            
-                <img src="/images/shops/<%= shop.avatar ? shop.avatar : "default-shop.jpg" %>" alt="<%= shop.name %>">
+                <% if(shop.avatar == 'default-shop.jpg'){ %>
+                <img src="/images/shops/<%= shop.avatar %>" alt="<%= shop.name %>">
+                <% } else { %>
+                <img src="<%= s3Url + "/" + shop.avatar %>" alt="<%= shop.name %>">
+                <% } %>
+                
             
             <!-- Overlay: Start -->
             

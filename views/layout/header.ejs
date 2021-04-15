@@ -43,8 +43,21 @@
                     <% if (currentUser){ %>
                         <div class="">
                             <i data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class=" d-inline-flex dropdown-login">
-                                <img src="/images/users/<%= currentUser.avatar%>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar"
-                                    style="max-width: 45px;">
+                                <% if (currentUser.admin) { %>
+                                        <img src="/images/users/admin-avatar.png" class="alignleft img-circle img-thumbnail my-0" alt="Avatar" style="max-width: 45px;" />
+                                <% } else if (currentUser.shopId != null) { %>
+                                    <% if(currentUser.shops.avatar == 'default-shop.jpg' ){ %>
+                                        <img src="/images/shops/<%= currentUser.shops.avatar %>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar" style="max-width: 45px;" />
+                                    <% } else { %>
+                                        <img src="<%= s3Url + "/" + currentUser.shops.avatar %>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar" style="max-width: 45px;" />
+                                    <% } %>
+                                <% } else { %>
+                                    <% if(currentUser.avatar == 'default-avatar.png' ){ %>
+                                        <img src="/images/users/<%= currentUser.avatar %>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar" style="max-width: 45px;" />
+                                    <% } else { %>
+                                        <img src="<%= s3Url + "/" + currentUser.avatar %>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar" style="max-width: 45px;" />
+                                    <% } %>
+                                <% } %>
                             </i>
                             <div class="dropdown-menu dropdown-menu-right" style="width: 200px;">
                             

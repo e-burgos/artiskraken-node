@@ -32,7 +32,7 @@ const usersController = {
                     return res.redirect(`/admin#tab-users`);
                 }
 
-                let avatar = req.file ? req.file.filename : "default-avatar.png";
+                let avatar = req.file ? req.file.key : "default-avatar.png";
 
                 let user = await userService.create({
                     name: req.body.name,

@@ -4,8 +4,12 @@ const usersController = require('../controllers/usersController');
 const {check,validationResult, body}= require("express-validator");
 
 // Utils
-const multerOneImage = require("../utils/multer/multerOneImage");
-const uploadUser = multerOneImage('users');
+// const multerOneImage = require("../utils/multer/multerOneImage");
+// const uploadUser = multerOneImage('users');
+
+// Utils
+const uploadS3Image = require('../utils/uploadS3Image');
+const uploadS3User = uploadS3Image('users'); 
 
 // Middlewares
 const assertSignedIn = require('../middlewares/assert-signed-in');
@@ -31,7 +35,7 @@ router.get('/register', usersController.getRegister);
 // POST Register Page
 router.post(
   '/register',
-  uploadUser.single("avatar"),
+  uploadS3User.single("avatar"),
   [
     check("name").isLength({min:2,max:35}).withMessage("El nombre debe tener entre 4 y 50 caracteres de largo"),
     check("userName").isLength({min:4,max:15}).withMessage("El nombre de usuario debe tener entre 4 y 15 caracteres de largo"),
@@ -53,7 +57,7 @@ router.get('/:id/profile',assertSignedIn, userProfile, usersController.getProfil
 // PUT Profile user data
 router.put(
   '/:id/edit-data',
-  uploadUser.single("avatar"),
+  uploadS3User.single("avatar"),
   [
     check("name").isLength({min:4,max:30}).withMessage("El nombre debe tener entre 4 y 30 caracteres de largo"),
     check("userName").isLength({min:4,max:15}).withMessage("El nombre de usuario debe tener entre 4 y 15 caracteres de largo"),

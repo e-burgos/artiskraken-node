@@ -8,14 +8,17 @@ const adminController = require('../controllers/adminController');
 const multerOneImage = require("../utils/multer/multerOneImage");
 const multerProducts = require("../utils/multer/multerProducts");
 
+// Utils
+const uploadS3Image = require('../utils/uploadS3Image');
+const uploadS3User = uploadS3Image('users');
+const uploadS3Shop = uploadS3Image('shops'); 
+
 // Middlewares
 const assertIsAdmin = require('../middlewares/assert-is-admin');
 const assertSignedIn = require('../middlewares/assert-signed-in');
 const checkUser = require("../middlewares/checkUser");
 
 // Multer
-const uploadUser = multerOneImage('users');
-const uploadShop = multerOneImage('shops');
 const productImages = multerProducts('products', 'avatar', 'gallery');
 
 
@@ -30,7 +33,7 @@ router.get('/', assertSignedIn, assertIsAdmin, adminController.getAdminProfile);
 router.post(
   '/create-user', 
   assertIsAdmin, 
-  uploadUser.single("avatar"),
+  uploadS3User.single("avatar"),
   [
     check("name", "El nombre no puede estar vacio").notEmpty(),
     check("userName", "El nombre de usuario no puede estar vacio").notEmpty(),
@@ -91,7 +94,7 @@ router.post("/:id/product-activate", assertSignedIn, assertIsAdmin, adminControl
 router.post(
   '/create-shop', 
   assertIsAdmin, 
-  uploadShop.single("avatar"),
+  uploadS3Shop.single("avatar"),
   [
     check("name", "El nombre de la tienda es requerido.").notEmpty(),
     check("email", "Email inválido.").isEmail(),

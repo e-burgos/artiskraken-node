@@ -8,8 +8,11 @@
                     <div class="comment-meta">
                         <div class="comment-author vcard">
                             <span class="comment-avatar clearfix">
-                                <img alt='Image' src='/images/users/<%= comment.users.avatar%>'
-                                    class='avatar avatar-60 photo avatar-default' height='60' width='60' /></span>
+                            <% if(comment.users.avatar == 'default-avatar.png' ){ %>
+                                <img src="/images/users/<%= comment.users.avatar %>" class='avatar avatar-60 photo avatar-default' height='60' width='60' alt='Image' />
+                            <% } else { %>
+                                <img src="<%= s3Url + "/" + comment.users.avatar %>" class='avatar avatar-60 photo avatar-default' height='60' width='60' alt='Image' />
+                            <% } %>
                         </div>
                     </div>
                     <div class="comment-content clearfix">

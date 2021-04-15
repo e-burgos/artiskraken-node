@@ -33,9 +33,14 @@
 		<div class="content-wrap">
 			<div class="container clearfix">	
 				<div class="row clearfix">	
-					<div class="col-md-12">					
-						<img src= "/images/users/<%= user.avatar%>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar"
-							style="max-width: 84px;">	
+					<div class="col-md-12">
+
+						<% if(user.avatar == 'default-avatar.png' ){ %>
+							<img src="/images/users/<%= user.avatar %>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar" style="max-width: 84px;" />
+						<% } else { %>
+							<img src="<%= s3Url + "/" + user.avatar %>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar" style="max-width: 84px;" />
+						<% } %>
+
 						<div class="heading-block border-0">
 							<h3><%= user.name %></h3>
 							<small><span class="m-0"><%= user.email %></span></small><br>

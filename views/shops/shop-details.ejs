@@ -34,8 +34,11 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-12">
-							<img src= "/images/shops/<%= shop.avatar%>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar"
-								style="max-width: 84px;">
+							<% if(shop.avatar == 'default-shop.jpg' ){ %>
+								<img src="/images/shops/<%= shop.avatar %>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar" style="max-width: 84px;" />
+							<% } else { %>
+								<img src="<%= s3Url + "/" + shop.avatar %>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar" style="max-width: 84px;" />
+							<% } %>
 							<div class="heading-block border-0">
 								<h3><%= shop.name %></h3>
 								<small><span class="m-0"><%= shop.email %></span></small><br>

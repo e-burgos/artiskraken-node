@@ -34,8 +34,11 @@
 	
 					<div class="col-md-12">
 						
-							<img src= "/images/users/<%= admin.avatar%>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar"
-							style="max-width: 84px;">
+							<% if(admin.avatar == 'default-avatar.png' ){ %>
+							<img src="/images/users/<%= admin.avatar %>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar" style="max-width: 84px;" />
+						<% } else { %>
+							<img src="<%= s3Url + "/" + admin.avatar %>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar" style="max-width: 84px;" />
+						<% } %>
 	
 						<div class="heading-block border-0">
 							<h3><%= admin.name %></h3>
@@ -95,8 +98,11 @@
 																<td><small><%= user.id %></small></td>
 																<td>
 																	<div class="d-flex justify-content-left align-items-center">
-																	<img alt='Image' src='/images/users/<%= user.avatar%>'
-																		class='avatar img-circle img-thumbnail' height='35' width='35' />
+																	<% if(user.avatar == 'default-avatar.png' ){ %>
+																		<img src="/images/users/<%= user.avatar %>" class='avatar img-circle img-thumbnail' height='35' width='35' />
+																	<% } else { %>
+																		<img src="<%= s3Url + "/" + user.avatar %>" class='avatar img-circle img-thumbnail' height='35' width='35' />
+																	<% } %>
 																	<small><%= user.name %></small>
 																	</div>
 																</td>
@@ -169,8 +175,11 @@
 																<td><small><%= index +1 %></small></td>
 																<td><small><%= shop.id %></small></td>
 																<td>
-																	<img alt='Image' src='/images/shops/<%= shop.avatar%>' 
-																	class='avatar img-circle img-thumbnail' height='35'width='35' />
+																	<% if(shop.avatar == 'default-shop.jpg' ){ %>
+																		<img src="/images/shops/<%= shop.avatar %>" class='avatar img-circle img-thumbnail' height='35' width='35' />
+																	<% } else { %>
+																		<img src="<%= s3Url + "/" + shop.avatar %>" class='avatar img-circle img-thumbnail' height='35' width='35' />
+																	<% } %>
 																	<small><%= shop.name %></small>
 																</td>
 																<td><small><%= shop.users ? shop.users.name : "" %></small></td>
@@ -235,11 +244,20 @@
 																<td><small><%= index +1 %></small></td>
 																<td><small><%= product.id %></small></td>
 																<td>
-																	<img alt='Image' src='/images/products/<%= product.avatar%>' 
-																	class='avatar img-circle img-thumbnail' height='35' width='35' />
+																	<% if(product.avatar == 'without-image.png' || product.avatar == 'default-avatar.png' || product.avatar == 'default-gallery.jpg'){ %>
+																		<img src="/images/products/<%= product.avatar %>" class='avatar img-circle img-thumbnail' height='35' width='35' />
+																	<% } else { %>
+																		<img src="<%= s3Url + "/" + product.avatar %>" class='avatar img-circle img-thumbnail' height='35' width='35' />
+																	<% } %>
 																	<small><%= product.name %></small>
 																</td>
-																<td><small><%= product.shops.name%></small></td>
+																<td>
+																	<% if(product.shops.avatar == 'default-shop.jpg' ){ %>
+																		<img src="/images/shops/<%= product.shops.avatar %>" class='avatar img-circle img-thumbnail' height='35' width='35' />
+																	<% } else { %>
+																		<img src="<%= s3Url + "/" + product.shops.avatar %>" class='avatar img-circle img-thumbnail' height='35' width='35' />
+																	<% } %>
+																	<small><%= product.shops.name%></small></td>
 																<td><small><%= product.brewery %></small></td>
 																<td><small><%= product.stock %></small></td>
 																<td><small><%= product.price %></small></td>
@@ -353,8 +371,11 @@
 																<td><small><%= comment.id %></small></td>
 																<td><small><%= comment.date %></small></td>
 																<td>
-																	<img alt='Image' src='/images/users/<%= comment.users.avatar%>'
-																		class='avatar img-circle img-thumbnail' height='35' width='35' />
+																	<% if(comment.users.avatar == 'default-avatar.png'){ %>
+																		<img src="/images/users/<%= comment.users.avatar %>" class='avatar img-circle img-thumbnail' height='35' width='35' alt='Image' />
+																	<% } else { %>
+																		<img src="<%= s3Url + "/" + comment.users.avatar %>" class='avatar img-circle img-thumbnail' height='35' width='35' alt='Image' />
+																	<% } %>
 																	<small><%= comment.users.name %></small>
 																</td>
 																<td><small><%= comment.products ? comment.products.name : "El producto padre fue eliminado" %></small></td>

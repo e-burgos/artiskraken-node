@@ -84,7 +84,7 @@ const productsController = {
         try {           
             let avatar = req.files.avatar;
             if (req.files.avatar != null) {
-                avatar = req.files.avatar[0].filename;
+                avatar = req.files.avatar[0].key;
             } else {
                 avatar = "without-image.png";
             }
@@ -93,7 +93,7 @@ const productsController = {
             if (req.files.gallery != null) {
                 let array = req.files.gallery;
                 for (let i = 0; i < array.length; i++) {
-                    const image = array[i].filename;
+                    const image = array[i].key;
                     gallery.push(image);
                 }
             } else {
@@ -184,36 +184,22 @@ const productsController = {
             const productGallery = [product.gallery01, product.gallery02, product.gallery03]
 
             if (errors.isEmpty()) {
+                console.log(req.files.avatar);
+                console.log(req.files.gallery);
                 let avatar = req.files.avatar;
                 if (req.files.avatar != null) {
-                    // Delete old image
-                    fs.unlinkSync(
-                        __dirname +
-                            "/../public/images/products/" +
-                            product.avatar
-                    );
                     // Replace old image
-                    avatar = req.files.avatar[0].filename;
+                    avatar = req.files.avatar[0].key;
                 } else {
                     avatar = product.avatar;
                 }
 
                 let gallery = [];
                 if (req.files.gallery != null) {
-                    // Delete old image
-                    if(product.gallery01 != "without-image.png"){
-                        req.files.gallery[0] != null ? fs.unlinkSync( __dirname + "/../public/images/products/" + product.gallery01) : null;
-                    };
-                    if(product.gallery02 != "without-image.png"){
-                        req.files.gallery[1] != null ? fs.unlinkSync( __dirname + "/../public/images/products/" + product.gallery02) : null;
-                    };
-                    if(product.gallery03 != "without-image.png"){
-                        req.files.gallery[2] != null ? fs.unlinkSync( __dirname + "/../public/images/products/" + product.gallery02) : null;
-                    };
                     // Replace old image
                     let array = req.files.gallery;
                     for (let i = 0; i < array.length; i++) {
-                        const image = array[i].filename;
+                        const image = array[i].key;
                         gallery.push(image);
                     }
                 } else {
@@ -300,22 +286,7 @@ const productsController = {
     // DELETE - Delete one product from DB
     destroy: async (req, res) => {
         try {
-            let product = await productService.findOne(req.params.id);
-
-            // Eliminar imagenes
-            if(product.avatar != "without-image.png"){
-                fs.unlinkSync( __dirname + "/../public/images/products/" + product.avatar);
-            }; 
-            if(product.gallery01 != "without-image.png"){
-                fs.unlinkSync( __dirname + "/../public/images/products/" + product.gallery01);
-            };
-            if(product.gallery02 != "without-image.png"){
-                fs.unlinkSync( __dirname + "/../public/images/products/" + product.gallery02);
-            };
-            if(product.gallery03 != "without-image.png"){
-                fs.unlinkSync( __dirname + "/../public/images/products/" + product.gallery03);
-            };
-
+            
             // Eliminar comentarios
             let allComments = await commentService.findAll();
             allComments.forEach( async comment => {

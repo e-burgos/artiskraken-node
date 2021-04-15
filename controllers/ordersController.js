@@ -73,6 +73,7 @@ const ordersController = {
             res.status(404).send(error.message);
         }
     },
+    
     getOrderPending: async function (req, res) {
         let loggedUserId = req.session.loggedUserId;
         let currentUser;

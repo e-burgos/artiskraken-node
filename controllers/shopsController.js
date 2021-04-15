@@ -12,6 +12,8 @@ const categoryService = require("../services/categoryService");
 const typeService = require("../services/typeService");
 const { Shop, Product } = require("../database/models")
 
+const getS3Image = require('../utils/getS3Image');
+
 // Controller
 const shopsController = {
     //GET shop profile
@@ -31,6 +33,7 @@ const shopsController = {
             let currentUser = await userService.findOne(loggedUserId);
             let shop = await shopService.findOne(req.params.id);
             let shopData = await shopService.getShopData(shop);
+
             res.render("shops/shop-profile", {
                 notification: notification,
                 message: message,
@@ -84,10 +87,121 @@ const shopsController = {
                 shops,
                 totalPages,
                 page,
-                url,
+                url
             });
         } catch (error) {
             res.status(400).send(error.message);
+        }
+    },
+
+    // PUT shop profile data form
+    putShopData: async (req, res, next) => {
+        let errors = validationResult(req);
+        try {
+            let shop = await shopService.findOne(req.params.id);
+            if (errors.isEmpty()) {
+                let filename = req.file ? req.file.key : shop.avatar;
+                console.log(req.file)
+
+                await shopService.update(shop.id, {
+                    name: req.body.name,
+                    phone: req.body.phone,
+                    email: req.body.email,
+                    avatar: filename,
+                    bio: req.body.bio,
+                    facebook: req.body.facebook,
+                    instagram: req.body.instagram,
+                    twitter: req.body.twitter,
+                });
+
+                req.flash(
+                    "message",
+                    "La tienda fue actualizada correctamente."
+                );
+                res.redirect(`/shops/${shop.id}/profile#tab-info`);
+            } else {
+                req.flash("validateErrors", errors.errors);
+                return res.redirect(`/shops/${shop.id}/profile#tab-data`);
+            }
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    },
+
+    //POST create shop
+    postShopCreate: async (req, res, next) => {
+        let errors = validationResult(req);
+        if (errors.isEmpty()) {
+            const loggedUserId = req.session.loggedUserId;
+            try {
+                let avatar = req.file ? req.file.key : "default-shop.jpg";
+
+                // Crear tienda
+                let shop = await shopService.create({
+                    name: req.body.name,
+                    phone: req.body.phone,
+                    email: req.body.email,
+                    avatar: avatar,
+                    ranking: 0,
+                    status: "active",
+                    sales: 0,
+                    bio: req.body.bio,
+                    facebook: req.body.facebook,
+                    instagram: req.body.instagram,
+                    twitter: req.body.twitter,
+                    tokenKey: null,
+                    publicKey: null,
+                    marketplaceLink: null,
+                    marketplaceApp: null,
+                });
+
+                // creamos metodo de pago base
+                await paymentService.create({
+                    name: "Mercado Pago",
+                    description:
+                        "A través de Mercado Pago, tus clientes pueden pagar con tarjetas de crédito, con transferencia bancaria e incluso en efectivo.",
+                    type: "mercadopago",
+                    status: "blocked",
+                    shopId: shop.id,
+                });
+
+                await paymentService.create({
+                    name: "Efectivo",
+                    description:
+                        "Consiste en pagar un bien o servicio con dinero físico, con un cheque bancario al portador o con algún otro medio físico similar.",
+                    type: "cash",
+                    status: "active",
+                    shopId: shop.id,
+                });
+
+                // Creamos metodo de envio base
+                await shippingMethodService.create({
+                    name: "Arreglo con el vendedor",
+                    amount: 0,
+                    description:
+                        "Consiste entre en un arreglo privado entre la tienda y el consumidor final.",
+                    location: "Domicilio del vendedor",
+                    status: "active",
+                    shopId: shop.id,
+                });
+
+                // Actualizar propietario
+                await userService.update(loggedUserId, {
+                    shopId: shop.id,
+                    role: "seller",
+                });
+
+                req.flash(
+                    "message",
+                    "Tu tienda fue creada correctamente, ya puedes empezar a vender tu productos."
+                );
+                res.redirect(`/shops/${shop.id}/profile#tab-info`);
+            } catch (error) {
+                res.status(400).send(error.message);
+            }
+        } else {
+            req.flash("validateErrors", errors.errors);
+            res.redirect(`/users/${req.params.id}/profile`);
         }
     },
 
@@ -509,115 +623,6 @@ const shopsController = {
         }
     },
 
-    // PUT shop profile data form
-    putShopData: async (req, res, next) => {
-        let errors = validationResult(req);
-        try {
-            let shop = await shopService.findOne(req.params.id);
-            if (errors.isEmpty()) {
-                let filename = req.file ? req.file.filename : shop.avatar;
-
-                await shopService.update(shop.id, {
-                    name: req.body.name,
-                    phone: req.body.phone,
-                    email: req.body.email,
-                    avatar: filename,
-                    bio: req.body.bio,
-                    facebook: req.body.facebook,
-                    instagram: req.body.instagram,
-                    twitter: req.body.twitter,
-                });
-
-                req.flash(
-                    "message",
-                    "La tienda fue actualizada correctamente."
-                );
-                res.redirect(`/shops/${shop.id}/profile#tab-info`);
-            } else {
-                req.flash("validateErrors", errors.errors);
-                return res.redirect(`/shops/${shop.id}/profile#tab-data`);
-            }
-        } catch (error) {
-            res.status(400).send(error.message);
-        }
-    },
-
-    //POST create shop
-    postShopCreate: async (req, res, next) => {
-        let errors = validationResult(req);
-        if (errors.isEmpty()) {
-            const loggedUserId = req.session.loggedUserId;
-            try {
-                let avatar = req.file ? req.file.filename : "default-shop.jpg";
-
-                // Crear tienda
-                let shop = await shopService.create({
-                    name: req.body.name,
-                    phone: req.body.phone,
-                    email: req.body.email,
-                    avatar: avatar,
-                    ranking: 0,
-                    status: "active",
-                    sales: 0,
-                    bio: req.body.bio,
-                    facebook: req.body.facebook,
-                    instagram: req.body.instagram,
-                    twitter: req.body.twitter,
-                    tokenKey: null,
-                    publicKey: null,
-                    marketplaceLink: null,
-                    marketplaceApp: null,
-                });
-
-                // creamos metodo de pago base
-                await paymentService.create({
-                    name: "Mercado Pago",
-                    description:
-                        "A través de Mercado Pago, tus clientes pueden pagar con tarjetas de crédito, con transferencia bancaria e incluso en efectivo.",
-                    type: "mercadopago",
-                    status: "blocked",
-                    shopId: shop.id,
-                });
-
-                await paymentService.create({
-                    name: "Efectivo",
-                    description:
-                        "Consiste en pagar un bien o servicio con dinero físico, con un cheque bancario al portador o con algún otro medio físico similar.",
-                    type: "cash",
-                    status: "active",
-                    shopId: shop.id,
-                });
-
-                // Creamos metodo de envio base
-                await shippingMethodService.create({
-                    name: "Arreglo con el vendedor",
-                    amount: 0,
-                    description:
-                        "Consiste entre en un arreglo privado entre la tienda y el consumidor final.",
-                    location: "Domicilio del vendedor",
-                    status: "active",
-                    shopId: shop.id,
-                });
-
-                // Actualizar propietario
-                await userService.update(loggedUserId, {
-                    shopId: shop.id,
-                    role: "seller",
-                });
-
-                req.flash(
-                    "message",
-                    "Tu tienda fue creada correctamente, ya puedes empezar a vender tu productos."
-                );
-                res.redirect(`/shops/${shop.id}/profile#tab-info`);
-            } catch (error) {
-                res.status(400).send(error.message);
-            }
-        } else {
-            req.flash("validateErrors", errors.errors);
-            res.redirect(`/users/${req.params.id}/profile`);
-        }
-    },
 };
 
 module.exports = shopsController;

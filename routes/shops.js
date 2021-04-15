@@ -8,8 +8,8 @@ const paymentsController = require("../controllers/paymentsController");
 const {check,validationResult, body}= require("express-validator");
 
 // Utils
-const multerOneImage = require("../utils/multer/multerOneImage");
-const uploadShop = multerOneImage('shops');
+const uploadS3Image = require('../utils/uploadS3Image');
+const uploadS3Shop = uploadS3Image('shops'); 
 
 // Middlewares
 const assertSignedIn = require('../middlewares/assert-signed-in');
@@ -42,7 +42,7 @@ router.post("/shop-details/:id/search", shopsController.postQueryShopDetailsSear
 // POST create shop modal
 router.post(
   '/create-shop',  
-  uploadShop.single("avatar"),
+  uploadS3Shop.single("avatar"),
   [
     check("name", "El nombre de la tienda es requerido.").notEmpty(),
     check("email", "El nombre de la tienda es requerido.").notEmpty(),
@@ -58,7 +58,7 @@ router.get('/:id/profile', assertSignedIn, shopsController.getShop);
 // PUT Profile shop data
 router.put(
   '/:id/edit-data',
-  uploadShop.single("avatar"),
+  uploadS3Shop.single("avatar"),
   [
     check("name").isLength({min:4,max:30}).withMessage("El nombre debe tener entre 4 y 30 caracteres de largo"),
     check("email").isEmail().withMessage("Email inválido"),

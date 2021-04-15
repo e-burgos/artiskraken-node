@@ -37,6 +37,7 @@ app.set('view engine', 'ejs');
 
 /// APPLY VIEWS VARIABLES ANDS FUNCTIONS
 app.locals.currentUser = null;
+app.locals.s3Url = `https://${process.env.AWS_BUCKET_NAME}.s3-${process.env.AWS_REGION}.amazonaws.com`
 
 // ************ Middlewares ************
 app.use(logger('dev'));

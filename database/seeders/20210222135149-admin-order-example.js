@@ -11,7 +11,7 @@ module.exports = {
         message: 'esto es una orden de prueba',
         tax: 50.20,
         total: 1250.60,
-        userId: 1,
+        userId: 13,
         shopId: 1,
         statusId: 1,
         paymentId: 1,

@@ -31,9 +31,12 @@
 				<div class="row clearfix">
 	
 					<div class="col-md-12">
-						
-						<img src= "/images/shops/<%= shop.avatar%>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar"
-							style="max-width: 84px;">
+
+						<% if(shop.avatar == 'default-shop.jpg' ){ %>
+							<img src="/images/shops/<%= shop.avatar %>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar" style="max-width: 84px;" />
+						<% } else { %>
+							<img src="<%= s3Url + "/" + shop.avatar %>" class="alignleft img-circle img-thumbnail my-0" alt="Avatar" style="max-width: 84px;" />
+						<% } %>
 	
 						<div class="heading-block border-0">
 							<h3><%= shop.name %></h3>
@@ -106,8 +109,11 @@
 																<td><small><%= index +1 %></small></td>
 																<td><small><%= product.id %></small></td>
 																<td>
-																	<img alt='Image' src='/images/products/<%= product.avatar%>' 
-																	class='avatar img-circle img-thumbnail' height='35' width='35' />
+																	<% if(product.avatar == 'without-image.png' || product.avatar == 'default-avatar.png' || product.avatar == 'default-gallery.jpg'){ %>
+																		<img src="/images/users/<%= product.avatar %>" class='avatar img-circle img-thumbnail' height='35' width='35' />
+																	<% } else { %>
+																		<img src="<%= s3Url + "/" + product.avatar %>" class='avatar img-circle img-thumbnail' height='35' width='35' />
+																	<% } %>
 																	<small><%= product.name %></small>
 																</td>
 																<td><small><%= product.brewery %></small></td>

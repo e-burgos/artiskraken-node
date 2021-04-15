@@ -1,7 +1,11 @@
 <article id="product-item-<%= product.id %>" class="portfolio-item col-12 col-sm-6 col-md-3 <%= product.categoryId %>">
     <div class="grid-inner">
         <div class="portfolio-image br-5 portfolio-responsive-image">
-            <img class="responsive-image" src="/images/products/<%= product.avatar ? product.avatar : "without-image.png" %>" alt="<%= product.name %>">
+            <% if(product.avatar == 'without-image.png' || product.avatar == 'default-avatar.png' || product.avatar == 'default-gallery.jpg'){ %>
+                <img src="/images/products/<%= product.avatar %>" class="responsive-image" alt="<%= product.name %>" />
+            <% } else { %>
+                <img src="<%= s3Url + "/" + product.avatar %>" class="responsive-image" alt="<%= product.name %>" />
+            <% } %>
         </div>
         <div class="portfolio-desc border-desc-product">
             <h3 class="text-center text-uppercase"><a href="/products/<%= product.id %>/productDetails" class="white-color"><%= product.name %></a></h3>

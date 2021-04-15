@@ -1,6 +1,10 @@
 <div class="product center">
     <div class="product-image product-bottle px-4 py-1">
-        <img src="/images/products/<%= product.avatar ? product.avatar : "without-image.png" %>" alt="Image">
+        <% if(product.avatar == 'without-image.png' || product.avatar == 'default-avatar.png' || product.avatar == 'default-gallery.jpg'){ %>
+            <img src="/images/products/<%= product.avatar %>" alt="Image" />
+        <% } else { %>
+            <img src="<%= s3Url + "/" + product.avatar %>" alt="Image" />
+        <% } %>
     </div>
     <div class="product-desc">
         <div class="">

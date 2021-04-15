@@ -16,7 +16,7 @@ const shopsController = {
         let errors = validationResult(req);
         if (errors.isEmpty()) {
             try {
-                let avatar = req.file ? req.file.filename : "default.jpg";
+                let avatar = req.file ? req.file.key : "default.jpg";
 
                 // Crear tienda
                 let shop = await shopService.create({

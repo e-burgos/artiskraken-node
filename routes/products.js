@@ -5,6 +5,7 @@ const { check, validationResult, body } = require("express-validator");
 
 // Utils
 const multerProducts = require("../utils/multer/multerProducts");
+const uploadS3MultiImages = require("../utils/uploadS3MultiImages");
 
 // Middlewares
 const assertIsSeller = require('../middlewares/assert-is-seller');
@@ -12,6 +13,7 @@ const assertSignedIn = require('../middlewares/assert-signed-in');
 
 // Multer
 const productImages = multerProducts('products', 'avatar', 'gallery');
+const productImagesS3 = uploadS3MultiImages("products", "avatar", "gallery");
 
 /**** PRODUCTS ROUTES ****/
 
@@ -63,7 +65,7 @@ router.put(
     "/:shop/:id/edit",
     assertSignedIn,
     assertIsSeller,
-    productImages,
+    productImagesS3,
     [
         check("name", "El nombre no puede estar vacio").notEmpty(),
         check("price", "El precio no puede estar vacio").notEmpty(),
