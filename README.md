@@ -8,16 +8,16 @@ ArtisKraken es un ejemplo de marketplace, realizado desarrollado con NodeJS, uti
 * Métodos de pago: cada negocio puede implementar metodos de pago de tipo cash o mercado pago, configuración de mercado pado independiente para cada comercio.
 * Métodos de envío: CRUD de diferentes metodos de envio por comercio.
 * Cupones de descuento: 
-* Ordenes/Pedidos: Adminitración basica por comercio de ciclo de pago. 
+* Ordenes/Pedidos: Adminitración básica por comercio de ciclo de pago. 
 * Módulo Administrador: este módulo puede administrar en su totalidad categorias, tipos, cupones, ordenes, metodos de pago y envio, tienda, usuarios, etc.
 
 ### TODO 
 * Implementacion de API marketplace de mercado pago para vincular automaticamente un comercio. 
 * Ciclo de pago completo de una orden o pedido. 
 * Administación de stock de productos.
-* Administrador implementado en SSR con la ayuda de React JS.
+* Administrador implementado con SSR usando React JS.
 * Chat entre compradores y tiendas.
-* Formulario de contacto. 
+* Formulario de contacto.
 
 ### DEMO
 http://www.artiskraken.com.ar/
@@ -33,11 +33,19 @@ http://www.artiskraken.com.ar/
         npm install
 
 ### CONFIGURANDO VARIABLES DE ENTORNO 
-1. Genere un archivo .env en la raiz del proyecto, encontrar un archivo de ejemplo llamado .env.example  
-2. Verifique la siguente ruta: public/js/env-example.js, genere un archivo env.js y coloque el dominio principal de su aplicación. Si decide trabajar en un entorno local coloque el dominio: http://localhost:3000
+1. Genere un archivo .env en la raíz del proyecto, encontrará un archivo de ejemplo llamado **.env.example**.  
+ 
+2. Verifique la siguiente ruta: public/js/env-example.js, genere un archivo env.js y coloque el siguiente contenido:
+
+        window.env = {
+            DOMAIN: "http://localhost:3000",
+            PRODUCT_URL: "https://localhost:3000/images/products",
+            //PRODUCT_URL: "https://nombre-del-bucket.s3-sa-east-1.amazonaws.com",
+            //DOMAIN: https://nombre-del-proyecto.herokuapp.com/,
+        };
 
 ### CONFIGURANDO DB LOCAL 
-1. La aplicación esta implementada con MySQL por lo que debera tener un servidor local MySQL intalado que gestine su DB. Teniendo esto en cuenta, inicie la configuración completando el archivo .env como el siguiente ejemplo:
+1. La aplicación esta implementada con MySQL por lo que debera tener un servidor local MySQL intalado (como por ejemplo MAMP) que gestine su DB. Teniendo esto en cuenta, inicie la configuración completando el archivo .env como el siguiente ejemplo:
 
         USERNAME_DEV=root
         PASSWORD_DEV=root
@@ -46,14 +54,30 @@ http://www.artiskraken.com.ar/
         DIALECT_DEV=mysql
         DB_PORT_DEV=3306
 
-> **Nota:** no es necesario crear una DB con este nombre, lo haremos luego
+> **Nota:** no es necesario crear una DB con este nombre, lo haremos luego.
+> **Recurso 1:** https://www.neoguias.com/instalar-mamp-windows/
+> **Recurso 2:** https://www.neoguias.com/instalar-mamp-mac/
 
-2. Una vez que tenga las variables de entorno configuradas inciaremos el volvado de información dummy con la ayuda de sequelize. 
-3. Desde la consola situados en la raiz del proyecto ejecutamos los siguentes comandos:
+2. Una vez que tenga las variables de entorno configuradas inciaremos el volvado de información dummy con la ayuda de un excelente ORM, en este caso **Sequelize**.
+
+3. Es muy importante ante de continuar, configurar las rutas que sequelize necesita para leer su configuración, modelos, migraciones y seeders o semillas. Para ello agregaremos a la raíz del proyecto un archivo llamado **.sequelizerc** que deberá tener el siguiente contenido
+
+        const path = require('path')
+
+        module.exports = {
+            config: path.resolve('./database/config', 'config.js'),
+            'models-path': path.resolve('./database/models'),
+            'seeders-path': path.resolve('./database/seeders'),
+            'migrations-path': path.resolve('./database/migrations'),
+        }
+
+4. Por último, desde la consola, situados en la raíz del proyecto ejecutamos los siguentes comandos:
 
         sequelize db:create (creamos la DB)
         sequelize db:migrate (creamos la estructura)
         sequelize db:seed:all (Agregamos los datos iniciales)
+
+---
 
 ### USANDO AMAZON WEB SERVICES
 Amazon Web Services es una colección de servicios de computación en la nube pública que en conjunto forman una plataforma de computación en la nube, ofrecidas a través de Internet por Amazon.com.
@@ -61,29 +85,35 @@ Amazon Web Services es una colección de servicios de computación en la nube p�
 ### AWS: CREANDO UN BUCKET DE PRUEBA CON S3
 Todas las imagenes y documentos del proyecto se almacenan en un bucket. Por tanto, debe crear un bucket para poder almacenar datos en Amazon S3.
 Le invito a leer la siguente guía: https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/creating-bucket.html
-Ver video: https://www.youtube.com/watch?v=3qGVkJQgiWY&t=251s
 
         Una vez creado el Bucket recuerda incluirlo en las variales de entorno como el siguiente ejemplo:
         AWS_BUCKET_NAME=your-bucket
         AWS_REGION=sa-east-1
 
+> Ver video: https://www.youtube.com/watch?v=3qGVkJQgiWY&t=251s
+
 ### AWS: MANEJO DE PERMISOS
 Debes configurar los access tokens para hablar con S3 desde Node.js.
-Ver video: https://www.youtube.com/watch?v=-R4vVBzWy6k
-
 Una vez creado el usuario que manejara de forma programatica el bucket recuerda incluirlo en las variales de entorno como el siguiente ejemplo:
         
         AWS_ACCESS_USER=user-name
         AWS_ACCESS_KEY_ID=...
         AWS_SECRET_ACCESS_KEY=...
 
+> Ver video: https://www.youtube.com/watch?v=-R4vVBzWy6k
+
 ### AWS: MANEJO DE BUCKET POLICY
 A continuación configuraremos las políticas de acceso al bucket desde tu cuenta de AWS.
-1. Ingresar al modulo S3.
+
+1. Ingresar al modulo **S3**.
+
 2. Ingrezar al bucket en cuestión desde el listado de buckets.
-3. Ingresar a la pestaña "Permissions".
-4. En la caja "Block public access (bucket settings)" desmarcar todos los bloqueos y guardar cambios.
-5. En la caja "Bucket policy" ingresar el siguiente json y guardar cambios, recuerda reemplazar el nombre del bucket:
+
+3. Ingresar a la pestaña **Permissions**.
+
+4. En la caja **Block public access (bucket settings)** desmarcar todos los bloqueos y guardar cambios.
+
+5. En la caja **Bucket policy** ingresar el siguiente json y guardar cambios, recuerda reemplazar el nombre del bucket:
 
         {
             "Version": "2012-10-17",
@@ -105,19 +135,19 @@ Para testear que todo se encuentra funcionando, desde la consola situados en la 
         npm start
 
 ## DEPLOY EN HEROKU
-Aquí vamos a ver como hacer “deploy” una aplicación de Node a el servicio Heroku. Lo primero que debes tener es una cuenta, lo cual es gratis.
+Aquí vamos a ver como hacer “deploy” de una aplicación de Node utilizando el servicio de Heroku. Para empezar debes tener es una cuenta, lo cual es gratis.
 
-1. Lo primero que debemos hacer es un cambio a nuestro package.json, con lo que indicamos que version de Node corre nuestra aplicación. Heroku lo necesita para saber que version utilizar. Agregamos lo siguiente:
+1. Lo primero que debemos hacer es un cambio a nuestro package.json, con lo que indicamos en que version de Node corre nuestra aplicación. Heroku lo necesita para saber que version utilizar. Agregamos lo siguiente a nuestro package.json:
 
         "engines": {
         "node": "6.11.0"
         }
 
-2. Luego creamos un par de archivos nuevos en el directorio root del app, el primero es el archivo Procfile que contiene la orden para correr nuestra aplicación, en nuestro caso:
+2. Luego creamos un par de archivos nuevos en el directorio root del app, el primero es el archivo **Procfile** que contiene la orden para correr nuestra aplicación, en nuestro caso agregaremos al archivo lo siguiente:
 
     web: npm start
 
-3. Antes de seguir con los comando por consola asegurate de tener instalado heroku-cli en tu maquina, puedes valerte de la siguiene información https://devcenter.heroku.com/articles/heroku-cli
+3. Antes de seguir con los comando por consola, asegurate de tener instalado heroku-cli en tu maquina, puedes valerte de la siguiene información https://devcenter.heroku.com/articles/heroku-cli
 
 4. Aseguate de estar loguead@ a Heroku ante de empezar con los comandos, para ello logueate en tu navegador y luego en la consola escribe:
 
@@ -131,7 +161,7 @@ Aquí vamos a ver como hacer “deploy” una aplicación de Node a el servicio 
 
         git push heroku master
 
-7. Podriamos verificar que la aplicación fue subida correctamente, aunque no tendra un funcionamiento correcto ya que necesita de un servidor de imágenes y una DB, sigamos con ello.
+7. Podriamos verificar que la aplicación fue subida correctamente, aunque no tendrá un funcionamiento correcto ya que necesita de un servidor de imágenes y una DB, sigamos con ello.
 
 ### CONSTRUYENDO UN BUCKET DE PRODUCCION USANDO S3 DE AWS
 Para implementar un bucket de producción solo deber seguir los pasos mensionados anteriormente al contruir un bucket en un entorno local.
@@ -143,9 +173,13 @@ Agregaremos una DB MySQL en producción para ello heroku ofrece una buena soluci
 Para implementarla puedes valerte de la siguiente información:
 
 1. Documentación oficial en heroku: https://devcenter.heroku.com/articles/jawsdb
+
 2. Dandote otro alternativa, para implementarla rápidamente, debemos pararnos en nuestro proyecto en heroku y copiamos esta link en el navegador: https://elements.heroku.com/search?q=JAWSDB
+
 3. Seleccionamos el elemento **JawsDB MySQL** y luego tocamos en el botón **Install JawsDB MySQL**.
+
 4. Paso seguido, situados en la pantalla **Online Order Form**, seleccionamos el plan **gratuito Kitefin Shared - Free** y en App to provision to, escribimos el nombre de nuestro proyecto, finalizamos presionando el botón **Submit Order Form**.
+
 5. Regrazando a la pestaña **Overview** de nuestro proyecto y veremos el nuevo add-on creado, a continuación hacemos click en el para buscar nuestras variables de entorno y conectar nuestra nueva DB.
 
 ### CONFIGURANDO VARIABLES DE ENTORNO 
@@ -181,6 +215,15 @@ Las variables de entorno para producción deben ser agregadas en tu archivo .env
         AWS_BUCKET_NAME=...
         AWS_REGION=...
 
+3. Verifica la siguente ruta: public/js/env.js, en este archivo deberas establecer el dominio principal de tu aplicación y de la ruta donde se encuentran almacenados tus productos, por lo tanto actualizaremos lo siguente:
+
+        window.env = {
+            //DOMAIN: "http://localhost:3000",
+            //PRODUCT_URL: "https://localhost:3000/images/products",
+            PRODUCT_URL: "https://nombre-del-bucket.s3-sa-east-1.amazonaws.com",
+            DOMAIN: https://nombre-del-proyecto.herokuapp.com/,
+        };
+
 ### MIGRANDO INFORMACION A DB DE PRODUCCION
 Luego de completar los pasos anteriores regresa a la consola de tu proyecto y posicinad@ en la raiz del proyecto, escribe:
 
@@ -188,12 +231,15 @@ Luego de completar los pasos anteriores regresa a la consola de tu proyecto y po
         sequelize db:migrate --env production (creamos la estructura)
         sequelize db:seed:all --env production (Agregamos los datos iniciales)
 
-Esto migraran la estructura e información inicial a tu DB de producción. 
+Esto migrará la estructura e información inicial a tu DB de producción. 
 
 ### MIGRANDO INFORMACION DUMMY AL SOCKET DE PRODUCCION 
-Una vez finalizado el trabajo de sequelize es necesario que completes el ciclo de las imagenes de ejemplo que seran leidas de tu socket de producción, con esto nos haceguraremos que todo esta funcionando corectamente, para ello deber realizar lo siguiente:
+Una vez finalizado el trabajo de sequelize es necesario que completes el ciclo agregando las imagenes de ejemplo que seran leidas de tu socket de producción, con esto nos aseguraremos que todo esta funcionando correctamente, para ello deber realizar lo siguiente:
+
 1. Dirigite a tu socket de produccion en AWS, busca el servicio S3.
-2. En el listado de sockets has chick en el de producción y preciona en **Create folder**, luego en el campo **Folder name** escribe **products** y toca el botón **Create folder**.
+
+2. En el listado de buckets ingresa a tu bucket de producción y toca en **Create folder**, luego en el campo **Folder name** escribe **products** y toca el botón **Create folder**.
+
 3. Ingresa a la carpeta que se acaba de crear y presiona en **Upload**. Dentro de esta sección presiona en **Add files** y agrega los siguentes archivos:
 
         product-01.png
@@ -219,7 +265,7 @@ Una vez finalizado el trabajo de sequelize es necesario que completes el ciclo d
 > **Nota:** podrás encontrar estos archivos en el directorio public/images/products del proyecto.
 
 ## AYUDA
-Si tenes algún inconveniente en el desplique de esta aplicación no dudes en escribirme a <a href="mailto:info@estebanburgos.com.ar">info@estebanburgos.com.ar</a>
+Si tenes algún inconveniente en el despliegue de esta aplicación no dudes en contactarme a <a href="mailto:info@estebanburgos.com.ar">info@estebanburgos.com.ar</a>
 
 
 
