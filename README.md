@@ -55,10 +55,12 @@ http://www.artiskraken.com.ar/
         DB_PORT_DEV=3306
 
 > **Nota:** no es necesario crear una DB con este nombre, lo haremos luego.
+
 > **Recurso 1:** https://www.neoguias.com/instalar-mamp-windows/
+
 > **Recurso 2:** https://www.neoguias.com/instalar-mamp-mac/
 
-2. Una vez que tenga las variables de entorno configuradas inciaremos el volvado de información dummy con la ayuda de un excelente ORM, en este caso **Sequelize**.
+2. Una vez que tenga las variables de entorno configuradas iniciaremos el volvado de información dummy con la ayuda de un excelente ORM, en este caso **Sequelize**.
 
 3. Es muy importante ante de continuar, configurar las rutas que sequelize necesita para leer su configuración, modelos, migraciones y seeders o semillas. Para ello agregaremos a la raíz del proyecto un archivo llamado **.sequelizerc** que deberá tener el siguiente contenido
 
@@ -73,9 +75,15 @@ http://www.artiskraken.com.ar/
 
 4. Por último, desde la consola, situados en la raíz del proyecto ejecutamos los siguentes comandos:
 
-        sequelize db:create (creamos la DB)
-        sequelize db:migrate (creamos la estructura)
-        sequelize db:seed:all (Agregamos los datos iniciales)
+        sequelize db:create
+        sequelize db:migrate
+        sequelize db:seed:all
+   
+   
+        Esto se traduce en:        
+        * sequelize db:create (creamos la DB)
+        * sequelize db:migrate (creamos la estructura)
+        * sequelize db:seed:all (Agregamos los datos iniciales)
 
 ---
 
