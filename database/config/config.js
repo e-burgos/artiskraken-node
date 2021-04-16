@@ -8,7 +8,12 @@ const {
     HOST_DEV,
     DIALECT_DEV,
     DB_PORT_DEV,
-    JAWSDB_URL,
+    USERNAME,
+    PASSWORD,
+    DATABASE,
+    HOST,
+    DIALECT,
+    DB_PORT,
 } = process.env;
 
 module.exports = {
@@ -31,8 +36,19 @@ module.exports = {
         dialect: "mysql",
     },
     production: {
-        use_env_variable: JAWSDB_URL,
-        dialect: "mysql",
+        username: USERNAME,
+        password: PASSWORD,
+        database: DATABASE,
+        host: HOST,
+        dialect: DIALECT,
+        port: DB_PORT,
+        define: {
+            //"underscored": true,
+        },
     },
+    // production: {
+    //     use_env_variable: JAWSDB_URL,
+    //     dialect: "mysql",
+    // },
 };
 

@@ -136,22 +136,20 @@ Para implementar un bucket de producción solo deber seguir los pasos mensionado
 > **Nota:** ten en cuenta que este bucket debe tener un nombre único y no puede ser el mismo que utilizas para otro entorno.
 
 ### CONFIGURANDO DB DE PRODUCCION
-Agreguemos una DB MySQL en producción. Heroku ofrece una buena solución llamada JAWSDB.
+Agregaremos una DB MySQL en producción para ello heroku ofrece una buena solución llamada JAWSDB.
 Para implementarla puedes valerte de la siguiente información:
 1. Documentación oficial en heroku: https://devcenter.heroku.com/articles/jawsdb
-2. Para implementarla rápidamente, estando parados en nuestro proyecto en heroku copiamosesta link en el navegador: https://elements.heroku.com/search?q=JAWSDB
+2. Dandote otro alternativa, para implementarla rápidamente, debemos pararnos en nuestro proyecto en heroku y copiamos esta link en el navegador: https://elements.heroku.com/search?q=JAWSDB
 3. Seleccionamos el elemento **JawsDB MySQL** y luego tocamos en el botón **Install JawsDB MySQL**.
-4. Paso seguido, situados en la pantalla Online Order Form, seleccionamos el plan gratuito Kitefin Shared - Free y en App to provision to, escribimos el nombre de nuestro proyecto, finalizamos presionando el botón Submit Order Form.
-
-5. Regrazando a la pestaña Overview de nuestro proyecto veremos el nuevo add-on creado, a cuantinación hacemos click en el para buscar nuestras variables de entorno y conectar nuestra nueva DB.
+4. Paso seguido, situados en la pantalla **Online Order Form**, seleccionamos el plan **gratuito Kitefin Shared - Free** y en App to provision to, escribimos el nombre de nuestro proyecto, finalizamos presionando el botón **Submit Order Form**.
+5. Regrazando a la pestaña **Overview** de nuestro proyecto y veremos el nuevo add-on creado, a continuación hacemos click en el para buscar nuestras variables de entorno y conectar nuestra nueva DB.
 
 ### CONFIGURANDO VARIABLES DE ENTORNO 
 Las variables de entorno para producción deben ser agregadas en tu archivo .env y en heroku. 
 
-1. Ahora que ya configuraste una DB de producción puedes completar un archivo .env 
+1. Ahora que ya configuraste una DB de producción puedes completar el archivo .env 
 
     // DB Production Config
-    JAWSDB_URL=mysql://...
     USERNAME=
     PASSWORD=
     DATABASE=
@@ -159,10 +157,9 @@ Las variables de entorno para producción deben ser agregadas en tu archivo .env
     DIALECT=mysql
     DB_PORT=3306
 
-2. Para agregar esta variales en heroku deber ir a la pestaña Settings de tu proyecto y presionar en el botón Reveal Config Vars, Agrega la siguiente información:
+2. Para agregar esta variales en heroku deber ir a la pestaña **Settings** de tu proyecto y presionar en el botón **Reveal Config Vars**, Agrega la siguiente información:
 
     // DB Production Config
-    JAWSDB_URL=mysql://...
     USERNAME=
     PASSWORD=
     DATABASE=
@@ -183,11 +180,39 @@ Las variables de entorno para producción deben ser agregadas en tu archivo .env
 ### MIGRANDO INFORMACION A DB DE PRODUCCION
 Luego de completar los pasos anteriores regresa a la consola de tu proyecto y posicinad@ en la raiz del proyecto, escribe:
 
-    sequelize db:create -- env  production (creamos la DB)
-    sequelize db:migrate -- env  production (creamos la estructura)
-    sequelize db:seed:all -- env  production (Agregamos los datos iniciales)
+    sequelize db:create --env production (creamos la DB)
+    sequelize db:migrate --env production (creamos la estructura)
+    sequelize db:seed:all --env production (Agregamos los datos iniciales)
 
 Esto migraran la estructura e información inicial a tu DB de producción. 
+
+### MIGRANDO INFORMACION DUMMY AL SOCKET DE PRODUCCION 
+Una vez finalizado el trabajo de sequelize es necesario que completes el ciclo de las imagenes de ejemplo que seran leidas de tu socket de producción, con esto nos haceguraremos que todo esta funcionando corectamente, para ello deber realizar lo siguiente:
+1. Dirigite a tu socket de produccion en AWS, busca el servicio S3.
+2. En el listado de sockets has chick en el de producción y preciona en **Create folder**, luego en el campo **Folder name** escribe **products** y toca el botón **Create folder**.
+3. Ingresa a la carpeta que se acaba de crear y presiona en **Upload**. Dentro de esta sección presiona en **Add files** y agrega los siguentes archivos:
+
+    product-01.png
+    product-02.png
+    product-03.png
+    product-04.png
+    product-05.png
+    product-06.png
+    product-07.png
+    product-08.png
+    product-01.png
+    product-gallery-01.jpg
+    product-gallery-02.jpg
+    product-gallery-03.jpg
+    product-gallery-04.jpg
+    product-gallery-05.jpg
+    product-gallery-06.jpg
+    product-gallery-07.jpg
+    product-gallery-08.jpg
+    product-gallery-09.jpg
+    product-gallery-10.jpg
+
+> **Nota:** podrás encontrar estos archivos en el directorio public/images/products del proyecto.
 
 ## AYUDA
 Si tenes algún inconveniente en el desplique de esta aplicación no dudes en escribirme a info@estebanburgos.com.ar

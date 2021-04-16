@@ -186,14 +186,14 @@ class Cart {
 
 // Obtener un producto
 async function getOneProduct(id){
-    const response = await fetch(`http://${window.env.DOMAIN}/api/products/${id}`);
+    const response = await fetch(`${window.env.DOMAIN}/api/products/${id}`);
     let product = await response.json();
     return product.data;
 };
 
 // Obtener una tienda
 async function getOneShop(id){
-    const response = await fetch(`http://${window.env.DOMAIN}/api/shops/${id}`);
+    const response = await fetch(`${window.env.DOMAIN}/api/shops/${id}`);
     let shop = await response.json();
     return shop.data;
 };
@@ -545,7 +545,7 @@ function addOneProductCart(product) {
     productItem.innerHTML = `   
         <a class="product-delete-cart destroy-product-button" data-id="product-${product.id}"><i class="icon-line-trash-2" style="font-size: 15px;"></i></a>
         <div class="w-25 p-0 m-0">
-            <img class="cart-img-animation" src="/images/products/${product.avatar}" width="75" />
+            <img class="cart-img-animation" src="${window.env.PRODUCT_URL}/${product.avatar}" width="75" />
         </div>
         <div class="w-75 m-0 p-0 d-flex flex-column justify-content-center">
             <span class="cart-panel-product-title">
@@ -570,7 +570,7 @@ function addOneProductCartPage(product) {
         productItemPage.setAttribute("id", `product-item-${product.id}`);
         productItemPage.innerHTML = `
             <td class="">
-                <img class="cart-img-animation" src="/images/products/${product.avatar}" width="50">
+                <img class="cart-img-animation" src="${window.env.PRODUCT_URL}/${product.avatar}" width="50">
             </td>
             <td class="">
                 ${product.name}
@@ -612,7 +612,7 @@ function addOneProductCheckoutPage(product, index) {
         productItemPage.setAttribute("id", `product-item-${product.id}`);
         productItemPage.innerHTML = `  
             <td>
-                <img class="cart-img-animation" src="/images/products/${product.avatar}" width="30">
+                <img class="cart-img-animation" src="${window.env.PRODUCT_URL}/${product.avatar}" width="30">
             </td>
             <td class="">${product.name}</td>
             <td class="cart-product-price center">

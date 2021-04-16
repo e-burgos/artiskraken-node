@@ -29,7 +29,7 @@
                             <div class="widget widget_links widget-li-noicon">
                                 <h4>Contacto</h4>
                                 <ul>
-                                    <li><a href="/contact">Contacto</a></li>
+                                    <li><a href="#contact">Contacto</a></li>
                                     <li><a href="javascript:void(0)">Ventas</a></li>
                                     <li><a href="javascript:void(0)">Post-Venta</a></li>
                                 </ul>
@@ -59,7 +59,7 @@
 
             <div class="row col-mb-30">
                 <div class="col-md-6 text-center text-md-left">
-                    © 2020 ArtisKraken | Power by Node JS
+                    © 2021 ArtisKraken | Desarrollado por <a href="https://estebanburgos.com.ar/" target="_blank">Esteban Burgos</a>
                 </div>
 
                 <div class="col-md-6 text-center text-md-right">
@@ -92,18 +92,9 @@
 	============================================= -->
 <div id="gotoTop" class="icon-angle-up"></div>
 
-<!-- Help Chat
-	============================================= -->
-	<button id="help-button" data-toggle="collapse" href="#help-chat" type="button" aria-expanded="false" aria-controls="help-chat"><i class="far fa-comment"></i></button>
-	<div id="help-chat"class="card collapse" >
-		<h5 class="border-b-grey">Chat</h5>
-		<div class="d-flex row">
-		<input id="message-holder"type="text" placeholder="Escribí tu consulta..">
-		<i id="send-icon"style="color:rgb(85, 85, 85)!important" class="fas fa-paper-plane"></i>
-		</div>
-	</div>
-    
-    
+<!-- Help Chat here -->
+
+
 <!-- JavaScripts -->
 <script src="/js/hover-animate.js"></script>
     
@@ -118,32 +109,8 @@
 <script src="/js/components/bs-switches.js"></script>
 <script src="/js/components/bs-filestyle.js"></script>
 
-<!-- <script>
-    jQuery(".bt-switch").bootstrapSwitch();
-</script> -->
-
 <!-- Footer Scripts -->
-
-<script>
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.getElementsByClassName('needs-validation');
-        // Loop over them and prevent submission
-        var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-            if (form.checkValidity() === false) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-            form.classList.add('was-validated');
-            }, false);
-        });
-        }, false);
-    })();
-</script>
-
+<script src="/js/bootstrap-needs-validation.js"></script>
 <script src="/js/jquery.js"></script>
 <script src="/js/functions.js"></script>
 <script src="/js/plugins.min.js"></script>
